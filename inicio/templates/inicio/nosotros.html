@@ -1,0 +1,315 @@
+{% extends "inicio/home.html" %}
+{% load static %}
+{% block titulo %}Nosotros{% endblock %}
+{% block contenido %}
+
+<style>
+  /* GENERAL */
+  .fra-container {
+    width: 100%;
+    text-align: center;
+    padding: 80px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .fra-content {
+    max-width: 900px;
+    text-align: center;
+  }
+
+  .fra-content h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+  }
+
+  .fra-content p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+  }
+
+  /* SECCIONES PRINCIPALES */
+  /* SECCIÓN 1: Nosotros con imagen de fondo */
+.fra-container.nosotros {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: white;
+  text-align: center;
+  padding: 150px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fra-container.nosotros .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 30, 80, 0.6); /* capa semitransparente para contraste */
+  z-index: 0;
+}
+
+.fra-container.nosotros .fra-content {
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+}
+
+.fra-container.nosotros h2 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.fra-container.nosotros p {
+  font-size: 1.2rem;
+  line-height: 1.8;
+}
+
+  .fra-container.mision {
+    background-color: white;
+    color: #333;
+  }
+
+  .fra-container.imagen {
+    background-color: white;
+  }
+
+  .fra-container.imagen img {
+    background-color: white;
+    padding: 20px;
+    border-radius: 15px;
+    max-width: 800px;
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  }
+
+  .fra-container.final {
+    background-color: #003366;
+    color: white;
+  }
+
+  /* NUEVA SECCIÓN: Imagen + texto al lado */
+  .info-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 60px;
+    background-color: white;
+    padding: 100px 20px;
+    flex-wrap: wrap;
+  }
+
+  .info-section img {
+    width: 550px;
+    max-width: 100%;
+    border-radius: 15px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  }
+
+  .info-text {
+    max-width: 520px;
+    text-align: left;
+  }
+
+  .info-text h3 {
+    font-size: 2.2rem;
+    color: #003366;
+    margin-bottom: 15px;
+  }
+
+  .info-text p {
+    font-size: 1.1rem;
+    color: #333;
+    line-height: 1.7;
+  }
+
+  /* ESTILO DEL TÍTULO DEL CARRUSEL */
+  .pilares {
+    width: 100%;
+    text-align: center;
+    background-color: #003366; /* azul intenso */
+    color: #fff;
+    font-size: 3rem; /* más grande */
+    font-weight: 900; /* letras muy resaltadas */
+    text-transform: uppercase;
+    padding: 25px 0;
+    margin: 40px 0 30px 0;
+    letter-spacing: 2px;
+  }
+
+  /* CARRUSEL FINAL */
+  .carousel-section {
+    position: relative;
+    overflow: hidden;
+    background-color: white;
+    padding: 50px 0 100px 0;
+  }
+
+  .carousel-container {
+    display: flex;
+    transition: transform 1s ease-in-out; /* transición suave */
+  }
+
+  .carousel-slide {
+    min-width: 100%;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+  }
+
+  .carousel-slide img {
+    width: 600px;       /* tamaño moderado para las imágenes */
+    max-width: 90%;
+    border-radius: 18px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    height: auto;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .fra-content h2 {
+      font-size: 1.8rem;
+    }
+
+    .fra-content p {
+      font-size: 1rem;
+    }
+
+    .info-section {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .info-text {
+      text-align: center;
+    }
+
+    .info-text h3 {
+      font-size: 1.6rem;
+    }
+
+    .info-section img,
+    .fra-container.imagen img,
+    .carousel-slide img {
+      width: 90%;
+    }
+
+    .carousel-slide img {
+      width: 300px;
+    }
+
+    .pilares {
+      font-size: 2rem;
+      padding: 15px 0;
+    }
+  }
+</style>
+
+<!-- SECCIÓN 1: Nosotros -->
+<div class="fra-container nosotros" style="background-image: url('{% static "img/avisos.png" %}');">
+  <div class="overlay"></div>
+  <div class="fra-content">
+    <h2>Nosotros</h2>
+    <p>
+      En ProDefensa CIPOL A.C. trabajamos por la dignificación de la labor
+      policial y el fortalecimiento del ser humano que porta el uniforme.
+      Buscamos consolidar una cultura de respeto, legalidad y ética en cada
+      institución de seguridad pública.
+    </p>
+  </div>
+</div>
+
+
+<!-- SECCIÓN 2: Misión -->
+<div class="fra-container mision">
+  <div class="fra-content">
+    <h2>Misión</h2>
+    <p>
+      En ProDefensa Cipol trabajamos por dignificar la labor policial y al ser
+      humano que porta el uniforme. Coadyuvamos con las instituciones de los
+      tres órdenes de gobierno para que las y los policías de México alcancen
+      el más alto nivel de profesionalismo, impulsando una cultura de
+      legalidad, respeto y ética. Promovemos el reconocimiento de las buenas
+      prácticas, el fortalecimiento de la unidad institucional y el desarrollo
+      integral de las y los servidores públicos de seguridad, con el objetivo
+      de brindar a la sociedad una policía cercana, confiable y verdaderamente
+      preparada para protegerla.
+    </p>
+  </div>
+</div>
+
+<!-- SECCIÓN 3: Imagen debajo de misión -->
+<div class="fra-container imagen">
+  <div class="fra-content">
+    <img src="{% static 'img/nosotros_1.jpg' %}" alt="Policías de ProDefensa CIPOL" />
+  </div>
+</div>
+
+<!-- SECCIÓN 4: Frase final -->
+<div class="fra-container final">
+  <div class="fra-content">
+    <h2>
+      Rostros distintos, uniformes muchos, un mismo corazón. Ser policía es el
+      servicio más digno.
+    </h2>
+  </div>
+</div>
+
+<!-- SECCIÓN 5: Imagen + texto al lado -->
+<section class="info-section">
+  <img src="{% static 'img/nosotros_2.jpeg' %}" alt="Trabajo en equipo" />
+  <div class="info-text">
+    <h3>Nuestra Visión</h3>
+    <p>
+      Fortalecer el tejido social, garantizar y dignificar la situación prevaleciente de las necesidades individuales y colectivas del sector de seguridad pública y ciudadanía.
+    </p>
+  </div>
+</section>
+
+<!-- TÍTULO DEL CARRUSEL -->
+<h2 class="pilares">Pilares</h2>
+
+<!-- SECCIÓN 6: CARRUSEL DE 4 IMÁGENES -->
+<section class="carousel-section">
+  <div class="carousel-container" id="carouselContainer">
+    <div class="carousel-slide">
+      <img src="{% static 'img/nosotros_3.png' %}" alt="Pilar 1" />
+    </div>
+    <div class="carousel-slide">
+      <img src="{% static 'img/nosotros_4.png' %}" alt="Pilar 2" />
+    </div>
+    <div class="carousel-slide">
+      <img src="{% static 'img/nosotros_5.png' %}" alt="Pilar 3" />
+    </div>
+    <div class="carousel-slide">
+      <img src="{% static 'img/nosotros_6.png' %}" alt="Pilar 4" />
+    </div>
+  </div>
+</section>
+
+<script>
+  let currentIndex = 0;
+  const slides = document.querySelectorAll(".carousel-slide");
+  const totalSlides = slides.length;
+  const container = document.getElementById("carouselContainer");
+
+  function moveCarousel() {
+    currentIndex = (currentIndex + 1) % totalSlides;
+    container.style.transform = `translateX(-${currentIndex * 100}%)`;
+  }
+
+  setInterval(moveCarousel, 4000); // cambia cada 4 segundos
+</script>
+
+{% endblock %}

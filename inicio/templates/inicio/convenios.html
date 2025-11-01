@@ -1,0 +1,247 @@
+{% extends "inicio/home.html" %}
+{% load static %}
+{% block titulo %}Convenios{% endblock %}
+{% block contenido %}
+
+<style>
+/* GENERAL */
+.fra-container {
+  width: 100%;
+  text-align: center;
+  padding: 80px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.fra-content {
+  max-width: 900px;
+  text-align: center;
+}
+
+.fra-content h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.fra-content p {
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+
+/* SECCIÓN HERO */
+.hero-section img {
+  width: 90%;
+  max-width: 1200px;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+/* SECCIÓN TÍTULOS */
+.section-title {
+  background-color: #f8d7da98; /* color por defecto para otras secciones */
+  padding: 60px 20px 0 20px;
+  text-align: center;
+  border-radius: 12px;
+}
+
+.section-title h2 {
+  color: #333;
+  font-size: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+  padding-bottom: 40px;
+  line-height: 1.5;
+}
+
+/* SOLO TÍTULO GENERAL */
+.titulo-general {
+  background-color: #eee; /* rosa más intenso solo para este título */
+}
+
+/* GRID DE TARJETAS */
+.cards-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 35px;
+  justify-content: center;
+  background-color: #f8d7da;
+  padding: 20px 40px 80px 40px;
+  text-align: center;
+}
+
+/* Ajuste para secciones con una sola tarjeta */
+.cards-section.single-card {
+  justify-content: center;
+}
+
+.cards-section.single-card .card {
+  max-width: 250px;
+  margin: 0 auto;
+}
+
+.card {
+  background-color: white;
+  border-radius: 18px;
+  padding: 30px 20px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+.card img {
+  width: 110px;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 15px;
+  border: 3px solid #d6336c;
+}
+
+.card h3 {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+  color: #d6336c;
+  font-weight: bold;
+}
+
+.card p {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #555;
+}
+
+/* RESPONSIVE */
+@media (max-width: 992px) {
+  .cards-section {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .fra-content h2 {
+    font-size: 2rem;
+  }
+  .fra-content p {
+    font-size: 1rem;
+  }
+}
+</style>
+
+<!-- SECCIÓN PRINCIPAL -->
+<div class="fra-container hero-section">
+  <div class="fra-content">
+    <h2>Convenios</h2>
+    <img src="{% static 'img/convenios_1.jpg' %}" alt="Convenios CIPOL" />
+  </div>
+</div>
+
+<!-- TÍTULO GENERAL -->
+<div class="section-title titulo-general">
+  <h2>
+    Colaboramos por medio de convenios con instituciones y sociedad civil 
+    para el desarrollo humano de las y los policías y sus familias
+  </h2>
+</div>
+
+<!-- SECCIÓN COMERCIAL -->
+<div class="section-title">
+  <h2>Comercial</h2>
+</div>
+
+<div class="cards-section">
+  <div class="card">
+    <img src="{% static 'img/convenios_4.jpg' %}" alt="CANACO Morelia" />
+    <h3>CANACO Morelia</h3>
+    <p>Fortalece vínculos empresariales y beneficios locales.</p>
+  </div>
+
+  <div class="card">
+    <img src="{% static 'img/Cinepolis.jpg' %}" alt="Cinépolis" />
+    <h3>Cinépolis</h3>
+    <p>La Capital del Cine.</p>
+  </div>
+
+  <div class="card">
+    <img src="{% static 'img/Redfit.webp' %}" alt="RedFit" />
+    <h3>RedFit</h3>
+    <p>Construimos disciplina, creamos comunidad y te acompañamos a romper tus límites.</p>
+  </div>
+
+  <div class="card">
+    <img src="{% static 'img/descuento_2.4d6557e77c7e.jpg' %}" alt="Cocina Saludable" />
+    <h3>Cocina Saludable</h3>
+    <p>Lo mejor en cocina.</p>
+  </div>
+
+  <div class="card">
+    <img src="{% static 'img/Parhikuni.jpg' %}" alt="Parhikuni" />
+    <h3>Parhikuni</h3>
+    <p>Viaja con lujo en la línea de autobuses Parhikuni. Servicios de turismo y paquetería.</p>
+  </div>
+</div>
+
+<!-- SECCIÓN SOCIAL -->
+<div class="section-title">
+  <h2>Social</h2>
+</div>
+
+<div class="cards-section">
+  <div class="card">
+    <img src="{% static 'img/convenios_8.jpg' %}" alt="Fundación DonaArte" />
+    <h3>Fundación DonaArte</h3>
+    <p>Apoya causas sociales y culturales a través del arte.</p>
+  </div>
+
+  <div class="card">
+    <img src="{% static 'img/convenios_3.jpeg' %}" alt="SEPAMICH" />
+    <h3>SEPAMICH</h3>
+    <p>Defensa y protección del derecho humano al medio ambiente.</p>
+  </div>
+
+  <div class="card">
+    <img src="{% static 'img/convenios_11.jpg' %}" alt="FUCIDIM" />
+    <h3>FUCIDIM</h3>
+    <p>Fomenta la vinculación entre sector público y privado.</p>
+  </div>
+
+  <div class="card">
+    <img src="{% static 'img/convenios_9.jpg' %}" alt="Mesa Ciudadana de Seguridad" />
+    <h3>Mesa Ciudadana de Seguridad</h3>
+    <p>Colabora en proyectos de seguridad y justicia regional.</p>
+  </div>
+
+  <div class="card">
+    <img src="{% static 'img/convenios_10.jpg' %}" alt="Michoacán Humanitario" />
+    <h3>Michoacán Humanitario</h3>
+    <p>Asistencia social y apoyo a comunidades vulnerables.</p>
+  </div>
+
+  <div class="card">
+    <img src="{% static 'img/convenios_5.webp' %}" alt="Sinergia" />
+    <h3>Sinergia</h3>
+    <p>Fomenta el bienestar y desarrollo profesional del personal.</p>
+  </div>
+</div>
+
+<!-- SECCIÓN ACADÉMICO -->
+<div class="section-title">
+  <h2>Académico</h2>
+</div>
+
+<div class="cards-section single-card">
+  <div class="card">
+    <img src="{% static 'img/Unla.png' %}" alt="Universidad Latina de las Américas" />
+    <h3>Universidad Latina de las Américas</h3>
+    <p>Descuentos en formación académica superior.</p>
+  </div>
+</div>
+
+{% endblock %}

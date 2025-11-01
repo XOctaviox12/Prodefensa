@@ -1,0 +1,322 @@
+{% extends "inicio/home.html" %}
+{% load static %}
+{% block titulo %}Comunidad CIPOL{% endblock %}
+{% block contenido %}
+
+<!-- ==== ESTILOS MEJORADOS ==== -->
+<style>
+  :root {
+    --azul-cipol: #003366;
+    --gris-fondo: #f4f6f9;
+    --gradiente-cipol: linear-gradient(
+      90deg,
+      #002b80,
+      #7f00ff,
+      #00b140,
+      #ff0000,
+      #ff6600,
+      #ffd100
+    );
+  }
+
+  /* GENERAL */
+  .section {
+    width: 100%;
+    text-align: center;
+    padding: 100px 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+  }
+
+  h2 {
+    font-size: 2.8rem;
+    font-weight: 900;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+  }
+
+  h3 {
+    font-size: 1.6rem;
+    margin-bottom: 12px;
+    font-weight: 600;
+  }
+
+  p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  /* TEXTO CON EFECTO GRADIENTE */
+  .gradient-text {
+    background: var(--gradiente-cipol);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientMove 6s ease infinite;
+    background-size: 300% 300%;
+  }
+
+  @keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* SECCIÓN 1: INTRO */
+  .community-intro {
+    background-color: white;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    border-radius: 20px;
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 60px 30px;
+  }
+
+  .community-intro img {
+    width: 100%;
+    border-radius: 16px;
+    margin-top: 30px;
+    object-fit: cover;
+    box-shadow: 0 6px 25px rgba(0,0,0,0.1);
+    transition: transform 0.4s ease;
+  }
+
+  .community-intro img:hover {
+    transform: scale(1.03);
+  }
+
+  /* SECCIÓN 2: BENEFICIOS */
+  .community-team {
+    background: var(--gris-fondo);
+    border-top: 6px solid var(--azul-cipol);
+  }
+
+  .team-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 35px;
+    margin-top: 50px;
+  }
+
+  .team-card {
+    background-color: white;
+    border-radius: 16px;
+    padding: 25px;
+    width: 260px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    min-height: 400px;
+  }
+
+  .team-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  }
+
+  .team-card img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  .icon-card {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background-color: var(--azul-cipol);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    color: white;
+  }
+
+  .icon-card i {
+    font-size: 52px;
+  }
+
+  .phone-link {
+    display: inline-block;
+    margin-top: 10px;
+    color: var(--azul-cipol);
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .phone-link:hover {
+    color: #0055cc;
+    text-decoration: underline;
+  }
+
+  /* SECCIÓN 3: DESCUENTOS */
+  .community-discounts {
+    background: var(--azul-cipol);
+    color: white;
+    border-top: 6px solid #ff6600;
+  }
+
+  .discount-cards {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-top: 50px;
+  }
+
+  .discount-card {
+    background-color: white;
+    color: var(--azul-cipol);
+    border-radius: 14px;
+    padding: 20px;
+    width: 230px;
+    text-align: center;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.15);
+    transition: transform 0.3s ease;
+  }
+
+  .discount-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+  }
+
+  .discount-card img {
+    width: 100%;
+    height: 150px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    object-fit: cover;
+  }
+
+  /* ANIMACIÓN DE ENTRADA */
+  [data-animate] {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s ease;
+  }
+  [data-animate].visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .team-card, .discount-card {
+      width: 85%;
+      min-height: auto;
+    }
+    h2 { font-size: 2.2rem; }
+    h3 { font-size: 1.4rem; }
+    p { font-size: 1rem; }
+  }
+</style>
+
+<!-- Font Awesome -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+<!-- SECCIÓN 1 -->
+<section class="section community-intro" data-animate>
+  <h2>Comunidad CIPOL</h2>
+  <h3>Siempre en busca de inspiración</h3>
+  <p>
+    Este espacio es para mantenernos unidos como red de apoyo entre policías, autoridades, instituciones de seguridad y ciudadanía.
+    Aquí compartiremos información importante, alertas, eventos, capacitaciones y mensajes para dignificar y fortalecer nuestra labor.
+  </p>
+  <img src="{% static 'img/comunidad_seccion_1.jpg' %}" alt="Comunidad CIPOL" />
+</section>
+
+<!-- SECCIÓN 2 -->
+<section class="section community-team" data-animate>
+  <h2>Beneficios al pertenecer a <span class="gradient-text">Prodefensa CIPOL</span></h2>
+  <p>
+    Al integrarse a Prodefensa CIPOL, no solo refuerzan su compromiso con la seguridad y el servicio a la ciudadanía, sino que también se suman a una red que promueve la profesionalización, la colaboración y el reconocimiento del trabajo policial.
+  </p>
+
+  <div class="team-cards">
+    <div class="team-card" data-animate>
+      <img src="{% static 'img/beneficios_6.webp' %}" alt="Beneficio 1">
+      <h3>Descuentos con empresas aliadas</h3>
+      <p>Acceso a convenios especiales con empresas que valoran su servicio.</p>
+    </div>
+
+    <div class="team-card" data-animate>
+      <img src="{% static 'img/beneficios_2.jpg' %}" alt="Beneficio 2">
+      <h3>Consulta Psicológica</h3>
+      <p>Bienestar emocional para un mejor desempeño y calidad de vida.</p>
+      <a href="https://wa.me/527293595460" target="_blank" class="phone-link">📞 Solicita tu consulta</a>
+    </div>
+
+    <div class="team-card" data-animate>
+      <img src="{% static 'img/beneficios_3.jpg' %}" alt="Beneficio 3">
+      <h3>Consulta Nutricional</h3>
+      <p>Fomenta hábitos saludables que mejoran la vida profesional y familiar.</p>
+      <a href="https://wa.me/527293595460" target="_blank" class="phone-link">📞 Solicita tu consulta</a>
+    </div>
+
+    <div class="team-card" data-animate>
+      <img src="{% static 'img/beneficios_4.png' %}" alt="Beneficio 4">
+      <h3>Servicios Integrales</h3>
+      <p>Trámites ante instituciones públicas y servicios personales:</p>
+      <ul style="list-style:none; padding:0; margin:0;">
+        <li>✔ Constancias Fiscales</li>
+        <li>✔ Actas en General</li>
+        <li>✔ Constancias ante el SAT</li>
+      </ul>
+      <a href="https://wa.me/524433650359" target="_blank" class="phone-link">📞 Más información</a>
+    </div>
+
+    <div class="team-card" data-animate>
+      <div class="icon-card"><i class="fas fa-graduation-cap"></i></div>
+      <h3>Escuelas y Licenciaturas</h3>
+      <p>Acceso a programas educativos en escuelas de prestigio.</p>
+    </div>
+
+    <div class="team-card" data-animate>
+      <div class="icon-card"><i class="fas fa-calendar-alt"></i></div>
+      <h3>Eventos Exclusivos</h3>
+      <p>Invitaciones a actividades y eventos privados de la comunidad CIPOL.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SECCIÓN 3 -->
+<section class="section community-discounts" data-animate>
+  <h2>Descuentos Exclusivos</h2>
+  <div class="discount-cards">
+    {% for d in descuentos %}
+      <div class="discount-card" data-animate>
+        <img src="{{ d.imagen.url }}" alt="{{ d.titulo }}">
+        <h3>{{ d.titulo }}</h3>
+        {% if d.descripcion %}
+          <p>{{ d.descripcion }}</p>
+        {% endif %}
+      </div>
+    {% empty %}
+      <p>No hay descuentos disponibles en este momento.</p>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- ANIMACIÓN SCROLL -->
+<script>
+  const elements = document.querySelectorAll("[data-animate]");
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add("visible");
+    });
+  }, { threshold: 0.2 });
+  elements.forEach(el => observer.observe(el));
+</script>
+
+{% endblock %}

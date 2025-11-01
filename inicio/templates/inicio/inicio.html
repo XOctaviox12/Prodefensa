@@ -1,0 +1,162 @@
+{% extends "inicio/home.html" %}
+{% load static %}
+{% block titulo %}inicio{% endblock %}
+{% block contenido %}
+<style>
+  /* Sección de beneficios */
+  .benefits-section {
+    background-color: #f2f0f5;
+    padding: 80px 20px;
+    text-align: center;
+  }
+
+  .benefits-container {
+    max-width: 1200px;
+    margin: auto;
+  }
+
+  .benefits-container h2 {
+    font-size: 2.6rem;
+    margin-bottom: 25px;
+    color: #111;
+    font-weight: 700;
+  }
+
+  .benefits-container p {
+    font-size: 1.1rem;
+    color: #333;
+    max-width: 850px;
+    margin: 0 auto 60px;
+    line-height: 1.8;
+  }
+
+  /* Grid de beneficios */
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* más ancho mínimo */
+    gap: 50px; /* más espacio entre tarjetas */
+    justify-content: center;
+    margin-bottom: 90px;
+  }
+
+  /* Tarjetas */
+  .benefit-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 14px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .benefit-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.18);
+  }
+
+  .benefit-card img {
+    width: 100%;
+    height: 320px; /* más alto para que se vean más grandes */
+    object-fit: cover;
+    border-radius: 14px;
+    transition: transform 0.4s ease;
+  }
+
+  .benefit-card:hover img {
+    transform: scale(1.07);
+  }
+
+  .benefit-label {
+    position: absolute;
+    bottom: 18px;
+    left: 18px;
+    background-color: rgba(255, 255, 255, 0.96);
+    color: #111;
+    font-weight: 600;
+    font-size: 1.05rem;
+    padding: 12px 18px;
+    border-radius: 8px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+  }
+
+  /* Fondo azul ocupa todo el ancho */
+  .fra-container {
+    background-color: #0048ad;
+    padding: 70px 20px;
+    width: 100%;
+  }
+
+  /* Contenedor de texto centrado */
+  .fra-content {
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .fra-content h2 {
+    color: #fff;
+    font-size: 2.2rem;
+    line-height: 1.6;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .benefits-container h2 {
+      font-size: 2rem;
+    }
+
+    .benefits-container p {
+      font-size: 1rem;
+    }
+
+    .benefit-card img {
+      height: 250px; /* ajusta altura en móviles */
+    }
+
+    .fra-content h2 {
+      font-size: 1.5rem;
+    }
+  }
+</style>
+
+<section class="benefits-section">
+  <div class="benefits-container">
+    <h2>¡Obtén grandes beneficios!</h2>
+    <p>
+      Formar parte de Pro Defensa CIPOL significa integrarse a una comunidad
+      comprometida con elevar la dignidad policial y promover una cultura de
+      respeto, justicia y paz social. Más que una asociación, somos una red de
+      apoyo, formación y reconocimiento al servicio de quienes protegen y
+      sirven.
+    </p>
+  </div>
+
+  <div class="benefits-grid">
+    <div class="benefit-card">
+      <img src="{% static 'img/formacion_desarrollo.jpeg' %}" alt="Formación y desarrollo profesional" />
+      <div class="benefit-label">Formación y desarrollo profesional</div>
+    </div>
+
+    <div class="benefit-card">
+      <img src="{% static 'img/comunidad.jpg' %}" alt="Comunidad y reconocimiento" />
+      <div class="benefit-label">Comunidad y reconocimiento</div>
+    </div>
+
+    <div class="benefit-card">
+      <img src="{% static 'img/beneficios.png' %}" alt="Beneficios y descuentos exclusivos para miembros" />
+      <div class="benefit-label">Beneficios y descuentos exclusivos para miembros</div>
+    </div>
+
+    <div class="benefit-card">
+      <img src="{% static 'img/impacto_social.jpg' %}" alt="Impacto social y sentido de propósito" />
+      <div class="benefit-label">Impacto social y sentido de propósito</div>
+    </div>
+  </div>
+
+  <div class="fra-container">
+    <div class="fra-content">
+      <h2>Rostros distintos, uniformes muchos, un mismo corazón. Ser policía es el servicio más digno.</h2>
+    </div>
+  </div>
+</section>
+{% endblock %}

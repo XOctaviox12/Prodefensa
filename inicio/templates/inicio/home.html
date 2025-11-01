@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    {% load static %}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prodefensa CIPOL A.C</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <style>
+      /* ---------- RESET & BASE ---------- */
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f5f5f5;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        color: #222;
+        -webkit-font-smoothing: antialiased;
+      }
+      main {
+        flex: 1;
+      }
+
+      /* ---------- HEADER ---------- */
+      header {
+        background-color: rgba(50, 50, 50, 0.92);
+        backdrop-filter: blur(5px);
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: clamp(8px, 2vw, 18px) clamp(12px, 4vw, 40px);
+        position: sticky;
+        top: 0;
+        z-index: 1200;
+        gap: 12px;
+      }
+
+      .logo {
+        font-size: clamp(16px, 2.2vw, 20px);
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: white;
+        padding: 8px 12px;
+        border-radius: 8px;
+      }
+      .logo i {
+        color: #d6336c;
+        font-size: 1.05em;
+      }
+
+      /* nav principal */
+      nav#menu {
+        display: flex;
+        align-items: center;
+        gap: clamp(6px, 1.2vw, 18px);
+        flex-wrap: nowrap;
+      }
+      nav#menu a {
+        color: white;
+        text-decoration: none;
+        font-size: clamp(0.85rem, 1vw, 1rem);
+        padding: 8px 12px;
+        border-radius: 6px;
+        transition: all 0.18s ease;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      nav#menu a:hover {
+        background: rgba(255, 255, 255, 0.08);
+        transform: translateY(-2px);
+      }
+
+      /* activo (resaltado) */
+      nav#menu a.active {
+        background: linear-gradient(90deg, #d6336c, #b42b57);
+        box-shadow: 0 6px 18px rgba(214, 51, 108, 0.18);
+        color: #fff;
+        font-weight: 700;
+      }
+
+      /* login / dropdown */
+      .login-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+      }
+      .login {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        padding: 6px 10px;
+        border-radius: 8px;
+      }
+      .login-icon {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        border: 2px solid white;
+        padding: 2px;
+        object-fit: cover;
+      }
+      .login-icon {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        border: 2px solid white;
+        padding: 2px;
+        object-fit: cover;
+      }
+      .dropdown-menu {
+        display: none;
+        position: absolute;
+        top: calc(100% + 8px);
+        right: 0;
+        background: rgba(50, 50, 50, 0.98);
+        color: white;
+        min-width: 220px;
+        border-radius: 10px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+        padding: 8px 6px;
+        z-index: 1300;
+        flex-direction: column;
+      }
+      .dropdown-menu a {
+        padding: 10px 14px;
+        color: white;
+        text-decoration: none;
+        transition: background 0.15s;
+        display: block;
+      }
+      .dropdown-menu a:hover {
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      /* boton menu movil */
+      .menu-toggle {
+        display: none;
+        background: rgba(255, 255, 255, 0.06);
+        border-radius: 8px;
+        padding: 8px 10px;
+        cursor: pointer;
+        color: white;
+        font-size: 20px;
+      }
+
+      /* ---------- SECCIÓN PRINCIPAL (JOIN) ---------- */
+      /* JOIN SECTION AJUSTADA */
+      .join-section {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: clamp(30px, 5vw, 60px);
+        padding: clamp(40px, 6vh, 80px) clamp(20px, 5vw, 60px);
+        max-width: 1200px;
+        margin: 0 auto;
+        flex-wrap: wrap;
+      }
+
+      .join-image {
+        flex: 1 1 45%;
+        display: flex;
+        justify-content: center;
+      }
+
+      .join-image img {
+        width: 100%;
+        max-width: 800px;
+        height: auto;
+        border-radius: 12px;
+        object-fit: cover;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.14);
+        transition: transform 0.35s ease, box-shadow 0.35s ease;
+      }
+
+      .join-image img:hover {
+        transform: scale(1.03);
+      }
+
+      .join-text {
+        flex: 1 1 45%;
+        max-width: 520px;
+        text-align: left;
+      }
+
+      .join-text h2 {
+        font-size: clamp(1.4rem, 3vw, 2rem);
+        margin-bottom: 12px;
+        color: #222;
+        font-weight: 600;
+      }
+
+      .join-text p {
+        font-size: clamp(0.95rem, 1.5vw, 1rem);
+        line-height: 1.6;
+        color: #444;
+        margin-bottom: 18px;
+      }
+
+      .btn-registro {
+        display: inline-block;
+        background-color: #003366;
+        color: white;
+        padding: 12px 28px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: transform 0.15s ease, background 0.15s;
+      }
+
+      .btn-registro:hover {
+        transform: translateY(-3px);
+        background: #0055a5;
+      }
+
+      /* RESPONSIVIDAD */
+      @media (max-width: 900px) {
+        .join-section {
+          flex-direction: column-reverse;
+          text-align: center;
+          padding: 40px 20px;
+        }
+
+        .join-text {
+          max-width: 100%;
+        }
+
+        .join-image {
+          flex: none;
+          width: 100%;
+        }
+
+        .join-image img {
+          max-width: 90%;
+        }
+      }
+
+      @media (max-width: 520px) {
+        .join-text h2 {
+          font-size: 1.3rem;
+        }
+        .join-text p {
+          font-size: 0.9rem;
+        }
+      }
+
+      /* ---------- FOOTER ---------- */
+      .footer-container {
+        background-color: white;
+        color: #333;
+        padding: clamp(20px, 4vw, 40px);
+        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.04);
+        border-top: 1px solid #eaeaea;
+      }
+      .footer-content {
+        display: flex;
+        justify-content: space-between;
+        gap: clamp(20px, 3vw, 40px);
+        max-width: 1200px;
+        margin: 0 auto;
+        flex-wrap: wrap;
+      }
+      .footer-left,
+      .footer-right {
+        flex: 1;
+        min-width: 220px;
+      }
+      .footer-left h3,
+      .footer-right h3 {
+        color: #d6336c;
+        margin-bottom: 10px;
+      }
+      .footer-links {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 8px;
+      }
+      .footer-links a {
+        color: #555;
+        text-decoration: none;
+        font-size: 0.95rem;
+      }
+      .footer-bottom {
+        text-align: center;
+        margin-top: 18px;
+        border-top: 1px solid #eee;
+        padding-top: 12px;
+        color: #777;
+        font-size: 0.85rem;
+      }
+      .social-icons {
+        margin-top: 18px;
+        display: flex;
+        justify-content: flex-start;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+
+      .social-icons a {
+        color: #d6336c;
+        font-size: 32px; /* tamaño de icono más grande */
+        transition: all 0.25s ease;
+      }
+
+      .social-icons a:hover {
+        color: #b42b57;
+        transform: scale(1.15);
+        text-shadow: 0 0 10px rgba(214, 51, 108, 0.4);
+      }
+
+      /* centrado en pantallas pequeñas */
+      @media (max-width: 768px) {
+        .social-icons {
+          justify-content: center;
+          margin-top: 20px;
+        }
+      }
+
+      /* ---------- RESPONSIVE (FLUID) ---------- */
+      @media (max-width: 1100px) {
+        .join-text {
+          text-align: center;
+        }
+        .join-section {
+          padding-top: clamp(18px, 6vh, 40px);
+        }
+      }
+
+      @media (max-width: 900px) {
+        /* mobile: menu oculto por defecto, botón visible */
+        nav#menu {
+          display: none;
+          position: absolute;
+          top: 70px;
+          left: 0;
+          right: 0;
+          background: rgba(50, 50, 50, 0.98);
+          padding: 12px 10px;
+          flex-direction: column;
+          gap: 6px;
+          z-index: 1250;
+          border-bottom-left-radius: 10px;
+          border-bottom-right-radius: 10px;
+        }
+        nav#menu a {
+          padding: 12px;
+          text-align: center;
+          border-radius: 6px;
+        }
+        nav#menu.show {
+          display: flex;
+        }
+        .menu-toggle {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .logo {
+          flex: 1 1 auto;
+        }
+      }
+
+      @media (max-width: 520px) {
+        header {
+          padding: 8px 10px;
+        }
+        .join-section {
+          gap: 20px;
+          padding: 20px;
+        }
+        .join-text h2 {
+          font-size: 1.4rem;
+        }
+        .join-text p {
+          font-size: 0.95rem;
+        }
+      }
+
+      /* pequeño ajuste para focus accesible */
+      a:focus,
+      button:focus {
+        outline: 3px solid rgba(214, 51, 108, 0.18);
+        outline-offset: 2px;
+      }
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: clamp(16px, 2vw, 22px);
+        font-weight: 700;
+        color: white;
+        text-decoration: none;
+        white-space: nowrap;
+      }
+
+      .logo-img {
+        height: clamp(36px, 5vw, 60px);
+        width: auto;
+        object-fit: contain;
+        border-radius: 8px;
+        background: white;
+        padding: 4px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      }
+
+      @media (max-width: 520px) {
+        .logo-img {
+          height: 40px;
+          padding: 2px;
+        }
+        .logo span {
+          font-size: 0.9rem;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <div class="logo">
+        <img
+          src="{% static 'img/LogoCipol.png' %}"
+          alt="Logo CIPOL"
+          class="logo-img"
+        />
+        <span>Prodefensa CIPOL A.C</span>
+      </div>
+
+      <!-- botón menú móvil -->
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <!-- MENÚ principal (mantiene todas tus opciones) -->
+      <nav id="menu">
+        <a
+          href="{% url 'inicio' %}"
+          class="{% if request.resolver_match.url_name == 'inicio' %}active{% endif %}"
+          >Inicio</a
+        >
+        <a
+          href="{% url 'nosotros' %}"
+          class="{% if request.resolver_match.url_name == 'nosotros' %}active{% endif %}"
+          >Nosotros</a
+        >
+        <a
+          href="{% url 'comunidad' %}"
+          class="{% if request.resolver_match.url_name == 'comunidad' %}active{% endif %}"
+          >Comunidad CIPOL</a
+        >
+        <a
+          href="{% url 'servicios' %}"
+          class="{% if request.resolver_match.url_name == 'servicios' %}active{% endif %}"
+          >Actividades</a
+        >
+        <a
+          href="{% url 'convenios' %}"
+          class="{% if request.resolver_match.url_name == 'convenios' %}active{% endif %}"
+          >Convenios y Alianzas</a
+        >
+        <a
+          href="{% url 'aviso_privacidad' %}"
+          class="{% if request.resolver_match.url_name == 'aviso_privacidad' %}active{% endif %}"
+          >Aviso de Privacidad</a
+        >
+        {% comment %} <a
+          href="{% url 'tienda' %}"
+          class="{% if request.resolver_match.url_name == 'tienda' %}active{% endif %}"
+          >Tienda</a
+        > {% endcomment %}
+
+        <!-- LOGIN / MENÚ USUARIO (mantengo tu lógica) -->
+<div class="login-container">
+  {% if user.is_authenticated %}
+    <div class="login" onclick="toggleDropdown(event)">
+      <i class="fas fa-user-circle" style="font-size: 1.8rem; color: white;"></i>
+      <span class="username" style="font-weight: 600;">{{ user.username }}</span>
+      <i class="fas fa-chevron-down" style="font-size: 0.8rem;"></i>
+    </div>
+    <div class="dropdown-menu" id="dropdownMenu">
+        {% comment %} <a href="#">Ajustes de la cuenta</a>
+            <a href="#">Perfil</a> {% endcomment %}
+            {% comment %} <a href="#">Eventos</a> {% endcomment %}
+            {% comment %} <a href="#">Notificaciones</a> {% endcomment %}
+            <a href="{% url 'ver_carrito' %}">Carrito</a>
+            {% comment %} <a href="#">Mis pedidos</a>
+            <a href="#">Mis programas</a>
+            <a href="#">Mis grupos</a>
+            <a href="#">Mis reservas</a> {% endcomment %}
+            <a href="{% url 'logout' %}">Salir</a>
+    </div>
+  {% else %}
+    <a href="{% url 'login' %}" class="login">
+      <i class="fas fa-sign-in-alt" style="font-size: 1.6rem; color: white;"></i>
+      <span style="font-weight: 600;">Iniciar sesión</span>
+    </a>
+  {% endif %}
+</div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="join-section">
+        <div class="join-image">
+          <img
+            src="{% static 'img/registro.png' %}"
+            alt="Persona con credencial"
+          />
+        </div>
+        <div class="join-text">
+          <h2>Únete</h2>
+          <p>
+            Al integrarse a Prodefensa CIPOL, no solo refuerzan su compromiso
+            con la seguridad y el servicio a la ciudadanía, sino que también se
+            suman a una red que promueve la profesionalización, la colaboración
+            y el reconocimiento del trabajo policial.
+            <p style="margin-top: 10px;">
+              Al realizar un
+              <span style="color: #1f40d3; font-weight: bold;">
+                 donativo de $150
+              </span>, estarás
+              apoyando las actividades de la asociación.
+              Como muestra de agradecimiento, 
+              recibirás tu credencial de miembro, 
+              con la que podrás disfrutar de beneficios
+              exclusivos y participar en más iniciativas.
+              <br />
+            </p>
+
+          <a
+            href="https://docs.google.com/forms/d/e/1FAIpQLSfmsLOn_zdpSr6hK0q8rhWhmLgr6_48pvFDFfd4NlBN0BR_BQ/viewform?usp=sharing&ouid=117183622586496150962"
+            class="btn-registro"
+            >Regístrate &gt;</a
+          >
+          <p style="margin-top: 10px; color: #666">
+            Una vez registrado nuestro equipo te contactará para dar
+            seguimiento.
+          </p>
+        </div>
+      </section>
+
+      {% block contenido %}{% endblock %}
+    </main>
+
+    <!-- Footer (tu diseño original manteniendo estructura) -->
+    <footer class="footer-container" role="contentinfo">
+      <div class="footer-content">
+        <div class="footer-left">
+          <h3>Prodefensa CIPOL A.C.</h3>
+          <p>
+            Asociación civil cuyo enfoque principal es el apoyo y la defensa de
+            los derechos humanos de los cuerpos policiales
+          </p>
+          <p><strong>Email:</strong> prodefensacipol@gmail.com</p>
+          <p><strong>Teléfono:</strong> 443 491 2073</p>
+          <p><strong>RFC nº:</strong> PDC220622V11</p>
+        </div>
+
+        <div class="footer-right" style="font-zise: 50px">
+          <h3>Redes Sociales</h3>
+          <div class="social-icons">
+            <a href="https://www.facebook.com/prodefensacipol" target="_blank"
+              ><i class="fab fa-facebook"></i
+            ></a>
+            <a
+              href="https://www.tiktok.com/@pro.defensa.cipol?is_from_webapp=1&sender_device=pc"
+              target="_blank"
+              ><i class="fab fa-tiktok"></i
+            ></a>
+            <a href="https://www.instagram.com/prodefensacipol/" target="_blank"
+              ><i class="fab fa-instagram"></i
+            ></a>
+            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>
+          © 2035 Creado por Prodefensa Cipol | <a href="#">Términos de uso</a> |
+          <a href="#">Política de privacidad</a>
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      // Toggle menú móvil
+      const menuToggle = document.getElementById("menuToggle");
+      const menu = document.getElementById("menu");
+      menuToggle &&
+        menuToggle.addEventListener("click", () => {
+          menu.classList.toggle("show");
+        });
+
+      // Toggle dropdown del usuario al hacer clic (solo si está autenticado)
+      function toggleDropdown(event) {
+        event.stopPropagation();
+        const dropdown = document.getElementById("userDropdown");
+        if (!dropdown) return;
+        const isShown = dropdown.style.display === "flex";
+        dropdown.style.display = isShown ? "none" : "flex";
+        dropdown.setAttribute("aria-hidden", isShown ? "true" : "false");
+      }
+
+      // Mantener visible mientras hover o clic en login o dropdown (mejor experiencia para desktop)
+      document.addEventListener("click", function (e) {
+        const dropdowns = document.querySelectorAll(".dropdown-menu");
+        dropdowns.forEach((menuEl) => {
+          if (!menuEl.contains(e.target) && menuEl.style.display === "flex") {
+            menuEl.style.display = "none";
+            menuEl.setAttribute("aria-hidden", "true");
+          }
+        });
+      });
+
+      // Cerrar dropdown con escape
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          const dropdowns = document.querySelectorAll(".dropdown-menu");
+          dropdowns.forEach((d) => {
+            d.style.display = "none";
+            d.setAttribute("aria-hidden", "true");
+          });
+          menu.classList.remove("show");
+        }
+      });
+
+      // Detectar click en el elemento login (para mobile) y no cerrar inmediatamente
+      const loginEls = document.querySelectorAll(".login");
+      loginEls.forEach((el) => {
+        el.addEventListener("click", (ev) => {
+          ev.stopPropagation();
+        });
+      });
+
+      // Si el usuario hace resize y el menu queda abierto, mantener coherencia
+      window.addEventListener("resize", () => {
+        if (window.innerWidth > 900) {
+          menu.classList.remove("show");
+        }
+      });
+
+      // Offline fallback (lo tenías)
+      window.addEventListener("offline", () => {
+        window.location.href = "/sin-conexion/";
+      });
+       function toggleDropdown(event) {
+    event.stopPropagation();
+    const menu = document.getElementById("dropdownMenu");
+    menu.style.display = menu.style.display === "flex" ? "none" : "flex";
+  }
+
+  // Cierra el menú si se hace clic fuera
+  document.addEventListener("click", (e) => {
+    const menu = document.getElementById("dropdownMenu");
+    const login = document.querySelector(".login");
+    if (menu && !login.contains(e.target)) {
+      menu.style.display = "none";
+    }
+  });
+    </script>
+  </body>
+</html>

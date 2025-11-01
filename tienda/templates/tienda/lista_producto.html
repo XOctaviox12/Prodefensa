@@ -1,0 +1,146 @@
+{% extends "inicio/home.html" %}
+{% block contenido %}
+<style>
+  .tienda-section {
+    background: #f0f0f0;
+    color: #333;
+    padding: 80px 20px;
+    border-radius: 20px;
+    margin: 50px auto;
+    width: 95%;
+    box-shadow: 0 4px 30px rgba(0,0,0,0.1);
+  }
+
+  .tienda-title {
+    font-size: 2.8rem;
+    text-align: center;
+    font-weight: 900;
+    margin-bottom: 50px;
+  }
+
+  /* === TEXTO CON EFECTO GRADIENTE (colores CIPOL) === */
+  .gradient-text {
+    background: linear-gradient(
+      90deg,
+      #002b80,
+      #7f00ff,
+      #00b140,
+      #ff0000,
+      #ff6600,
+      #ffd100
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientMove 5s ease infinite;
+    background-size: 300% 300%;
+  }
+
+  @keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* Contenedor de las cards */
+  .productos-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Centra las filas */
+    gap: 25px;
+  }
+
+  .card {
+    background-color: #fff;
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+    width: 230px; /* un poco más grande */
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  }
+
+  .card-img-top {
+    height: 220px;
+    object-fit: cover;
+    border-bottom: 1px solid #eee;
+  }
+
+  .card-body {
+    padding: 15px;
+    text-align: center;
+  }
+
+  .card-title {
+    color: #111;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+  }
+
+  .card-text {
+    color: #555;
+    font-size: 0.95rem;
+    margin-bottom: 10px;
+  }
+
+  .btn-dark {
+    background: linear-gradient(135deg, #ff6a00, #ee0979);
+    color: #fff !important;
+    border: none;
+    border-radius: 25px;
+    padding: 8px 20px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+  }
+
+  .btn-dark:hover {
+    background: linear-gradient(135deg, #ee0979, #ff6a00);
+    transform: scale(1.05);
+  }
+
+  .card-link {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  @media (max-width: 768px) {
+    .card {
+      width: 170px;
+    }
+    .card-img-top {
+      height: 160px;
+    }
+  }
+</style>
+
+<div class="tienda-section">
+  <h2 class="tienda-title gradient-text">Compra con Causa</h2>
+  <div class="productos-container">
+    {% for producto in productos %}
+      <a href="{% url 'detalle_producto' producto.id %}" class="card-link">
+        <div class="card">
+          {% if producto.imagen %}
+            <img src="{{ producto.imagen.url }}" class="card-img-top" alt="{{ producto.nombre }}">
+          {% endif %}
+          <div class="card-body">
+            <h5 class="card-title">{{ producto.nombre }}</h5>
+            <p class="card-text">${{ producto.precio }}</p>
+            <button class="btn btn-dark">Ver detalles</button>
+          </div>
+        </div>
+      </a>
+    {% empty %}
+      <p class="text-center text-muted">No hay productos disponibles por el momento.</p>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

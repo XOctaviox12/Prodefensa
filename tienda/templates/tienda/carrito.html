@@ -1,0 +1,150 @@
+{% extends "inicio/home.html" %}
+{% block contenido %}
+<style>
+.carrito-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+    background: #fff;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    transition: transform 0.2s ease;
+}
+.carrito-row:hover {
+    transform: scale(1.01);
+}
+.producto-info { display: flex; align-items: center; gap: 15px; width: 40%; }
+.producto-info img { width: 60px; height: 60px; object-fit: cover; border-radius: 10px; }
+.controles { display: flex; gap: 5px; align-items: center; justify-content: center; }
+.controles button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #f0f0f0;
+    transition: background 0.3s;
+}
+.controles button:hover {
+    background-color: #d8d8d8;
+}
+.subtotal, .precio, .cantidad { width: 15%; text-align: center; }
+.total-row {
+    display: flex;
+    justify-content: flex-end;
+    font-weight: 700;
+    margin-top: 15px;
+    font-size: 1.2rem;
+}
+
+/* 🎨 BOTÓN DE PAGO ESTILIZADO */
+.pago-section {
+    text-align: right;
+    margin-top: 25px;
+}
+
+.btn-pagar {
+    background: linear-gradient(135deg, #00b894, #0984e3);
+    color: #fff;
+    border: none;
+    padding: 14px 35px;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+.btn-pagar:hover {
+    background: linear-gradient(135deg, #00cec9, #74b9ff);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+.btn-pagar i {
+    margin-right: 8px;
+}
+</style>
+
+<div class="tienda-section">
+    <h2 class="tienda-title">🛒 Tu Carrito</h2>
+    {% if items %}
+        {% for item in items %}
+        <div class="carrito-row" data-item-id="{{ item.id }}">
+            <div class="producto-info">
+                {% if item.producto.imagen %}
+                <img src="{{ item.producto.imagen.url }}" alt="{{ item.producto.nombre }}">
+                {% endif %}
+                <span class="producto-nombre">{{ item.producto.nombre }}</span>
+            </div>
+            <div class="precio">${{ item.producto.precio }}</div>
+            <div class="cantidad">
+                <div class="controles">
+                    <button class="menos">-</button>
+                    <span class="cantidad-valor">{{ item.cantidad }}</span>
+                    <button class="mas">+</button>
+                </div>
+            </div>
+            <div class="subtotal">${{ item.subtotal }}</div>
+        </div>
+        {% endfor %}
+        <div class="total-row">
+            Total: $<span id="total">{{ total }}</span>
+        </div>
+
+        <div class="pago-section">
+            <form action="{% url 'checkout' %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn-pagar">
+                    <i class="fas fa-credit-card"></i> Pagar ahora
+                </button>
+            </form>
+        </div>
+
+    {% else %}
+        <p>Tu carrito está vacío.</p>
+    {% endif %}
+</div>
+
+<script>
+document.querySelectorAll('.carrito-row').forEach(row => {
+    const itemId = row.dataset.itemId;
+    const btnMas = row.querySelector('.mas');
+    const btnMenos = row.querySelector('.menos');
+    const cantidadSpan = row.querySelector('.cantidad-valor');
+    const subtotalSpan = row.querySelector('.subtotal');
+
+    function actualizar(cantidad) {
+        fetch(`/tienda/carrito/actualizar-ajax/${itemId}/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: `cantidad=${cantidad}`
+        })
+        .then(res => res.json())
+        .then(data => {
+            if(data.success){
+                if(data.eliminado){
+                    row.remove();
+                } else {
+                    cantidadSpan.textContent = data.cantidad;
+                    subtotalSpan.textContent = `$${data.subtotal.toFixed(2)}`;
+                }
+                // Actualizar total
+                let total = 0;
+                document.querySelectorAll('.subtotal').forEach(s => {
+                    total += parseFloat(s.textContent.replace('$',''));
+                });
+                document.getElementById('total').textContent = total.toFixed(2);
+            }
+        });
+    }
+
+    btnMas.addEventListener('click', () => actualizar(parseInt(cantidadSpan.textContent)+1));
+    btnMenos.addEventListener('click', () => actualizar(parseInt(cantidadSpan.textContent)-1));
+});
+</script>
+{% endblock %}

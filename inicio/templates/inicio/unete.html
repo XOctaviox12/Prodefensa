@@ -1,0 +1,35 @@
+{% extends "inicio/home.html" %}
+{% load static %}
+{% block titulo %}Únete{% endblock %}
+{% block contenido %}
+
+<style>
+  .unete-section {
+    width: 100%;
+    text-align: center;
+    padding: 80px 20px;
+    background-color: white;
+  }
+
+  .unete-section img {
+    width: 80%;
+    max-width: 1000px;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    display: block;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 768px) {
+    .unete-section img {
+      width: 95%;
+    }
+  }
+</style>
+
+<section class="unete-section">
+  <img src="{% static 'img/unete.png' %}" alt="Únete a ProDefensa CIPOL" />
+</section>
+
+{% endblock %}
