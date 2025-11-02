@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     'cloudinary_storage',
 ]
 
+
+DEBUG = False
 ALLOWED_HOSTS = ['*']  # Temporal, Render requiere que haya al menos algo
 
 
@@ -103,6 +105,7 @@ WSGI_APPLICATION = 'CIPOL.wsgi.application'
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 # Database
@@ -123,12 +126,6 @@ DATABASES = {
     )
 }
 
-cloudinary.config( 
-  cloud_name = os.getenv('CLOUDINARY_CLOUD_NAME'), 
-  api_key = os.getenv('CLOUDINARY_API_KEY'), 
-  api_secret = os.getenv('CLOUDINARY_API_SECRET')
-)
-
 # Configuración Cloudinary
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
@@ -137,6 +134,7 @@ CLOUDINARY_STORAGE = {
 }
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
