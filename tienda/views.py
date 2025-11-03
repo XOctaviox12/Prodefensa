@@ -76,17 +76,19 @@ def checkout(request):
                 'product_data': {
                     'name': item.producto.nombre,
                 },
-                'unit_amount': int(item.producto.precio * 100),  # Stripe usa centavos
+                'unit_amount': int(item.producto.precio * 100),  # centavos
             },
             'quantity': item.cantidad,
         })
 
     session = stripe.checkout.Session.create(
-        payment_method_types=['card'],
         line_items=line_items,
         mode='payment',
         success_url=request.build_absolute_uri('/tienda/exito/'),
         cancel_url=request.build_absolute_uri('/tienda/carrito/'),
+        billing_address_collection='auto',
+        customer_email=request.user.email if request.user.email else None,
+        automatic_tax={'enabled': False},
     )
 
     return redirect(session.url)
