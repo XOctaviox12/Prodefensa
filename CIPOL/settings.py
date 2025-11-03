@@ -66,11 +66,6 @@ AUTHENTICATION_BACKENDS = (
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
-STRIPE_PUBLIC_KEY = 'pk_test_51S04LlCNPZDDg8HgePy59OzlR6ZFH6WpNexVxtFaL3QGM4B4W0hnqJfEaFDYvKF5tqwvx3qVVpMWulzX2Es759Nj00DOoBiWny'
-STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY")
-
-
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -84,6 +79,11 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'CIPOL.urls'
+STRIPE_PUBLIC_KEY = 'pk_test_51S04LlCNPZDDg8HgePy59OzlR6ZFH6WpNexVxtFaL3QGM4B4W0hnqJfEaFDYvKF5tqwvx3qVVpMWulzX2Es759Nj00DOoBiWny'
+STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY")
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 TEMPLATES = [
     {
@@ -106,7 +106,6 @@ WSGI_APPLICATION = 'CIPOL.wsgi.application'
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
