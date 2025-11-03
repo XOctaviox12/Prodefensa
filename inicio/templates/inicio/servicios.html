@@ -247,6 +247,23 @@
   .service-block button:hover {
     opacity: 0.85;
   }
+  .donation-card {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  color: black;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  z-index: 999;
+  width: 300px;
+}
+.donation-card.active {
+  display: block;
+}
 </style>
 
 <!-- SECCIÓN 1: Imagen con título -->
@@ -299,20 +316,38 @@
     <p>PRECIONA PARA VER EL MAPA</p>
   </div>
 
-  {% comment %} <div class="service-block lightblue" style="color:white;">
-    <i class="fas fa-map-marker-alt"></i>
-    <h3>En línea</h3>
-    <p>La donación es deducible de impuesto.</p>
-    <button>pulsar para donar</button>
-  </div> {% endcomment %}
+  <div class="service-block lightblue" style="color:white;">
+  <i class="fas fa-map-marker-alt"></i>
+  <h3>En línea</h3>
+  <p>La donación es deducible de impuesto.</p>
+  <button id="donateBtn">Pulsar para donar</button>
+</div>
 
+<!-- Card flotante -->
+<div id="donationCard" class="donation-card">
+  <h3>Elige tu donación</h3>
+  <div class="amounts">
+    <button data-amount="10">$10</button>
+    <button data-amount="50">$50</button>
+    <button data-amount="100">$100</button>
+    <input type="number" id="customAmount" placeholder="Otro monto">
+  </div>
+
+  <div class="type">
+    <label><input type="radio" name="tipo" value="único" checked> Único</label>
+    <label><input type="radio" name="tipo" value="mensual"> Mensual</label>
+  </div>
+
+  <button id="confirmDonate">Donar</button>
+  <button id="closeCard">Cerrar</button>
+</div>
   <div class="service-block darkblue" style="color:white;">
     <i class="fas fa-phone-alt"></i>
     <h3>Por teléfono</h3>
     <p>Tel: 443 491 2073</p>
   </div>
 </section>
-
+<script src="https://js.stripe.com/v3/"></script>
 <script>
   // Carrusel automático fluido
   let currentSlide = 0;
@@ -323,6 +358,43 @@
     slides[currentSlide].classList.add('active');
   }
   setInterval(showNextSlide, 4000);
+  const res = await fetch("{% url 'servicios' %}", {
+  method: "POST",
+  headers: {"Content-Type": "application/json"},
+  body: JSON.stringify({amount, recurrente})
+});
+const stripe = Stripe("pk_test_TU_CLAVE_PUBLICA");
+
+document.getElementById("donateBtn").addEventListener("click", () => {
+  document.getElementById("donationCard").classList.add("active");
+});
+
+document.getElementById("closeCard").addEventListener("click", () => {
+  document.getElementById("donationCard").classList.remove("active");
+});
+
+document.getElementById("confirmDonate").addEventListener("click", async () => {
+  const selectedAmount = document.querySelector(".amounts button.selected")?.dataset.amount;
+  const customAmount = document.getElementById("customAmount").value;
+  const recurrente = document.querySelector('input[name="tipo"]:checked').value === "mensual";
+  const amount = customAmount || selectedAmount;
+
+  const res = await fetch("/crear_sesion_checkout/", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({amount, recurrente})
+  });
+
+  const data = await res.json();
+  stripe.redirectToCheckout({ sessionId: data.id });
+});
+
+document.querySelectorAll(".amounts button").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".amounts button").forEach(b => b.classList.remove("selected"));
+    btn.classList.add("selected");
+  });
+});
 </script>
 
 {% endblock %}
