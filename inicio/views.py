@@ -22,6 +22,51 @@ def comunidad(request):
     return render(request, 'inicio/comunidad.html', {'descuentos': descuentos})
 
 def servicios(request):
+    if request.method == 'GET':
+        actividades = Actividad.objects.all()
+        return render(request, 'inicio/servicios.html', {'actividades': actividades})
+    
+    elif request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            amount = int(data.get("amount", 0))
+            recurrente = data.get("recurrente", False)
+
+            if amount <= 0:
+                return JsonResponse({"error": "Monto inválido."}, status=400)
+
+            if recurrente:
+                session = stripe.checkout.Session.create(
+                    payment_method_types=["card"],
+                    mode="subscription",
+                    line_items=[{
+                        "price": "price_1SPV2ECNPZDDg8Hgumpz7TIY",
+                        "quantity": 1,
+                    }],
+                    success_url=request.build_absolute_uri("/donacion-exitosa/"),
+                    cancel_url=request.build_absolute_uri("/donacion-cancelada/"),
+                )
+            else:
+                session = stripe.checkout.Session.create(
+                    payment_method_types=["card"],
+                    mode="payment",
+                    line_items=[{
+                        "price_data": {
+                            "currency": "mxn",
+                            "product_data": {"name": "Donación única"},
+                            "unit_amount": amount * 100,
+                        },
+                        "quantity": 1,
+                    }],
+                    success_url=request.build_absolute_uri("/donacion-exitosa/"),
+                    cancel_url=request.build_absolute_uri("/donacion-cancelada/"),
+                )
+
+            return JsonResponse({"id": session.id})
+        
+        except Exception as e:
+            return JsonResponse({"error": str(e)}, status=500)
+
     # Si es una petición normal (GET): renderiza la página
     if request.method == 'GET':
         actividades = Actividad.objects.all()
