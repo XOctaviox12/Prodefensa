@@ -385,12 +385,6 @@
     currentSlide = (currentSlide + 1) % slides.length;
     slides[currentSlide].classList.add('active');
   }
-  setInterval(showNextSlide, 4000);
-  const res = await fetch("{% url 'servicios' %}", {
-  method: "POST",
-  headers: {"Content-Type": "application/json"},
-  body: JSON.stringify({amount, recurrente})
-});
 
 document.addEventListener("DOMContentLoaded", () => {
   const stripe = Stripe("pk_live_51S04LlCNPZDDg8Hg35G7MNfJzQ0htwkwbYfqSdca7HXJqkG6PGygqNjGYserxPYp8p30wKYgItgh2i9X7EyCCd9E00rigNWfcY");
