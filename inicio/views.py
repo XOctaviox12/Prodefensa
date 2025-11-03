@@ -110,7 +110,7 @@ def logout_view(request):
     return redirect('inicio')
 
 
-@csrf_exempt  # Evita error CSRF en AJAX
+@csrf_exempt
 def crear_sesion_checkout(request):
     if request.method == "POST":
         try:
@@ -121,20 +121,31 @@ def crear_sesion_checkout(request):
             if amount <= 0:
                 return JsonResponse({"error": "Monto inválido."}, status=400)
 
+            price_ids = {
+                10: "price_1SPWCXCNPZDDg8Hgga8RyaL0",
+                50: "price_1SPWDUCNPZDDg8Hg55oq4zmT",
+                100: "price_1SPV2ECNPZDDg8Hgumpz7TIY",
+            }
+
             if recurrente:
-                # Donación mensual
+                price_id = price_ids.get(amount)
+                if not price_id:
+                    return JsonResponse({
+                        "error": "Solo los montos de 10, 50 o 100 pueden ser mensuales."
+                    }, status=400)
+
                 session = stripe.checkout.Session.create(
                     payment_method_types=["card"],
                     mode="subscription",
                     line_items=[{
-                        "price": "price_1SPV2ECNPZDDg8Hgumpz7TIY",  # Reemplázalo por tu Price ID real
+                        "price": price_id,
                         "quantity": 1,
                     }],
                     success_url=request.build_absolute_uri("/donacion-exitosa/"),
                     cancel_url=request.build_absolute_uri("/donacion-cancelada/"),
                 )
+
             else:
-                # Donación única
                 session = stripe.checkout.Session.create(
                     payment_method_types=["card"],
                     mode="payment",
