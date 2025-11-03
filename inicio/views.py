@@ -8,6 +8,7 @@ import stripe
 from django.conf import settings
 from django.http import JsonResponse
 import json
+from django.views.decorators.csrf import csrf_exempt
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 # Vista principal del menú
@@ -22,99 +23,8 @@ def comunidad(request):
     return render(request, 'inicio/comunidad.html', {'descuentos': descuentos})
 
 def servicios(request):
-    if request.method == 'GET':
-        actividades = Actividad.objects.all()
-        return render(request, 'inicio/servicios.html', {'actividades': actividades})
-    
-    elif request.method == 'POST':
-        try:
-            data = json.loads(request.body)
-            amount = int(data.get("amount", 0))
-            recurrente = data.get("recurrente", False)
-
-            if amount <= 0:
-                return JsonResponse({"error": "Monto inválido."}, status=400)
-
-            if recurrente:
-                session = stripe.checkout.Session.create(
-                    payment_method_types=["card"],
-                    mode="subscription",
-                    line_items=[{
-                        "price": "price_1SPV2ECNPZDDg8Hgumpz7TIY",
-                        "quantity": 1,
-                    }],
-                    success_url=request.build_absolute_uri("/donacion-exitosa/"),
-                    cancel_url=request.build_absolute_uri("/donacion-cancelada/"),
-                )
-            else:
-                session = stripe.checkout.Session.create(
-                    payment_method_types=["card"],
-                    mode="payment",
-                    line_items=[{
-                        "price_data": {
-                            "currency": "mxn",
-                            "product_data": {"name": "Donación única"},
-                            "unit_amount": amount * 100,
-                        },
-                        "quantity": 1,
-                    }],
-                    success_url=request.build_absolute_uri("/donacion-exitosa/"),
-                    cancel_url=request.build_absolute_uri("/donacion-cancelada/"),
-                )
-
-            return JsonResponse({"id": session.id})
-        
-        except Exception as e:
-            return JsonResponse({"error": str(e)}, status=500)
-
-    # Si es una petición normal (GET): renderiza la página
-    if request.method == 'GET':
-        actividades = Actividad.objects.all()
-        return render(request, 'inicio/servicios.html', {'actividades': actividades})
-    
-    # Si es POST: crear sesión de Stripe Checkout
-    elif request.method == 'POST':
-        try:
-            data = json.loads(request.body)
-            amount = int(data.get("amount", 0))
-            recurrente = data.get("recurrente", False)
-
-            if amount <= 0:
-                return JsonResponse({"error": "Monto inválido."}, status=400)
-
-            # Si el usuario eligió "mensual", usa un price_id de Stripe
-            if recurrente:
-                session = stripe.checkout.Session.create(
-                    payment_method_types=["card"],
-                    mode="subscription",
-                    line_items=[{
-                        "price": "price_1SPV2ECNPZDDg8Hgumpz7TIY",  # 👈 Reemplaza con tu Price ID recurrente
-                        "quantity": 1,
-                    }],
-                    success_url=request.build_absolute_uri("/donacion-exitosa/"),
-                    cancel_url=request.build_absolute_uri("/donacion-cancelada/"),
-                )
-            else:
-                # Pago único
-                session = stripe.checkout.Session.create(
-                    payment_method_types=["card"],
-                    mode="payment",
-                    line_items=[{
-                        "price_data": {
-                            "currency": "mxn",
-                            "product_data": {"name": "Donación única"},
-                            "unit_amount": amount * 100,
-                        },
-                        "quantity": 1,
-                    }],
-                    success_url=request.build_absolute_uri("/donacion-exitosa/"),
-                    cancel_url=request.build_absolute_uri("/donacion-cancelada/"),
-                )
-
-            return JsonResponse({"id": session.id})
-        
-        except Exception as e:
-            return JsonResponse({"error": str(e)}, status=500)
+    actividades = Actividad.objects.all()
+    return render(request, 'inicio/servicios.html', {'actividades': actividades})
 
 def convenios(request):
     return render(request, 'inicio/convenios.html')
@@ -200,7 +110,7 @@ def logout_view(request):
     return redirect('inicio')
 
 
-
+@csrf_exempt  # Evita error CSRF en AJAX
 def crear_sesion_checkout(request):
     if request.method == "POST":
         try:
@@ -212,17 +122,19 @@ def crear_sesion_checkout(request):
                 return JsonResponse({"error": "Monto inválido."}, status=400)
 
             if recurrente:
+                # Donación mensual
                 session = stripe.checkout.Session.create(
                     payment_method_types=["card"],
                     mode="subscription",
                     line_items=[{
-                        "price": "price_1SPV2ECNPZDDg8Hgumpz7TIY",  # tu Price ID real
+                        "price": "price_1SPV2ECNPZDDg8Hgumpz7TIY",  # Reemplázalo por tu Price ID real
                         "quantity": 1,
                     }],
                     success_url=request.build_absolute_uri("/donacion-exitosa/"),
                     cancel_url=request.build_absolute_uri("/donacion-cancelada/"),
                 )
             else:
+                # Donación única
                 session = stripe.checkout.Session.create(
                     payment_method_types=["card"],
                     mode="payment",
@@ -242,3 +154,5 @@ def crear_sesion_checkout(request):
 
         except Exception as e:
             return JsonResponse({"error": str(e)}, status=500)
+
+    return JsonResponse({"error": "Método no permitido"}, status=405)

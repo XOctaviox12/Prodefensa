@@ -17,6 +17,6 @@ urlpatterns = [
 
 
     path('crear_sesion_checkout/', views.crear_sesion_checkout, name='crear_sesion_checkout'),
-    path('donacion-exitosa/', views.donacion_exitosa, name='donacion_exitosa'),
-    path('donacion-cancelada/', views.donacion_cancelada, name='donacion_cancelada'),
+#     path('donacion-exitosa/', views.donacion_exitosa, name='donacion_exitosa'),
+#     path('donacion-cancelada/', views.donacion_cancelada, name='donacion_cancelada'),
 ]
