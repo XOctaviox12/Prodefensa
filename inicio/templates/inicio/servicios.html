@@ -264,6 +264,34 @@
 .donation-card.active {
   display: block;
 }
+.donation-card {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  background: white;
+  color: black;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  z-index: 999;
+  width: 320px;
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
+}
+
+.donation-card.active {
+  display: block;
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+}
+
+.amounts button.selected {
+  background-color: #003366;
+  color: white;
+}
+
 </style>
 
 <!-- SECCIÓN 1: Imagen con título -->
@@ -363,36 +391,64 @@
   headers: {"Content-Type": "application/json"},
   body: JSON.stringify({amount, recurrente})
 });
-const stripe = Stripe("pk_test_TU_CLAVE_PUBLICA");
 
-document.getElementById("donateBtn").addEventListener("click", () => {
-  document.getElementById("donationCard").classList.add("active");
-});
+document.addEventListener("DOMContentLoaded", () => {
+  const stripe = Stripe("pk_live_51S04LlCNPZDDg8Hg35G7MNfJzQ0htwkwbYfqSdca7HXJqkG6PGygqNjGYserxPYp8p30wKYgItgh2i9X7EyCCd9E00rigNWfcY");
+  const donateBtn = document.getElementById("donateBtn");
+  const donationCard = document.getElementById("donationCard");
+  const closeCard = document.getElementById("closeCard");
+  const confirmDonate = document.getElementById("confirmDonate");
+  const amountButtons = document.querySelectorAll(".amounts button");
+  const customAmountInput = document.getElementById("customAmount");
 
-document.getElementById("closeCard").addEventListener("click", () => {
-  document.getElementById("donationCard").classList.remove("active");
-});
-
-document.getElementById("confirmDonate").addEventListener("click", async () => {
-  const selectedAmount = document.querySelector(".amounts button.selected")?.dataset.amount;
-  const customAmount = document.getElementById("customAmount").value;
-  const recurrente = document.querySelector('input[name="tipo"]:checked').value === "mensual";
-  const amount = customAmount || selectedAmount;
-
-  const res = await fetch("/crear_sesion_checkout/", {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({amount, recurrente})
+  // Mostrar card
+  donateBtn.addEventListener("click", () => {
+    donationCard.classList.add("active");
   });
 
-  const data = await res.json();
-  stripe.redirectToCheckout({ sessionId: data.id });
-});
+  // Cerrar card
+  closeCard.addEventListener("click", () => {
+    donationCard.classList.remove("active");
+  });
 
-document.querySelectorAll(".amounts button").forEach(btn => {
-  btn.addEventListener("click", () => {
-    document.querySelectorAll(".amounts button").forEach(b => b.classList.remove("selected"));
-    btn.classList.add("selected");
+  // Seleccionar monto rápido
+  amountButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      amountButtons.forEach(b => b.classList.remove("selected"));
+      btn.classList.add("selected");
+      customAmountInput.value = ""; // limpiar monto personalizado
+    });
+  });
+
+  // Confirmar donación
+  confirmDonate.addEventListener("click", async () => {
+    const selectedAmount = document.querySelector(".amounts button.selected")?.dataset.amount;
+    const customAmount = customAmountInput.value;
+    const recurrente = document.querySelector('input[name="tipo"]:checked').value === "mensual";
+    const amount = customAmount || selectedAmount;
+
+    if (!amount) {
+      alert("Por favor selecciona o ingresa una cantidad.");
+      return;
+    }
+
+    try {
+      const res = await fetch("/crear_sesion_checkout/", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({amount, recurrente})
+      });
+      const data = await res.json();
+
+      if (data.id) {
+        stripe.redirectToCheckout({ sessionId: data.id });
+      } else {
+        alert("Error al crear sesión de pago. Intenta nuevamente.");
+      }
+    } catch (err) {
+      console.error("Error:", err);
+      alert("Ocurrió un error al procesar tu donación.");
+    }
   });
 });
 </script>
