@@ -54,7 +54,7 @@ INSTALLED_APPS = [
 DEBUG = False
 ALLOWED_HOSTS = ['*']  # Temporal, Render requiere que haya al menos algo
 
-
+DOMINIO = "https://prodefensa-cipol.onrender.com"
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

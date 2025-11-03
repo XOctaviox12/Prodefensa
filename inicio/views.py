@@ -110,6 +110,65 @@ def logout_view(request):
     return redirect('inicio')
 
 
+@csrf_exempt
+def crear_sesion_checkout(request):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+            amount = int(data.get("amount", 0))
+            recurrente = data.get("recurrente", False)
+
+            if amount <= 0:
+                return JsonResponse({"error": "Monto inválido."}, status=400)
+
+            price_ids = {
+                10: "price_1SPWCXCNPZDDg8Hgga8RyaL0",
+                50: "price_1SPWDUCNPZDDg8Hg55oq4zmT",
+                100: "price_1SPV2ECNPZDDg8Hgumpz7TIY",
+            }
+
+            if recurrente:
+                price_id = price_ids.get(amount)
+                if not price_id:
+                    return JsonResponse({
+                        "error": "Solo los montos de 10, 50 o 100 pueden ser mensuales."
+                    }, status=400)
+
+                session = stripe.checkout.Session.create(
+                    payment_method_types=["card"],
+                    mode="subscription",
+                    line_items=[{
+                        "price": price_id,
+                        "quantity": 1,
+                    }],
+                    success_url=request.build_absolute_uri("/donacion-exitosa/"),
+                    cancel_url=request.build_absolute_uri("/donacion-cancelada/"),
+                )
+
+            else:
+                session = stripe.checkout.Session.create(
+                    payment_method_types=["card"],
+                    mode="payment",
+                    line_items=[{
+                        "price_data": {
+                            "currency": "mxn",
+                            "product_data": {"name": "Donación única"},
+                            "unit_amount": amount * 100,
+                        },
+                        "quantity": 1,
+                    }],
+                    success_url=request.build_absolute_uri("/donacion-exitosa/"),
+                    cancel_url=request.build_absolute_uri("/donacion-cancelada/"),
+                )
+
+            return JsonResponse({"id": session.id})
+
+        except Exception as e:
+            return JsonResponse({"error": str(e)}, status=500)
+
+    return JsonResponse({"error": "Método no permitido"}, status=405)
+
+
 def crear_sesion_suscripcion(request):
     if request.method == "POST":
         try:
