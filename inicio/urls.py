@@ -14,4 +14,9 @@ urlpatterns = [
     path('login/', views.login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),
     path('signup/', views.signup_view, name='signup'),
+
+
+    path('crear_sesion_checkout/', views.crear_sesion_checkout, name='crear_sesion_checkout'),
+    path('donacion-exitosa/', views.donacion_exitosa, name='donacion_exitosa'),
+    path('donacion-cancelada/', views.donacion_cancelada, name='donacion_cancelada'),
 ]
