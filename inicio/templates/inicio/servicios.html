@@ -1,4 +1,4 @@
-{% extends "inicio/home.html" %}
+{% extends "inicio/home.html" %} 
 {% load static %}
 {% block titulo %}Actividades{% endblock %}
 {% block contenido %}
@@ -15,17 +15,17 @@
   }
 
   .section h2 {
-    font-size: 2.2rem; /* reducido de 2.5rem */
+    font-size: 2.2rem;
     margin-bottom: 20px;
   }
 
   .section p {
-    font-size: 1rem; /* reducido de 1.1rem */
+    font-size: 1rem;
     line-height: 1.6;
     max-width: 900px;
   }
 
-  /* SECCIÓN 1: Imagen grande con título */
+  /* SECCIÓN 1 */
   .services-intro {
     position: relative;
     width: 100%;
@@ -43,14 +43,14 @@
     left: 50%;
     transform: translate(-50%, -50%);
     color: white;
-    font-size: 2.7rem; /* reducido de 3rem */
+    font-size: 2.7rem;
     font-weight: 700;
     background-color: rgba(0, 0, 0, 0.4);
     padding: 20px 40px;
     border-radius: 12px;
   }
 
-  /* SECCIÓN 2: Carrusel */
+  /* CARRUSEL */
   .services-gallery {
     background-color: #f2f2f2;
     padding: 60px 0;
@@ -62,7 +62,6 @@
     width: 85%;
     max-width: 900px;
     aspect-ratio: 16 / 9;
-    position: relative;
     margin: 0 auto;
     border-radius: 12px;
     overflow: hidden;
@@ -76,13 +75,6 @@
     transition: opacity 1s ease-in-out;
   }
 
-  .carousel-slide img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-  }
-
   .carousel-slide.active {
     display: block;
     animation: fadeEffect 2s ease-in-out;
@@ -93,9 +85,8 @@
     to { opacity: 1; }
   }
 
-  /* SECCIÓN 2.5: ACTIVIDADES */
+  /* ACTIVIDADES */
   .activities-section {
-    width: 100%;
     background-color: #ffffff;
     padding: 80px 0;
     display: flex;
@@ -104,7 +95,7 @@
   }
 
   .activities-section h2 {
-    font-size: 2.5rem; /* reducido de 3rem */
+    font-size: 2.5rem;
     font-weight: bold;
     margin-bottom: 60px;
     color: #003366;
@@ -118,7 +109,6 @@
     width: 90%;
     margin-bottom: 80px;
     gap: 50px;
-    /* sin hover ni transición */
   }
 
   .activity-card img {
@@ -127,53 +117,22 @@
     object-fit: contain;
     border-radius: 12px;
     box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-    background-color: #f2f2f2;
-  }
-
-  .activity-info {
-    flex: 1;
-    text-align: left;
   }
 
   .activity-info h3 {
-    font-size: 2.2rem; /* reducido de 2.5rem */
+    font-size: 2.2rem;
     font-weight: 700;
     color: #003366;
     margin-bottom: 20px;
   }
 
-  .activity-info p {
-    font-size: 1.2rem; /* reducido ligeramente de 1.4rem */
-    color: #333;
-    line-height: 1.7;
-  }
-
-  /* Alternar imágenes izquierda/derecha */
-  .activity-card:nth-child(even) {
-    flex-direction: row-reverse;
-  }
-
   @media (max-width: 900px) {
-    .activity-card {
-      flex-direction: column;
-    }
-
-    .activity-card:nth-child(even) {
-      flex-direction: column;
-    }
-
-    .activity-card img {
-      width: 100%;
-      max-height: 300px;
-    }
-
-    .activity-info {
-      text-align: center;
-      margin-top: 20px;
-    }
+    .activity-card { flex-direction: column; }
+    .activity-card img { width: 100%; max-height: 300px; }
+    .activity-info { text-align: center; margin-top: 20px; }
   }
 
-  /* SECCIÓN 3: BLOQUES DE SERVICIO */
+  /* BLOQUES DE SERVICIO */
   .services-row {
     display: flex;
     gap: 20px;
@@ -198,25 +157,9 @@
     box-shadow: 0 8px 25px rgba(0,0,0,0.3);
   }
 
-  .service-block i {
-    font-size: 45px; /* reducido de 50px */
-    margin-bottom: 20px;
-  }
-
-  .service-block h3 {
-    font-size: 1.8rem; /* reducido de 2rem */
-    margin-bottom: 15px;
-  }
-
-  .service-block p {
-    font-size: 1rem; /* reducido de 1.1rem */
-    line-height: 1.5;
-    max-width: 350px;
-  }
-
   .service-block button {
     padding: 10px 20px;
-    font-size: 0.95rem; /* reducido un poco */
+    font-size: 0.95rem;
     color: white;
     border: none;
     background-color: #d6336c;
@@ -230,96 +173,129 @@
     background-color: #003366;
   }
 
-  .service-block.red {
-    background-color: #ff9999;
-    cursor: pointer;
+  /* === CARD DE DONATIVO === */
+  .donation-card {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    background: rgba(255, 255, 255, 0.95);
+    color: #333;
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+    z-index: 999;
+    width: 340px;
+    opacity: 0;
+    transition: all 0.35s ease-in-out;
+    backdrop-filter: blur(8px);
   }
 
-  .service-block.lightblue {
-    background-color: #99ccff;
+  .donation-card.active {
+    display: block;
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+
+  .donation-card h3 {
+    margin-bottom: 15px;
     color: #003366;
+    font-size: 1.4rem;
+    text-align: center;
   }
 
-  .service-block.darkblue {
+  .amounts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 15px;
+  }
+
+  .amounts button {
+    padding: 8px 14px;
+    border: 2px solid #003366;
+    background: white;
+    color: #003366;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .amounts button.selected,
+  .amounts button:hover {
     background-color: #003366;
+    color: white;
   }
 
-  .service-block button:hover {
+  #customAmount {
+    width: 100%;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .type {
+    margin-bottom: 15px;
+    text-align: center;
+  }
+
+  .type label {
+    margin: 0 10px;
+  }
+
+  #confirmDonate, #closeCard {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  #confirmDonate {
+    background-color: #003366;
+    color: white;
+  }
+
+  #confirmDonate:hover {
+    opacity: 0.9;
+  }
+
+  #closeCard {
+    background-color: #999;
+    color: white;
+  }
+
+  #closeCard:hover {
     opacity: 0.85;
   }
-  .donation-card {
-  display: none;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: white;
-  color: black;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-  z-index: 999;
-  width: 300px;
-}
-.donation-card.active {
-  display: block;
-}
-.donation-card {
-  display: none;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(0.9);
-  background: white;
-  color: black;
-  padding: 25px;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-  z-index: 999;
-  width: 320px;
-  opacity: 0;
-  transition: all 0.3s ease-in-out;
-}
-
-.donation-card.active {
-  display: block;
-  transform: translate(-50%, -50%) scale(1);
-  opacity: 1;
-}
-
-.amounts button.selected {
-  background-color: #003366;
-  color: white;
-}
-
 </style>
 
-<!-- SECCIÓN 1: Imagen con título -->
+<!-- SECCIÓN 1 -->
 <section class="services-intro">
   <img src="{% static 'img/servicios_1.jpg' %}" alt="Servicios">
   <h2>Actividades</h2>
 </section>
 
-<!-- SECCIÓN 2: Carrusel automático -->
+<!-- SECCIÓN 2 -->
 <section class="section services-gallery">
   <div class="carousel-container">
-    <div class="carousel-slide active">
-      <img src="{% static 'img/servicios_3.jpeg' %}" alt="Servicio 2">
-    </div>
-    <div class="carousel-slide">
-      <img src="{% static 'img/servicios_4.jpeg' %}" alt="Servicio 3">
-    </div>
-    <div class="carousel-slide">
-      <img src="{% static 'img/servicios_5.png' %}" alt="Servicio 4">
-    </div>
+    <div class="carousel-slide active"><img src="{% static 'img/servicios_3.jpeg' %}" alt="Servicio 2"></div>
+    <div class="carousel-slide"><img src="{% static 'img/servicios_4.jpeg' %}" alt="Servicio 3"></div>
+    <div class="carousel-slide"><img src="{% static 'img/servicios_5.png' %}" alt="Servicio 4"></div>
   </div>
 </section>
 
-<!-- SECCIÓN 2.5: ACTIVIDADES DESDE LA BD -->
+<!-- SECCIÓN 2.5 -->
 <section class="activities-section">
   <h2>Nuestras Actividades</h2>
   {% for actividad in actividades %}
-  <div class="activity-card {% if forloop.counter|divisibleby:2 %}reverse{% endif %}">
+  <div class="activity-card">
     <img src="{{ actividad.imagen.url }}" alt="{{ actividad.titulo }}">
     <div class="activity-info">
       <h3>{{ actividad.titulo }}</h3>
@@ -331,61 +307,50 @@
   {% endfor %}
 </section>
 
-<!-- SECCIÓN 3: Bloques de servicios -->
+<!-- SECCIÓN 3 -->
 <section class="services-row">
   <div class="service-block red" style="color:white;" onclick="window.open('https://maps.app.goo.gl/fcGP43jNm8uXjGXq9', '_blank')">
     <i class="fas fa-building"></i>
     <h3>Nuestras Oficinas</h3>
-    <p>
-      Nardo #224<br>
-      Col. Las Flores<br>
-      Morelia, Michoacán
-    </p>
+    <p>Nardo #224<br>Col. Las Flores<br>Morelia, Michoacán</p>
     <p>PRECIONA PARA VER EL MAPA</p>
   </div>
 
   <div class="service-block lightblue" style="color:white;">
-  <i class="fas fa-map-marker-alt"></i>
-  <h3>En línea</h3>
-  <p>La donación es deducible de impuesto.</p>
-  <button id="donateBtn">Pulsar para donar</button>
-</div>
-
-<!-- Card flotante -->
-<div id="donationCard" class="donation-card">
-  <h3>Elige tu donación</h3>
-  <div class="amounts">
-    <button data-amount="10">$10</button>
-    <button data-amount="50">$50</button>
-    <button data-amount="100">$100</button>
-    <input type="number" id="customAmount" placeholder="Otro monto">
+    <i class="fas fa-map-marker-alt"></i>
+    <h3>En línea</h3>
+    <p>La donación es deducible de impuesto.</p>
+    <button id="donateBtn">Pulsar para donar</button>
   </div>
 
-  <div class="type">
-    <label><input type="radio" name="tipo" value="único" checked> Único</label>
-    <label><input type="radio" name="tipo" value="mensual"> Mensual</label>
+  <!-- Card flotante -->
+  <div id="donationCard" class="donation-card">
+    <h3>Elige tu donación</h3>
+    <div class="amounts">
+      <button data-amount="10">$10</button>
+      <button data-amount="50">$50</button>
+      <button data-amount="100">$100</button>
+      <input type="number" id="customAmount" placeholder="Otro monto">
+    </div>
+
+    <div class="type">
+      <label><input type="radio" name="tipo" value="único" checked> Único</label>
+      <label><input type="radio" name="tipo" value="mensual"> Mensual</label>
+    </div>
+
+    <button id="confirmDonate">Donar</button>
+    <button id="closeCard">Cerrar</button>
   </div>
 
-  <button id="confirmDonate">Donar</button>
-  <button id="closeCard">Cerrar</button>
-</div>
   <div class="service-block darkblue" style="color:white;">
     <i class="fas fa-phone-alt"></i>
     <h3>Por teléfono</h3>
     <p>Tel: 443 491 2073</p>
   </div>
 </section>
+
 <script src="https://js.stripe.com/v3/"></script>
 <script>
-  // Carrusel automático fluido
-  let currentSlide = 0;
-  const slides = document.querySelectorAll('.carousel-slide');
-  function showNextSlide() {
-    slides[currentSlide].classList.remove('active');
-    currentSlide = (currentSlide + 1) % slides.length;
-    slides[currentSlide].classList.add('active');
-  }
-
 document.addEventListener("DOMContentLoaded", () => {
   const stripe = Stripe("pk_live_51S04LlCNPZDDg8Hg35G7MNfJzQ0htwkwbYfqSdca7HXJqkG6PGygqNjGYserxPYp8p30wKYgItgh2i9X7EyCCd9E00rigNWfcY");
   const donateBtn = document.getElementById("donateBtn");
@@ -395,26 +360,17 @@ document.addEventListener("DOMContentLoaded", () => {
   const amountButtons = document.querySelectorAll(".amounts button");
   const customAmountInput = document.getElementById("customAmount");
 
-  // Mostrar card
-  donateBtn.addEventListener("click", () => {
-    donationCard.classList.add("active");
-  });
+  donateBtn.addEventListener("click", () => donationCard.classList.add("active"));
+  closeCard.addEventListener("click", () => donationCard.classList.remove("active"));
 
-  // Cerrar card
-  closeCard.addEventListener("click", () => {
-    donationCard.classList.remove("active");
-  });
-
-  // Seleccionar monto rápido
   amountButtons.forEach(btn => {
     btn.addEventListener("click", () => {
       amountButtons.forEach(b => b.classList.remove("selected"));
       btn.classList.add("selected");
-      customAmountInput.value = ""; // limpiar monto personalizado
+      customAmountInput.value = "";
     });
   });
 
-  // Confirmar donación
   confirmDonate.addEventListener("click", async () => {
     const selectedAmount = document.querySelector(".amounts button.selected")?.dataset.amount;
     const customAmount = customAmountInput.value;
@@ -433,12 +389,8 @@ document.addEventListener("DOMContentLoaded", () => {
         body: JSON.stringify({amount, recurrente})
       });
       const data = await res.json();
-
-      if (data.id) {
-        stripe.redirectToCheckout({ sessionId: data.id });
-      } else {
-        alert("Error al crear sesión de pago. Intenta nuevamente.");
-      }
+      if (data.id) stripe.redirectToCheckout({ sessionId: data.id });
+      else alert("Error al crear sesión de pago. Intenta nuevamente.");
     } catch (err) {
       console.error("Error:", err);
       alert("Ocurrió un error al procesar tu donación.");
@@ -448,5 +400,3 @@ document.addEventListener("DOMContentLoaded", () => {
 </script>
 
 {% endblock %}
-
-
