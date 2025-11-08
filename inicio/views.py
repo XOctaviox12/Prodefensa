@@ -36,6 +36,7 @@ def aviso_privacidad(request):
     return render(request, 'inicio/aviso_privacidad.html')
 
 
+
 # tienda y carrito
 def tienda(request):
     productos = Producto.objects.all()

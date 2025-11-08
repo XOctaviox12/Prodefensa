@@ -3,7 +3,6 @@ from django.conf import settings
 from django.shortcuts import render, get_object_or_404,redirect
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
-from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Producto
 from django.contrib.auth.decorators import login_required
@@ -39,7 +38,6 @@ def ver_carrito(request):
     items = carrito.items.all()
     total = carrito.total
     return render(request, 'tienda/carrito.html', {'items': items, 'total': total})
-
 
 @require_POST
 def actualizar_carrito_ajax(request, item_id):
@@ -90,6 +88,5 @@ def checkout(request):
 
     return redirect(session.url)
 
-@login_required
 def exito(request):
     return render(request, 'tienda/exito.html')
