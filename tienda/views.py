@@ -3,6 +3,7 @@ from django.conf import settings
 from django.shortcuts import render, get_object_or_404,redirect
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Producto
 from django.contrib.auth.decorators import login_required
@@ -19,6 +20,7 @@ def detalle_producto(request, producto_id):
     producto = get_object_or_404(Producto, id=producto_id)
     return render(request, 'tienda/detalle_producto.html', {'producto': producto})
 
+@login_required
 def agregar_al_carrito(request, producto_id):
     producto = get_object_or_404(Producto, id=producto_id)
 
@@ -33,12 +35,14 @@ def agregar_al_carrito(request, producto_id):
 
     return redirect('ver_carrito')  # Redirige a la página de carrito
 
+@login_required
 def ver_carrito(request):
     carrito, created = Carrito.objects.get_or_create(usuario=request.user)
     items = carrito.items.all()
     total = carrito.total
     return render(request, 'tienda/carrito.html', {'items': items, 'total': total})
 
+@login_required
 @require_POST
 def actualizar_carrito_ajax(request, item_id):
     item = get_object_or_404(CarritoItem, id=item_id, carrito__usuario=request.user)
@@ -59,6 +63,7 @@ def actualizar_carrito_ajax(request, item_id):
         return JsonResponse({'success': False, 'error': 'Cantidad inválida'})
     
 
+@login_required
 def checkout(request):
     carrito = Carrito.objects.get(usuario=request.user)
     items = carrito.items.all()
@@ -88,5 +93,6 @@ def checkout(request):
 
     return redirect(session.url)
 
+@login_required
 def exito(request):
     return render(request, 'tienda/exito.html')
