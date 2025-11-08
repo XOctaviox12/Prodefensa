@@ -464,11 +464,13 @@
           class="{% if request.resolver_match.url_name == 'comunidad' %}active{% endif %}"
           >Comunidad CIPOL</a
         >
-        {% comment %} <a
+        {% comment %}
+        <a
           href="{% url 'servicios' %}"
           class="{% if request.resolver_match.url_name == 'servicios' %}active{% endif %}"
           >Actividades</a
-        > {% endcomment %}
+        >
+        {% endcomment %}
         <a
           href="{% url 'convenios' %}"
           class="{% if request.resolver_match.url_name == 'convenios' %}active{% endif %}"
@@ -479,39 +481,49 @@
           class="{% if request.resolver_match.url_name == 'aviso_privacidad' %}active{% endif %}"
           >Aviso de Privacidad</a
         >
-        {% comment %} <a
+        {% comment %}
+        <a
           href="{% url 'tienda' %}"
           class="{% if request.resolver_match.url_name == 'tienda' %}active{% endif %}"
           >Tienda</a
-        > {% endcomment %}
+        >
+        {% endcomment %}
 
         <!-- LOGIN / MENÚ USUARIO (mantengo tu lógica) -->
-<div class="login-container">
-  {% if user.is_authenticated %}
-    <div class="login" onclick="toggleDropdown(event)">
-      <i class="fas fa-user-circle" style="font-size: 1.8rem; color: white;"></i>
-      <span class="username" style="font-weight: 600;">{{ user.username }}</span>
-      <i class="fas fa-chevron-down" style="font-size: 0.8rem;"></i>
-    </div>
-    <div class="dropdown-menu" id="dropdownMenu">
-        {% comment %} <a href="#">Ajustes de la cuenta</a>
-            <a href="#">Perfil</a> {% endcomment %}
-            {% comment %} <a href="#">Eventos</a> {% endcomment %}
-            {% comment %} <a href="#">Notificaciones</a> {% endcomment %}
+        <div class="login-container">
+          {% if user.is_authenticated %}
+          <div class="login" onclick="toggleDropdown(event)">
+            <i
+              class="fas fa-user-circle"
+              style="font-size: 1.8rem; color: white"
+            ></i>
+            <span class="username" style="font-weight: 600"
+              >{{ user.username }}</span
+            >
+            <i class="fas fa-chevron-down" style="font-size: 0.8rem"></i>
+          </div>
+          <div class="dropdown-menu" id="dropdownMenu">
+            {% comment %} <a href="#">Ajustes de la cuenta</a>
+            <a href="#">Perfil</a> {% endcomment %} {% comment %}
+            <a href="#">Eventos</a> {% endcomment %} {% comment %}
+            <a href="#">Notificaciones</a> {% endcomment %}
             <a href="{% url 'ver_carrito' %}">Carrito</a>
             {% comment %} <a href="#">Mis pedidos</a>
             <a href="#">Mis programas</a>
             <a href="#">Mis grupos</a>
             <a href="#">Mis reservas</a> {% endcomment %}
             <a href="{% url 'logout' %}">Salir</a>
-    </div>
-  {% else %}
-    <a href="{% url 'login' %}" class="login">
-      <i class="fas fa-sign-in-alt" style="font-size: 1.6rem; color: white;"></i>
-      <span style="font-weight: 600;">Iniciar sesión</span>
-    </a>
-  {% endif %}
-</div>
+          </div>
+          {% else %}
+          <a href="{% url 'login' %}" class="login">
+            <i
+              class="fas fa-sign-in-alt"
+              style="font-size: 1.6rem; color: white"
+            ></i>
+            <span style="font-weight: 600">Iniciar sesión</span>
+          </a>
+          {% endif %}
+        </div>
       </nav>
     </header>
 
@@ -530,18 +542,18 @@
             con la seguridad y el servicio a la ciudadanía, sino que también se
             suman a una red que promueve la profesionalización, la colaboración
             y el reconocimiento del trabajo policial.
-            <p style="margin-top: 10px;">
-              Al realizar un
-              <span style="color: #1f40d3; font-weight: bold;">
-                 donativo de $150
-              </span>, estarás
-              apoyando las actividades de la asociación.
-              Como muestra de agradecimiento, 
-              recibirás tu credencial de miembro, 
-              con la que podrás disfrutar de beneficios
-              exclusivos y participar en más iniciativas.
-              <br />
-            </p>
+          </p>
+
+          <p style="margin-top: 10px">
+            Al realizar un
+            <span style="color: #1f40d3; font-weight: bold">
+              donativo de $150 </span
+            >, estarás apoyando las actividades de la asociación. Como muestra
+            de agradecimiento, recibirás tu credencial de miembro, con la que
+            podrás disfrutar de beneficios exclusivos y participar en más
+            iniciativas.
+            <br />
+          </p>
 
           <a
             href="https://docs.google.com/forms/d/e/1FAIpQLSfmsLOn_zdpSr6hK0q8rhWhmLgr6_48pvFDFfd4NlBN0BR_BQ/viewform?usp=sharing&ouid=117183622586496150962"
@@ -558,17 +570,16 @@
       {% block contenido %}{% endblock %}
     </main>
 
-<!-- Footer (tu diseño original manteniendo estructura) -->
+    <!-- Footer (tu diseño original manteniendo estructura) -->
     <footer class="footer-container" role="contentinfo">
       <div class="footer-content">
         <div class="footer-left">
           <h3>Prodefensa CIPOL A.C.</h3>
           <p>
-            Asociación civil dedicada a dignificar 
-            la labor policial, fortalecer su desarrollo 
-            profesional y promover una cultura de legalidad, respeto
-             y proximidad social, reconociendo su papel fundamental en 
-             la construcción de paz y seguridad para todos.
+            Asociación civil dedicada a dignificar la labor policial, fortalecer
+            su desarrollo profesional y promover una cultura de legalidad,
+            respeto y proximidad social, reconociendo su papel fundamental en la
+            construcción de paz y seguridad para todos.
           </p>
           <p><strong>Email:</strong> prodefensacipol@gmail.com</p>
           <p><strong>Teléfono:</strong> 443 491 2073</p>
@@ -600,7 +611,8 @@
           <a href="#">Política de privacidad</a>
         </p>
       </div>
-    </footer>
+          
+    </footer>
 
     <script>
       // Toggle menú móvil
@@ -663,20 +675,20 @@
       window.addEventListener("offline", () => {
         window.location.href = "/sin-conexion/";
       });
-       function toggleDropdown(event) {
-    event.stopPropagation();
-    const menu = document.getElementById("dropdownMenu");
-    menu.style.display = menu.style.display === "flex" ? "none" : "flex";
-  }
+      function toggleDropdown(event) {
+        event.stopPropagation();
+        const menu = document.getElementById("dropdownMenu");
+        menu.style.display = menu.style.display === "flex" ? "none" : "flex";
+      }
 
-  // Cierra el menú si se hace clic fuera
-  document.addEventListener("click", (e) => {
-    const menu = document.getElementById("dropdownMenu");
-    const login = document.querySelector(".login");
-    if (menu && !login.contains(e.target)) {
-      menu.style.display = "none";
-    }
-  });
+      // Cierra el menú si se hace clic fuera
+      document.addEventListener("click", (e) => {
+        const menu = document.getElementById("dropdownMenu");
+        const login = document.querySelector(".login");
+        if (menu && !login.contains(e.target)) {
+          menu.style.display = "none";
+        }
+      });
     </script>
   </body>
 </html>

@@ -50,8 +50,6 @@ INSTALLED_APPS = [
     'cloudinary_storage',
 ]
 
-
-DEBUG = False
 ALLOWED_HOSTS = ['*']  # Temporal, Render requiere que haya al menos algo
 
 DOMINIO = "https://prodefensa-cipol.onrender.com"
