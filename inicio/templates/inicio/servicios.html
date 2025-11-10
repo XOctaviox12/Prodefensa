@@ -244,7 +244,7 @@
   opacity: 1;
 }
 
-/* === SECCIÓN 1: Imagen de fondo con texto y card === */
+  /* === SECCIÓN 1: Imagen de fondo === */
   .services-intro {
     position: relative;
     width: 100%;
@@ -258,7 +258,6 @@
     overflow: hidden;
   }
 
-  /* Capa oscura encima de la imagen */
   .intro-overlay {
     position: absolute;
     top: 0; left: 0;
@@ -267,7 +266,6 @@
     z-index: 1;
   }
 
-  /* Contenido encima del fondo */
   .intro-content {
     position: relative;
     z-index: 2;
@@ -296,7 +294,7 @@
     max-width: 550px;
   }
 
-  /* === TARJETA DE DONACIÓN SIEMPRE VISIBLE === */
+  /* === TARJETA DE DONACIÓN === */
   .donation-card {
     flex: 0 0 340px;
     background: rgba(255, 255, 255, 0.95);
@@ -306,11 +304,6 @@
     box-shadow: 0 8px 25px rgba(0,0,0,0.4);
     text-align: center;
     z-index: 3;
-    transition: transform 0.3s ease;
-  }
-
-  .donation-card:hover {
-    transform: translateY(-5px);
   }
 
   .donation-card h3 {
@@ -408,7 +401,7 @@
       </p>
     </div>
 
-    <!-- Tarjeta de donación siempre visible -->
+    <!-- Tarjeta de donación -->
     <div class="donation-card">
       <h3>Haz tu Donación</h3>
       <div class="amounts">
@@ -556,6 +549,50 @@
         alert("Ocurrió un error al procesar tu donación.");
       }
     });
+  });
+    let selectedAmount = 0;
+
+  function setAmount(amount) {
+    selectedAmount = amount;
+    document.querySelectorAll('.amounts button').forEach(btn => btn.classList.remove('selected'));
+    event.target.classList.add('selected');
+    document.getElementById('customAmount').value = '';
+  }
+
+  document.querySelectorAll('input[name="tipo"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+      const customAmount = document.getElementById('customAmount');
+      if (radio.value === 'mensual' && radio.checked) {
+        customAmount.style.display = 'none';
+      } else {
+        customAmount.style.display = 'block';
+      }
+    });
+  });
+
+  document.getElementById('confirmDonate').addEventListener('click', () => {
+    const tipo = document.querySelector('input[name="tipo"]:checked').value;
+    const customAmount = document.getElementById('customAmount').value;
+    const amount = selectedAmount || customAmount;
+
+    if (!amount || amount <= 0) {
+      alert('Por favor selecciona o ingresa un monto válido.');
+      return;
+    }
+
+    {% if user.is_authenticated %}
+      // Usuario autenticado
+      if (tipo === "mensual") {
+        alert("Suscripción mensual creada para {{ user.username }} con monto $" + amount);
+        // Aquí se llamaría tu backend para crear suscripción
+      } else {
+        alert("Donación única realizada por {{ user.username }} de $" + amount);
+        // Aquí se llamaría tu backend para procesar donación única
+      }
+    {% else %}
+      // No autenticado → redirigir al login
+      window.location.href = "{% url 'login' %}?next={{ request.path }}";
+    {% endif %}
   });
 </script>
 
