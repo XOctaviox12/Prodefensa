@@ -295,8 +295,10 @@
     justify-content: center;
     padding: 60px 20px;
     color: white;
+    overflow: hidden;
   }
 
+  /* Capa oscura encima de la imagen */
   .intro-overlay {
     position: absolute;
     top: 0; left: 0;
@@ -305,6 +307,7 @@
     z-index: 1;
   }
 
+  /* Contenido encima del fondo */
   .intro-content {
     position: relative;
     z-index: 2;
@@ -333,15 +336,16 @@
     max-width: 550px;
   }
 
-  /* === DONATION CARD ESTÁTICO === */
+  /* === TARJETA DE DONACIÓN SIEMPRE VISIBLE === */
   .donation-card {
     flex: 0 0 340px;
-    background: #ffffff;
+    background: rgba(255, 255, 255, 0.95);
     color: #222;
     padding: 30px 25px;
     border-radius: 16px;
     box-shadow: 0 8px 25px rgba(0,0,0,0.4);
     text-align: center;
+    z-index: 3;
     transition: transform 0.3s ease;
   }
 
@@ -432,7 +436,6 @@
   }
 </style>
 
-<!-- === SECCIÓN 1 === -->
 <section class="services-intro">
   <div class="intro-overlay"></div>
   <div class="intro-content">
@@ -445,22 +448,23 @@
       </p>
     </div>
 
-    <div id="donationCard" class="donation-card">
-      <h3>Elige tu donación</h3>
-    <div class="amounts">
-      <button onclick="setAmount(10)">$10</button>
-      <button onclick="setAmount(50)">$50</button>
-      <button onclick="setAmount(100)">$100</button>
-      <input type="number" id="customAmount" placeholder="Otro monto">
+    <!-- Tarjeta de donación siempre visible -->
+    <div class="donation-card">
+      <h3>Haz tu Donación</h3>
+      <div class="amounts">
+        <button onclick="setAmount(10)">$10</button>
+        <button onclick="setAmount(50)">$50</button>
+        <button onclick="setAmount(100)">$100</button>
+        <button onclick="setAmount(500)">$500</button>
+      </div>
+      <input type="number" id="customAmount" placeholder="Otro monto (MXN)">
+      <div class="type">
+        <label><input type="radio" name="tipo" value="único" checked> Única</label>
+        <label><input type="radio" name="tipo" value="mensual"> Mensual</label>
+      </div>
+      <button id="confirmDonate">Donar Ahora</button>
+    </div>
   </div>
-  <div class="type">
-    <label><input type="radio" name="tipo" value="único" checked> Único</label>
-    <label><input type="radio" name="tipo" value="mensual"> Mensual</label>
-  </div>
-
-  <button id="confirmDonate">Donar</button>
-  <button id="closeCard">Cerrar</button>
-</div>
 </section>
 
 <!-- SECCIÓN 2: Carrusel automático -->
@@ -506,13 +510,6 @@
     </p>
     <p>PRECIONA PARA VER EL MAPA</p>
   </div>
-
-  <div class="service-block lightblue" style="color:white;">
-  <i class="fas fa-map-marker-alt"></i>
-  <h3>En línea</h3>
-  <p>La donación es deducible de impuesto.</p>
-  <button id="donateBtn">Pulsar para donar</button>
-</div>
   <div class="service-block darkblue" style="color:white;">
     <i class="fas fa-phone-alt"></i>
     <h3>Por teléfono</h3>
