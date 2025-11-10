@@ -4,7 +4,7 @@
 {% block contenido %}
 
 <style>
-  /* GENERAL */
+  /* ======== SECCIONES GENERALES ======== */
   .section {
     width: 100%;
     text-align: center;
@@ -14,31 +14,203 @@
     align-items: center;
   }
 
-  .section h2 {
-    font-size: 2.2rem; /* reducido de 2.5rem */
-    margin-bottom: 20px;
-  }
-
-  .section p {
-    font-size: 1rem; /* reducido de 1.1rem */
-    line-height: 1.6;
-    max-width: 900px;
-  }
-
-  /* SECCIÓN 2: Carrusel */
-  .services-gallery {
-    background-color: #f2f2f2;
-    padding: 60px 0;
+  /* ======== HERO ======== */
+  .services-intro {
     position: relative;
-    overflow: hidden;
+    width: 100%;
+    height: 600px;
+    background: url("{% static 'img/servicios_1.jpg' %}") no-repeat center center/cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    color: white;
   }
 
+  .intro-overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.55);
+    z-index: 1;
+  }
+
+  .intro-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 1200px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    align-items: center;
+    padding: 0 20px;
+  }
+
+  .intro-text {
+    flex: 1;
+    text-align: left;
+    color: white;
+  }
+
+  .intro-text h2 {
+    font-size: 2.8rem;
+    margin-bottom: 20px;
+    font-weight: 700;
+  }
+
+  .intro-text p {
+    font-size: 1.2rem;
+    max-width: 560px;
+    margin-bottom: 30px;
+  }
+
+  .donate-btn {
+    background-color: #ff6b81;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .donate-btn:hover {
+    background-color: #ff4757;
+  }
+
+  /* ======== TARJETA DE DONACIÓN (modal) ======== */
+  #overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6);
+    z-index: 998;
+    backdrop-filter: blur(5px);
+    transition: opacity 0.3s ease;
+  }
+
+  #overlay.active {
+    display: block;
+    opacity: 1;
+  }
+
+  #donationCard {
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    background: rgba(255,255,255,0.98);
+    color: #222;
+    width: 92%;
+    max-width: 420px;
+    padding: 28px 24px;
+    border-radius: 16px;
+    box-shadow: 0 12px 50px rgba(0,0,0,0.45);
+    text-align: center;
+    z-index: 999;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.28s ease;
+  }
+
+  #donationCard.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  #closeCard {
+    position: absolute;
+    top: 10px; right: 14px;
+    background: transparent;
+    border: none;
+    font-size: 1.4rem;
+    cursor: pointer;
+    color: #444;
+  }
+
+  #donationCard h3 {
+    color: #003366;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+
+  .amounts {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+
+  .amounts button {
+    border: 2px solid #003366;
+    border-radius: 8px;
+    background: #f0f4f8;
+    color: #003366;
+    font-weight: 600;
+    padding: 8px 14px;
+    cursor: pointer;
+    transition: all 0.22s ease;
+  }
+
+  .amounts button.selected,
+  .amounts button:hover {
+    background: #003366;
+    color: white;
+  }
+
+  #customAmount {
+    width: 80%;
+    margin: 10px 0;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    text-align: center;
+    font-size: 1rem;
+  }
+
+  .type {
+    margin: 16px 0;
+    display: flex;
+    justify-content: center;
+    gap: 22px;
+    font-size: 0.98rem;
+  }
+
+  #confirmDonate {
+    width: 100%;
+    background: #003366;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.25s;
+  }
+
+  #confirmDonate:hover { background: #00224e; }
+
+  .login-warning {
+    color: #d6336c;
+    font-size: 0.95rem;
+    margin-top: 10px;
+    display: none;
+  }
+
+  /* ======== CARRUSEL ======== */
   .carousel-container {
     width: 85%;
     max-width: 900px;
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 16/9;
     position: relative;
-    margin: 0 auto;
+    margin: 60px auto;
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 8px 25px rgba(0,0,0,0.25);
@@ -48,14 +220,12 @@
     display: none;
     width: 100%;
     height: 100%;
-    transition: opacity 1s ease-in-out;
   }
 
   .carousel-slide img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center;
   }
 
   .carousel-slide.active {
@@ -68,7 +238,7 @@
     to { opacity: 1; }
   }
 
-  /* SECCIÓN 2.5: ACTIVIDADES */
+  /* ======== ACTIVIDADES ======== */
   .activities-section {
     width: 100%;
     background-color: #ffffff;
@@ -79,7 +249,7 @@
   }
 
   .activities-section h2 {
-    font-size: 2.5rem; /* reducido de 3rem */
+    font-size: 2.5rem;
     font-weight: bold;
     margin-bottom: 60px;
     color: #003366;
@@ -93,15 +263,14 @@
     width: 90%;
     margin-bottom: 80px;
     gap: 50px;
-    /* sin hover ni transición */
   }
 
   .activity-card img {
     width: 50%;
     max-height: 400px;
-    object-fit: contain;
+    object-fit: cover;
     border-radius: 12px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.25);
     background-color: #f2f2f2;
   }
 
@@ -111,44 +280,29 @@
   }
 
   .activity-info h3 {
-    font-size: 2.2rem; /* reducido de 2.5rem */
+    font-size: 2.2rem;
     font-weight: 700;
     color: #003366;
-    margin-bottom: 20px;
+    margin-bottom: 12px;
   }
 
   .activity-info p {
-    font-size: 1.2rem; /* reducido ligeramente de 1.4rem */
+    font-size: 1.1rem;
     color: #333;
-    line-height: 1.7;
+    line-height: 1.6;
   }
 
-  /* Alternar imágenes izquierda/derecha */
-  .activity-card:nth-child(even) {
-    flex-direction: row-reverse;
-  }
+  .activity-card:nth-child(even) { flex-direction: row-reverse; }
 
   @media (max-width: 900px) {
-    .activity-card {
-      flex-direction: column;
-    }
-
-    .activity-card:nth-child(even) {
-      flex-direction: column;
-    }
-
-    .activity-card img {
-      width: 100%;
-      max-height: 300px;
-    }
-
-    .activity-info {
-      text-align: center;
-      margin-top: 20px;
-    }
+    .intro-content { flex-direction: column; text-align: center; }
+    .activity-card { flex-direction: column; }
+    .activity-card img { width: 100%; max-height: 320px; }
+    .activity-info { text-align: center; margin-top: 16px; }
+    #donationCard { width: 92%; max-width: 420px; }
   }
 
-  /* SECCIÓN 3: BLOQUES DE SERVICIO */
+  /* ======== BLOQUES DE SERVICIOS ======== */
   .services-row {
     display: flex;
     gap: 20px;
@@ -158,8 +312,8 @@
   }
 
   .service-block {
-    flex: 1 1 300px;
-    padding: 40px 20px;
+    flex: 1 1 320px;
+    padding: 30px 20px;
     border-radius: 12px;
     display: flex;
     flex-direction: column;
@@ -168,275 +322,71 @@
     transition: all 0.3s ease;
   }
 
-  .service-block:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-  }
+  .service-block:hover { transform: translateY(-8px); box-shadow: 0 8px 25px rgba(0,0,0,0.2); }
 
-  .service-block i {
-    font-size: 45px; /* reducido de 50px */
-    margin-bottom: 20px;
-  }
+  .service-block i { font-size: 42px; margin-bottom: 12px; color: white; }
+  .service-block h3 { font-size: 1.4rem; margin-bottom: 8px; color: white; }
+  .service-block p { font-size: 0.98rem; color: white; }
 
-  .service-block h3 {
-    font-size: 1.8rem; /* reducido de 2rem */
-    margin-bottom: 15px;
-  }
-
-  .service-block p {
-    font-size: 1rem; /* reducido de 1.1rem */
-    line-height: 1.5;
-    max-width: 350px;
-  }
-
-  .service-block button {
-    padding: 10px 20px;
-    font-size: 0.95rem; /* reducido un poco */
-    color: white;
-    border: none;
-    background-color: #d6336c;
-    cursor: pointer;
-    border-radius: 6px;
-    margin-top: 15px;
-    transition: all 0.3s ease;
-  }
-
-  .service-block.lightblue button {
-    background-color: #003366;
-  }
-
-  .service-block.red {
-    background-color: #ff9999;
-    cursor: pointer;
-  }
-
-  .service-block.lightblue {
-    background-color: #99ccff;
-    color: #003366;
-  }
-
-  .service-block.darkblue {
-    background-color: #003366;
-  }
-
-  .service-block button:hover {
-    opacity: 0.85;
-  }
-.amounts button.selected {
-  background-color: #003366;
-  color: white;
-}
-/* Fondo oscuro semitransparente detrás del modal */
-#overlay {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.5);
-  z-index: 998;
-  transition: opacity 0.3s ease;
-}
-
-#overlay.active {
-  display: block;
-  opacity: 1;
-}
-
-  /* === SECCIÓN 1: Imagen de fondo === */
-  .services-intro {
-    position: relative;
-    width: 100%;
-    height: 600px;
-    background: url("{% static 'img/servicios_1.jpg' %}") no-repeat center center/cover;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 60px 20px;
-    color: white;
-    overflow: hidden;
-  }
-
-  .intro-overlay {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background-color: rgba(0, 0, 0, 0.55);
-    z-index: 1;
-  }
-
-  .intro-content {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    width: 100%;
-    gap: 40px;
-  }
-
-  .intro-text {
-    flex: 1;
-    text-align: left;
-  }
-
-  .intro-text h2 {
-    font-size: 2.8rem;
-    margin-bottom: 20px;
-    font-weight: 700;
-  }
-
-  .intro-text p {
-    font-size: 1.2rem;
-    line-height: 1.8;
-    max-width: 550px;
-  }
-
-  /* === TARJETA DE DONACIÓN === */
-  .donation-card {
-    flex: 0 0 340px;
-    background: rgba(255, 255, 255, 0.95);
-    color: #222;
-    padding: 30px 25px;
-    border-radius: 16px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
-    text-align: center;
-    z-index: 3;
-  }
-
-  .donation-card h3 {
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: #003366;
-    margin-bottom: 20px;
-  }
-
-  .amounts {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-bottom: 20px;
-  }
-
-  .amounts button {
-    background-color: #f0f4f8;
-    color: #003366;
-    border: 2px solid #003366;
-    padding: 8px 16px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: all 0.25s ease;
-  }
-
-  .amounts button:hover,
-  .amounts button.selected {
-    background-color: #003366;
-    color: white;
-  }
-
-  #customAmount {
-    width: 80%;
-    margin-top: 10px;
-    padding: 8px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    text-align: center;
-    font-size: 1rem;
-  }
-
-  .type {
-    margin: 20px 0;
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    font-size: 0.95rem;
-  }
-
-  .donation-card button#confirmDonate {
-    width: 100%;
-    padding: 10px;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    border: none;
-    background-color: #003366;
-    color: white;
-    transition: all 0.25s ease;
-  }
-
-  .donation-card button#confirmDonate:hover {
-    background-color: #00224e;
-  }
-
-  @media (max-width: 900px) {
-    .intro-content {
-      flex-direction: column;
-      text-align: center;
-    }
-
-    .intro-text p {
-      max-width: 100%;
-    }
-
-    .donation-card {
-      width: 90%;
-    }
-  }
+  .service-block.red { background: #ff6b6b; color: white; }
+  .service-block.darkblue { background: #003366; color: white; }
 </style>
 
-<!-- ===== SECCIÓN PRINCIPAL ===== -->
+<!-- ======== HERO ======== -->
 <section class="services-intro">
   <div class="intro-overlay"></div>
   <div class="intro-content">
     <div class="intro-text">
       <h2>Apoya Nuestras Actividades</h2>
-      <p>
-        Tu contribución hace posible que sigamos realizando actividades
-        que benefician a nuestra comunidad. Cada donación nos ayuda a seguir adelante.
-      </p>
+      <p>Tu contribución ayuda a mantener vivas nuestras acciones por la comunidad.</p>
       <button id="donateBtn" class="donate-btn">Donar Ahora</button>
     </div>
+
+    <!-- embedded small info card (optional) -->
+    <div style="width:340px;"></div>
   </div>
 </section>
 
-<!-- ===== TARJETA DE DONACIÓN ===== -->
-<div id="donationCard" class="donation-card">
-  <button id="closeCard" class="close-btn">&times;</button>
+<!-- ======== DONATION CARD (modal) ======== -->
+<div id="donationCard" aria-hidden="true">
+  <button id="closeCard" aria-label="Cerrar">&times;</button>
   <h3>Haz tu Donación</h3>
+
   <div class="amounts">
     <button onclick="setAmount(10)">$10</button>
     <button onclick="setAmount(50)">$50</button>
     <button onclick="setAmount(100)">$100</button>
   </div>
-  <input type="number" id="customAmount" placeholder="Otro monto (MXN)">
+
+  <input type="number" id="customAmount" placeholder="Otro monto (MXN)" min="1">
+
   <div class="type">
     <label><input type="radio" name="tipo" value="único" checked> Única</label>
     <label><input type="radio" name="tipo" value="mensual"> Mensual</label>
   </div>
+
+  <p id="loginWarning" class="login-warning">⚠️ Debes iniciar sesión para donar mensualmente.</p>
+
   <button id="confirmDonate">Confirmar Donación</button>
 </div>
+<div id="overlay"></div>
 
-<!-- Carrusel -->
+<!-- ======== CARRUSEL ======== -->
 <section class="section services-gallery">
   <div class="carousel-container">
     <div class="carousel-slide active">
-      <img src="{% static 'img/servicios_3.jpeg' %}" alt="Servicio 2">
+      <img src="{% static 'img/servicios_3.jpeg' %}" alt="Servicio 1">
     </div>
     <div class="carousel-slide">
-      <img src="{% static 'img/servicios_4.jpeg' %}" alt="Servicio 3">
+      <img src="{% static 'img/servicios_4.jpeg' %}" alt="Servicio 2">
     </div>
     <div class="carousel-slide">
-      <img src="{% static 'img/servicios_5.png' %}" alt="Servicio 4">
+      <img src="{% static 'img/servicios_5.png' %}" alt="Servicio 3">
     </div>
   </div>
 </section>
 
-<!-- Actividades -->
+<!-- ======== ACTIVIDADES (desde BD) ======== -->
 <section class="activities-section">
   <h2>Nuestras Actividades</h2>
   {% for actividad in actividades %}
@@ -452,24 +402,25 @@
   {% endfor %}
 </section>
 
-<!-- Bloques de servicios -->
+<!-- ======== BLOQUES DE SERVICIOS ======== -->
 <section class="services-row">
-  <div class="service-block red" style="color:white;" onclick="window.open('https://maps.app.goo.gl/fcGP43jNm8uXjGXq9', '_blank')">
+  <div class="service-block red" onclick="window.open('https://maps.app.goo.gl/fcGP43jNm8uXjGXq9', '_blank')">
     <i class="fas fa-building"></i>
     <h3>Nuestras Oficinas</h3>
     <p>Nardo #224<br>Col. Las Flores<br>Morelia, Michoacán</p>
-    <p>PRECIONA PARA VER EL MAPA</p>
+    <p style="margin-top:8px; font-weight:700;">PRECIONA PARA VER EL MAPA</p>
   </div>
 
-  <div class="service-block darkblue" style="color:white;">
-    <i class="fas fa-heart"></i>
-    <h3>Compromiso Social</h3>
-    <p>Trabajamos para fortalecer la comunidad mediante proyectos y actividades solidarias.</p>
+  <div class="service-block darkblue">
+    <i class="fas fa-phone-alt"></i>
+    <h3>Por teléfono</h3>
+    <p>Tel: 443 491 2073</p>
   </div>
 </section>
+
 <script src="https://js.stripe.com/v3/"></script>
 <script>
- // Carrusel automático
+  // Carrusel automático
   let currentSlide = 0;
   const slides = document.querySelectorAll('.carousel-slide');
   function showNextSlide() {
@@ -480,30 +431,29 @@
   setInterval(showNextSlide, 4000);
 
   document.addEventListener("DOMContentLoaded", () => {
-    // 🔹 Inicializa Stripe con tu clave pública
     const stripe = Stripe("pk_live_51S04LlCNPZDDg8Hg35G7MNfJzQ0htwkwbYfqSdca7HXJqkG6PGygqNjGYserxPYp8p30wKYgItgh2i9X7EyCCd9E00rigNWfcY");
 
     const donateBtn = document.getElementById("donateBtn");
     const donationCard = document.getElementById("donationCard");
     const closeCard = document.getElementById("closeCard");
-    const overlay = document.createElement("div");
-    overlay.id = "overlay";
-    document.body.appendChild(overlay);
-
+    const overlay = document.getElementById("overlay");
+    const loginWarning = document.getElementById("loginWarning");
+    const userAuthenticated = {{ user.is_authenticated|yesno:"true,false" }};
     let selectedAmount = 100;
 
-    // Función para seleccionar monto
-    function setAmount(amount) {
+    // Exponer setAmount globalmente para botones inline
+    window.setAmount = function(amount){
       selectedAmount = amount;
       document.querySelectorAll(".amounts button").forEach(btn => btn.classList.remove("selected"));
-      event.target.classList.add("selected");
-      document.getElementById("customAmount").value = "";
-    }
-    window.setAmount = setAmount;
+      // marcar el botón clickeado
+      try { event.target.classList.add("selected"); } catch(e){}
+      document.getElementById("customAmount").value = amount;
+    };
 
-    // Personalizado
+    // Input personalizado
     document.getElementById("customAmount").addEventListener("input", (e) => {
-      selectedAmount = parseFloat(e.target.value) || 0;
+      const v = parseFloat(e.target.value);
+      selectedAmount = (isNaN(v) ? 0 : v);
       document.querySelectorAll(".amounts button").forEach(btn => btn.classList.remove("selected"));
     });
 
@@ -511,26 +461,51 @@
     donateBtn.addEventListener("click", () => {
       donationCard.classList.add("active");
       overlay.classList.add("active");
+      document.getElementById("donationCard").setAttribute("aria-hidden","false");
     });
 
     // Cerrar modal
     closeCard.addEventListener("click", () => {
       donationCard.classList.remove("active");
       overlay.classList.remove("active");
+      document.getElementById("donationCard").setAttribute("aria-hidden","true");
+    });
+    overlay.addEventListener("click", () => {
+      donationCard.classList.remove("active");
+      overlay.classList.remove("active");
     });
 
-    // Confirmar donación
+    // Mostrar aviso si elige mensual y no está autenticado
+    document.querySelectorAll('input[name="tipo"]').forEach(radio => {
+      radio.addEventListener('change', () => {
+        if (radio.value === "mensual" && !userAuthenticated) {
+          loginWarning.style.display = "block";
+        } else {
+          loginWarning.style.display = "none";
+        }
+      });
+    });
+
+    // Confirmar donación -> llama a backend y redirige a Stripe
     document.getElementById("confirmDonate").addEventListener("click", async () => {
       const tipo = document.querySelector('input[name="tipo"]:checked').value;
-      const amount = selectedAmount > 0 ? selectedAmount : 100;
+      const amount = selectedAmount > 0 ? selectedAmount : parseFloat(document.getElementById("customAmount").value) || 0;
+
+      if (!amount || amount <= 0) {
+        alert("Por favor ingresa o selecciona un monto válido.");
+        return;
+      }
+
+      // Si intenta suscribirse sin estar autenticado -> enviar a login
+      if (tipo === "mensual" && !userAuthenticated) {
+        // mandamos al login y devolvemos al mismo path para continuar
+        const next = encodeURIComponent(window.location.pathname);
+        window.location.href = "{% url 'login' %}?next=" + next;
+        return;
+      }
 
       try {
-        let endpoint = "";
-        if (tipo === "mensual") {
-          endpoint = "/crear_sesion_suscripcion/";
-        } else {
-          endpoint = "/crear_sesion_checkout/";
-        }
+        const endpoint = (tipo === "mensual") ? "/crear_sesion_suscripcion/" : "/crear_sesion_checkout/";
 
         const response = await fetch(endpoint, {
           method: "POST",
@@ -541,11 +516,19 @@
           body: JSON.stringify({ amount })
         });
 
-        if (!response.ok) throw new Error("Error en la solicitud");
+        if (!response.ok) {
+          const text = await response.text().catch(()=>null);
+          console.error("Respuesta no ok:", response.status, text);
+          throw new Error("Error en la solicitud");
+        }
 
         const data = await response.json();
+        // tu backend puede devolver { id: sessionId } como tu código anterior
         if (data.id) {
           await stripe.redirectToCheckout({ sessionId: data.id });
+        } else if (data.url) {
+          // alternativa: si devuelves url completa
+          window.location.href = data.url;
         } else {
           alert("Ocurrió un error al procesar tu donación.");
         }
@@ -558,5 +541,3 @@
 </script>
 
 {% endblock %}
-
-
