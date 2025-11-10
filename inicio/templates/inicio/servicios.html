@@ -430,12 +430,119 @@
   opacity: 1;
 }
 
+
+/* === NUEVO DISEÑO PARA SECCIÓN Q1 === */
+.services-intro {
+  position: relative;
+  width: 100%;
+  height: 600px;
+  overflow: hidden;
+}
+
+.services-intro img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(60%);
+}
+
+.intro-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  gap: 50px;
+}
+
+.intro-text {
+  flex: 1;
+  max-width: 600px;
+}
+
+.intro-text h2 {
+  font-size: 2.4rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.intro-text p {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #f0f0f0;
+}
+
+/* Reutilizamos tu diseño del card */
+.donation-card {
+  display: block !important;
+  position: relative;
+  transform: none;
+  background: rgba(255,255,255,0.95);
+  color: #222;
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+  width: 340px;
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  .intro-overlay {
+    flex-direction: column;
+    gap: 30px;
+    padding: 20px;
+    text-align: center;
+  }
+  .intro-text h2 {
+    font-size: 1.8rem;
+  }
+  .intro-text p {
+    font-size: 1rem;
+  }
+  .donation-card {
+    width: 90%;
+  }
+}
+
 </style>
 
-<!-- SECCIÓN 1: Imagen con título -->
+<!-- SECCIÓN 1: Imagen con texto y donación integrada -->
 <section class="services-intro">
-  <img src="{% static 'img/servicios_1.jpg' %}" alt="Servicios">
-  <h2>Actividades</h2>
+  <img src="{% static 'img/servicios_1.jpg' %}" alt="Apoyo Policial">
+
+  <div class="intro-overlay">
+    <div class="intro-text">
+      <h2>Tu apoyo impulsa el bienestar y profesionalización policial</h2>
+      <p>
+        Gracias a tu contribución, atendemos las necesidades del sector y fortalecemos la relación con la comunidad.
+        Estamos creando programas integrales, impulsando alianzas con instituciones y fomentando la colaboración con empresas
+        para generar beneficios y oportunidades que fortalezcan a quienes forman parte de esta causa.
+      </p>
+    </div>
+
+    <!-- Donación integrada -->
+    <div class="donation-card active">
+      <h3>Apoya Nuestra Causa</h3>
+      <div class="amounts">
+        <button>$50</button>
+        <button>$100</button>
+        <button>$200</button>
+        <button>$500</button>
+      </div>
+      <input type="number" id="customAmount" placeholder="Otro monto (MXN)">
+      <div class="type">
+        <label><input type="radio" name="type" value="única" checked> Única vez</label>
+        <label><input type="radio" name="type" value="mensual"> Mensual</label>
+      </div>
+      <button id="confirmDonate">Donar Ahora</button>
+    </div>
+  </div>
 </section>
 
 <!-- SECCIÓN 2: Carrusel automático -->
