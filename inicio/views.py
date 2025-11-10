@@ -199,15 +199,13 @@ def crear_sesion_suscripcion(request):
                 cancel_url=request.build_absolute_uri("/donacion-cancelada/"),
             )
 
-            # Obtener el ID de suscripción de Stripe (si está disponible)
-            subscription_id = None
-            if session.get("subscription"):
-                subscription_id = session["subscription"]
+            # Obtener el ID real de la suscripción, si ya existe
+            subscription_id = getattr(session, "subscription", None)
 
             # Guardar la suscripción en la base de datos
             Suscripcion.objects.create(
                 user=request.user,
-                stripe_subscription_id=subscription_id or session.id,
+                stripe_subscription_id=subscription_id if subscription_id else session.id,  # guarda algo válido
                 amount=amount,
                 tipo="mensual",
                 status="active",
@@ -217,7 +215,9 @@ def crear_sesion_suscripcion(request):
 
         except Exception as e:
             return JsonResponse({"error": str(e)}, status=500)
+
     return JsonResponse({"error": "Método no permitido"}, status=405)
+
 
 
 def donacion_exitosa(request):
