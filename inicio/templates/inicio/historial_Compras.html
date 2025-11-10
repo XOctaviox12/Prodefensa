@@ -1,0 +1,63 @@
+{% extends "inicio/home.html" %}
+{% block contenido %}
+<h2>Historial de Suscripciones</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Monto</th>
+            <th>Tipo</th>
+            <th>Estado</th>
+            <th>Fecha</th>
+            <th>Acción</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for s in suscripciones %}
+        <tr>
+            <td>${{ s.amount }}</td>
+            <td>{{ s.tipo }}</td>
+            <td>{{ s.status }}</td>
+            <td>{{ s.created_at|date:"d/m/Y H:i" }}</td>
+            <td>
+                {% if s.status == "active" and s.tipo=="mensual" %}
+                <button class="cancel-btn" data-id="{{ s.stripe_subscription_id }}">Cancelar</button>
+                {% else %}
+                -
+                {% endif %}
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">No hay suscripciones.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script>
+document.querySelectorAll(".cancel-btn").forEach(btn => {
+    btn.addEventListener("click", async () => {
+        const subId = btn.dataset.id;
+        if(!confirm("¿Deseas cancelar esta suscripción?")) return;
+        try {
+            const res = await fetch("{% url 'cancelar_suscripcion' %}", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                    "X-CSRFToken": "{{ csrf_token }}"
+                },
+                body: `subscription_id=${subId}`
+            });
+            const data = await res.json();
+            if(data.success){
+                alert("Suscripción cancelada");
+                location.reload();
+            } else alert("Error: " + data.error);
+        } catch(e){
+            alert("Error al cancelar suscripción");
+        }
+    });
+});
+</script>
+{% endblock %}

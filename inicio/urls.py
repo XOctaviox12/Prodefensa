@@ -20,4 +20,7 @@ urlpatterns = [
     path('crear_sesion_suscripcion/', views.crear_sesion_suscripcion, name='crear_sesion_suscripcion'), 
 #     path('donacion-exitosa/', views.donacion_exitosa, name='donacion_exitosa'),
 #     path('donacion-cancelada/', views.donacion_cancelada, name='donacion_cancelada'),
+
+    path('historial-suscripciones/', views.historial_suscripciones, name='historial'),
+    path('cancelar-suscripcion/', views.cancelar_suscripcion, name='cancelar_suscripcion'),
 ]

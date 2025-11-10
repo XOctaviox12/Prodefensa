@@ -3,12 +3,13 @@ from .models import Producto
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
-from .models import Descuento, Actividad
+from .models import Descuento, Actividad, Suscripcion
 import stripe
 from django.conf import settings
 from django.http import JsonResponse
 import json
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 # Vista principal del menú
@@ -205,3 +206,25 @@ def crear_sesion_suscripcion(request):
 
         except Exception as e:
             return JsonResponse({"error": str(e)}, status=500)
+
+
+@login_required
+def historial_suscripciones(request):
+    suscripciones = Suscripcion.objects.filter(user=request.user).order_by("-created_at")
+    return render(request, "inicio/historial_Compras.html", {"suscripciones": suscripciones})
+@login_required
+@csrf_exempt
+def cancelar_suscripcion(request):
+    if request.method == "POST":
+        sub_id = request.POST.get("subscription_id")
+        try:
+            # Cancelar en Stripe
+            stripe.Subscription.delete(sub_id)
+            # Actualizar tu base de datos
+            sus = Suscripcion.objects.get(stripe_subscription_id=sub_id)
+            sus.status = "canceled"
+            sus.save()
+            return JsonResponse({"success": True})
+        except Exception as e:
+            return JsonResponse({"success": False, "error": str(e)})
+    return JsonResponse({"success": False, "error": "Método no permitido"})
