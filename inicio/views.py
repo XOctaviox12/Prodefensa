@@ -171,17 +171,17 @@ def crear_sesion_checkout(request):
     return JsonResponse({"error": "Método no permitido"}, status=405)
 
 
+@login_required
+@csrf_exempt
 def crear_sesion_suscripcion(request):
     if request.method == "POST":
         try:
             data = json.loads(request.body)
             amount = int(data.get("amount", 0))
 
-            # Validar monto
             if amount not in [10, 50, 100]:
                 return JsonResponse({"error": "Monto mensual inválido."}, status=400)
 
-            # Asignar Price ID según el monto mensual
             price_map = {
                 10: "price_1SPWCXCNPZDDg8Hgga8RyaL0",
                 50: "price_1SPWDUCNPZDDg8Hg55oq4zmT",
@@ -190,22 +190,34 @@ def crear_sesion_suscripcion(request):
 
             price_id = price_map.get(amount)
 
-            # Crear sesión de suscripción
+            # Crear sesión de suscripción en Stripe
             session = stripe.checkout.Session.create(
                 payment_method_types=["card"],
                 mode="subscription",
-                line_items=[{
-                    "price": price_id,
-                    "quantity": 1,
-                }],
+                line_items=[{"price": price_id, "quantity": 1}],
                 success_url=request.build_absolute_uri("/donacion-exitosa/"),
                 cancel_url=request.build_absolute_uri("/donacion-cancelada/"),
+            )
+
+            # Obtener el ID de suscripción de Stripe (si está disponible)
+            subscription_id = None
+            if session.get("subscription"):
+                subscription_id = session["subscription"]
+
+            # Guardar la suscripción en la base de datos
+            Suscripcion.objects.create(
+                user=request.user,
+                stripe_subscription_id=subscription_id or session.id,
+                amount=amount,
+                tipo="mensual",
+                status="active",
             )
 
             return JsonResponse({"id": session.id})
 
         except Exception as e:
             return JsonResponse({"error": str(e)}, status=500)
+    return JsonResponse({"error": "Método no permitido"}, status=405)
 
 
 @login_required
