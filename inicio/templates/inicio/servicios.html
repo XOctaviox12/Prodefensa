@@ -552,12 +552,76 @@
   });
     let selectedAmount = 0;
 
-  function setAmount(amount) {
-    selectedAmount = amount;
-    document.querySelectorAll('.amounts button').forEach(btn => btn.classList.remove('selected'));
-    event.target.classList.add('selected');
-    document.getElementById('customAmount').value = '';
-  }
+document.addEventListener("DOMContentLoaded", () => {
+    const stripe = Stripe("pk_live_51S04LlCNPZDDg8Hg35G7MNfJzQ0htwkwbYfqSdca7HXJqkG6PGygqNjGYserxPYp8p30wKYgItgh2i9X7EyCCd9E00rigNWfcY");
+    const donateBtn = document.getElementById("donateBtn");
+    const donationCard = document.getElementById("donationCard");
+    const closeCard = document.getElementById("closeCard");
+    const overlay = document.createElement("div");
+    overlay.id = "overlay";
+    document.body.appendChild(overlay);
+
+    let selectedAmount = 100;
+
+    function setAmount(amount) {
+      selectedAmount = amount;
+      document.querySelectorAll(".amounts button").forEach(btn => btn.classList.remove("selected"));
+      event.target.classList.add("selected");
+      document.getElementById("customAmount").value = "";
+    }
+
+    window.setAmount = setAmount;
+
+    document.getElementById("customAmount").addEventListener("input", (e) => {
+      selectedAmount = parseFloat(e.target.value) || 0;
+      document.querySelectorAll(".amounts button").forEach(btn => btn.classList.remove("selected"));
+    });
+
+    donateBtn.addEventListener("click", () => {
+      donationCard.classList.add("active");
+      overlay.classList.add("active");
+    });
+
+    closeCard.addEventListener("click", () => {
+      donationCard.classList.remove("active");
+      overlay.classList.remove("active");
+    });
+
+    document.getElementById("confirmDonate").addEventListener("click", async () => {
+      const tipo = document.querySelector('input[name="tipo"]:checked').value;
+      const amount = selectedAmount > 0 ? selectedAmount : 100;
+
+      try {
+        let endpoint = "";
+        if (tipo === "mensual") {
+          endpoint = "/crear_sesion_suscripcion/";
+        } else {
+          endpoint = "/crear_sesion_checkout/";
+        }
+
+        const response = await fetch(endpoint, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": "{{ csrf_token }}"
+          },
+          body: JSON.stringify({ amount })
+        });
+
+        if (!response.ok) throw new Error("Error en la solicitud");
+
+        const data = await response.json();
+        if (data.id) {
+          await stripe.redirectToCheckout({ sessionId: data.id });
+        } else {
+          alert("Ocurrió un error al procesar tu donación.");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        alert("Ocurrió un error al procesar tu donación.");
+      }
+    });
+  });
 
   document.querySelectorAll('input[name="tipo"]').forEach(radio => {
     radio.addEventListener('change', () => {
