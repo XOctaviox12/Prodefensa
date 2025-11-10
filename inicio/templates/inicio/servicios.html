@@ -25,29 +25,185 @@
     max-width: 900px;
   }
 
-  /* SECCIÓN 1: Imagen grande con título */
+  /* === SECCIÓN 1: Imagen + Texto + Donación === */
   .services-intro {
     position: relative;
     width: 100%;
+    min-height: 550px;
+    background-color: #001f3f;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 20px;
   }
 
-  .services-intro img {
+  .intro-overlay {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    max-width: 1200px;
     width: 100%;
-    max-height: 600px;
+    gap: 50px;
+  }
+
+  .intro-text {
+    flex: 1;
+    color: #fff;
+  }
+
+  .intro-text h2 {
+    font-size: 2.3rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+
+  .intro-text p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #e8e8e8;
+  }
+
+  /* Imagen lateral (30% más pequeña) */
+  .intro-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+
+  .intro-image img {
+    width: 70%; /* 30% más pequeña */
+    max-width: 400px;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
     object-fit: cover;
   }
 
-  .services-intro h2 {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: white;
-    font-size: 2.7rem; /* reducido de 3rem */
+  /* === Tarjeta de Donación Estilo Moderno === */
+  .donation-card {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.95);
+    color: #222;
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+    text-align: center;
+    max-width: 350px;
+  }
+
+  .donation-card h3 {
+    font-size: 1.4rem;
     font-weight: 700;
-    background-color: rgba(0, 0, 0, 0.4);
-    padding: 20px 40px;
-    border-radius: 12px;
+    color: #003366;
+    margin-bottom: 20px;
+  }
+
+  .amounts {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+
+  .amounts button {
+    background-color: #f0f4f8;
+    color: #003366;
+    border: 2px solid #003366;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.25s ease;
+  }
+
+  .amounts button:hover,
+  .amounts button.selected {
+    background-color: #003366;
+    color: white;
+    box-shadow: 0 0 8px rgba(0, 51, 102, 0.4);
+  }
+
+  #customAmount {
+    width: 80%;
+    margin-top: 10px;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    text-align: center;
+    font-size: 1rem;
+  }
+
+  .type {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    font-size: 0.95rem;
+  }
+
+  .type label {
+    cursor: pointer;
+    color: #003366;
+  }
+
+  .donation-card button {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.25s ease;
+    margin-top: 10px;
+  }
+
+  #confirmDonate {
+    background-color: #003366;
+    color: white;
+  }
+
+  #confirmDonate:hover {
+    background-color: #00224e;
+  }
+
+  /* === RESPONSIVE === */
+  @media (max-width: 1024px) {
+    .intro-overlay {
+      flex-direction: column;
+      text-align: center;
+      gap: 40px;
+    }
+    .intro-image img {
+      width: 60%;
+    }
+    .intro-text h2 {
+      font-size: 2rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .intro-image img {
+      width: 80%;
+    }
+    .donation-card {
+      width: 90%;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .intro-text h2 {
+      font-size: 1.6rem;
+    }
+    .intro-text p {
+      font-size: 1rem;
+    }
+    .intro-image img {
+      width: 100%;
+    }
   }
 
   /* SECCIÓN 2: Carrusel */
@@ -514,32 +670,40 @@
 
 <!-- SECCIÓN 1: Imagen con texto y donación integrada -->
 <section class="services-intro">
-  <img src="{% static 'img/servicios_1.jpg' %}" alt="Apoyo Policial">
-
   <div class="intro-overlay">
+    <!-- Texto -->
     <div class="intro-text">
       <h2>Tu apoyo impulsa el bienestar y profesionalización policial</h2>
       <p>
-        Gracias a tu contribución, atendemos las necesidades del sector y fortalecemos la relación con la comunidad.
-        Estamos creando programas integrales, impulsando alianzas con instituciones y fomentando la colaboración con empresas
-        para generar beneficios y oportunidades que fortalezcan a quienes forman parte de esta causa.
+        Gracias a tu contribución, fortalecemos la relación entre la policía y la comunidad.
+        Creamos programas integrales, impulsamos alianzas institucionales y fomentamos la colaboración
+        con empresas para generar beneficios reales que fortalezcan la seguridad ciudadana.
       </p>
     </div>
 
-    <!-- Donación integrada -->
-    <div class="donation-card active">
+    <!-- Imagen lateral -->
+    <div class="intro-image">
+      <img src="{% static 'img/servicios_1.jpg' %}" alt="Apoyo Policial">
+    </div>
+
+    <!-- Modelo de donación -->
+    <div class="donation-card">
       <h3>Apoya Nuestra Causa</h3>
+
       <div class="amounts">
         <button>$50</button>
         <button>$100</button>
-        <button>$200</button>
+        <button>$250</button>
         <button>$500</button>
       </div>
-      <input type="number" id="customAmount" placeholder="Otro monto (MXN)">
+
+      <input type="number" id="customAmount" placeholder="Otro monto" min="1">
+
       <div class="type">
-        <label><input type="radio" name="type" value="única" checked> Única vez</label>
-        <label><input type="radio" name="type" value="mensual"> Mensual</label>
+        <label><input type="radio" name="type" checked> Única vez</label>
+        <label><input type="radio" name="type"> Mensual</label>
       </div>
+
       <button id="confirmDonate">Donar Ahora</button>
     </div>
   </div>
