@@ -220,6 +220,12 @@ def crear_sesion_suscripcion(request):
     return JsonResponse({"error": "Método no permitido"}, status=405)
 
 
+def donacion_exitosa(request):
+    return render(request, "inicio/donacion_exitosa.html")
+
+def donacion_cancelada(request):
+    return render(request, "inicio/donacion_cancelada.html")
+
 @login_required
 def historial_suscripciones(request):
     suscripciones = Suscripcion.objects.filter(user=request.user).order_by("-created_at")
