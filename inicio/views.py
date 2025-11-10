@@ -254,41 +254,36 @@ def cancelar_suscripcion(request):
 
 
 
-
 @csrf_exempt
 def stripe_webhook(request):
     payload = request.body
-    sig_header = request.META.get('HTTP_STRIPE_SIGNATURE', '')
-    endpoint_secret = settings.STRIPE_WEBHOOK_SECRET  # ⚠️ Pónlo en settings.py (lo sacas de tu dashboard Stripe)
-    event = None
+    sig_header = request.META.get("HTTP_STRIPE_SIGNATURE")
+    endpoint_secret = settings.STRIPE_WEBHOOK_SECRET  # Agrega esta variable en settings.py
 
     try:
-        event = stripe.Webhook.construct_event(payload, sig_header, endpoint_secret)
+        event = stripe.Webhook.construct_event(
+            payload, sig_header, endpoint_secret
+        )
     except ValueError:
         return HttpResponse(status=400)
     except stripe.error.SignatureVerificationError:
         return HttpResponse(status=400)
 
-    # Detectar evento cuando Stripe crea una suscripción
-    if event['type'] == 'checkout.session.completed':
-        session = event['data']['object']
-        subscription_id = session.get('subscription')
-        customer_email = session.get('customer_email')
+    # Detectar cuando Stripe completa una sesión de checkout
+    if event["type"] == "checkout.session.completed":
+        session = event["data"]["object"]
 
-        if subscription_id and customer_email:
-            from django.contrib.auth.models import User
+        # Si fue una suscripción mensual
+        if session.get("mode") == "subscription":
+            stripe_sub_id = session.get("subscription")  # <-- Aquí viene el ID sub_XXXX real
+            checkout_id = session.get("id")
+
+            # Buscar en la base de datos la suscripción creada antes
             from .models import Suscripcion
+            sus = Suscripcion.objects.filter(stripe_subscription_id=checkout_id).first()
 
-            try:
-                user = User.objects.get(username=customer_email)
-                suscripcion = Suscripcion.objects.filter(
-                    user=user,
-                    stripe_subscription_id=session['id']  # remplazamos el cs_... por el sub_...
-                ).first()
-                if suscripcion:
-                    suscripcion.stripe_subscription_id = subscription_id
-                    suscripcion.save()
-            except User.DoesNotExist:
-                pass
+            if sus:
+                sus.stripe_subscription_id = stripe_sub_id
+                sus.save()
 
     return HttpResponse(status=200)
