@@ -10,6 +10,7 @@ from django.http import JsonResponse
 import json
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 # Vista principal del menú
@@ -246,3 +247,48 @@ def cancelar_suscripcion(request):
         except Exception as e:
             return JsonResponse({"success": False, "error": str(e)})
     return JsonResponse({"success": False, "error": "Método no permitido"})
+
+
+
+
+
+
+
+
+@csrf_exempt
+def stripe_webhook(request):
+    payload = request.body
+    sig_header = request.META.get('HTTP_STRIPE_SIGNATURE', '')
+    endpoint_secret = settings.STRIPE_WEBHOOK_SECRET  # ⚠️ Pónlo en settings.py (lo sacas de tu dashboard Stripe)
+    event = None
+
+    try:
+        event = stripe.Webhook.construct_event(payload, sig_header, endpoint_secret)
+    except ValueError:
+        return HttpResponse(status=400)
+    except stripe.error.SignatureVerificationError:
+        return HttpResponse(status=400)
+
+    # Detectar evento cuando Stripe crea una suscripción
+    if event['type'] == 'checkout.session.completed':
+        session = event['data']['object']
+        subscription_id = session.get('subscription')
+        customer_email = session.get('customer_email')
+
+        if subscription_id and customer_email:
+            from django.contrib.auth.models import User
+            from .models import Suscripcion
+
+            try:
+                user = User.objects.get(username=customer_email)
+                suscripcion = Suscripcion.objects.filter(
+                    user=user,
+                    stripe_subscription_id=session['id']  # remplazamos el cs_... por el sub_...
+                ).first()
+                if suscripcion:
+                    suscripcion.stripe_subscription_id = subscription_id
+                    suscripcion.save()
+            except User.DoesNotExist:
+                pass
+
+    return HttpResponse(status=200)

@@ -24,4 +24,8 @@ urlpatterns = [
     # Historial y cancelación
     path('historial-suscripciones/', views.historial_suscripciones, name='historial_suscripciones'),
     path('cancelar-suscripcion/', views.cancelar_suscripcion, name='cancelar_suscripcion'),
+
+
+    path("webhook/stripe/", views.stripe_webhook, name="stripe_webhook"),
+
 ]

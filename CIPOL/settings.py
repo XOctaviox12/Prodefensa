@@ -57,6 +57,7 @@ DOMINIO = "https://prodefensa-cipol.onrender.com"
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 SITE_ID = 1
+STRIPE_WEBHOOK_SECRET = 'whsec_agKDUHfSHJIo4ShKHp7mAr9wRDLcFD33'
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',  # login normal
