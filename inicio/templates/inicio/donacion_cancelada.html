@@ -1,8 +1,108 @@
 {% extends "inicio/home.html" %}
 {% block contenido %}
-<section style="text-align:center; padding:80px 20px;">
-  <h2 style="color:#ff6b6b;">Donación cancelada</h2>
-  <p>Parece que cancelaste el proceso de pago. Si fue un error, puedes intentarlo de nuevo.</p>
-  <a href="{% url 'inicio' %}" class="btn btn-primary">Volver al inicio</a>
+
+<style>
+  /* ===== CONTENEDOR PRINCIPAL ===== */
+  .cancel-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 70vh;
+    padding: 40px 20px;
+    background: linear-gradient(135deg, #fff6f6, #ffeaea);
+    animation: fadeIn 0.6s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ===== TARJETA ===== */
+  .cancel-card {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 50px 30px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    width: 100%;
+  }
+
+  /* ===== ICONO ===== */
+  .cancel-icon {
+    font-size: 60px;
+    color: #ff6b6b;
+    margin-bottom: 20px;
+    animation: shake 0.7s ease;
+  }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-3px); }
+  }
+
+  /* ===== TÍTULO ===== */
+  .cancel-card h2 {
+    color: #d63031;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  /* ===== TEXTO ===== */
+  .cancel-card p {
+    color: #444;
+    font-size: 1.05rem;
+    margin-bottom: 25px;
+    line-height: 1.5;
+  }
+
+  /* ===== BOTÓN ===== */
+  .btn-return {
+    display: inline-block;
+    background-color: #003366;
+    color: #fff;
+    padding: 12px 28px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .btn-return:hover {
+    background-color: #001f4d;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 51, 102, 0.3);
+  }
+
+  /* ===== RESPONSIVIDAD ===== */
+  @media (max-width: 600px) {
+    .cancel-card {
+      padding: 35px 20px;
+    }
+    .cancel-card h2 {
+      font-size: 1.6rem;
+    }
+    .cancel-card p {
+      font-size: 0.95rem;
+    }
+  }
+</style>
+
+<section class="cancel-section">
+  <div class="cancel-card">
+    <div class="cancel-icon">❌</div>
+    <h2>Donación cancelada</h2>
+    <p>
+      Parece que cancelaste el proceso de pago.<br>
+      Si fue un error, puedes intentarlo de nuevo en cualquier momento.
+    </p>
+    <a href="{% url 'inicio' %}" class="btn-return">Volver al inicio</a>
+  </div>
 </section>
+
 {% endblock %}
