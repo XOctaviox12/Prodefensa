@@ -174,11 +174,6 @@
     display: none;
   }
 
-  #closeCard,
-  #overlay {
-    display: none !important;
-  }
-
   /* ======== CARRUSEL ======== */
   .carousel-container {
     width: 85%;
@@ -503,29 +498,15 @@ document.addEventListener("DOMContentLoaded", () => {
       radio.dispatchEvent(new Event('change'));
     }
   });
-
-  // Abrir modal
-  donateBtn.addEventListener("click", () => {
-    donationCard.classList.add("active");
-    overlay.classList.add("active");
-    donationCard.setAttribute("aria-hidden","false");
-  });
-
-  // Cerrar modal
-  closeCard.addEventListener("click", () => {
-    donationCard.classList.remove("active");
-    overlay.classList.remove("active");
-    donationCard.setAttribute("aria-hidden","true");
-  });
   overlay.addEventListener("click", () => {
     donationCard.classList.remove("active");
     overlay.classList.remove("active");
   });
-  
+
   // Confirmar donación
   document.getElementById("confirmDonate").addEventListener("click", async () => {
     const tipo = document.querySelector('input[name="tipo"]:checked').value;
-    const amount = selectedAmount > 0 ? selectedAmount : parseFloat(customAmountInput.value) || 0;
+     const amount = (selectedAmount > 0) ? selectedAmount : (customAmountInput.style.display !== "none" ? parseFloat(customAmountInput.value) : 0);
 
     if (!amount || amount <= 0) {
       alert("Por favor ingresa o selecciona un monto válido.");
