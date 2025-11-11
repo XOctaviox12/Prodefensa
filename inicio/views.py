@@ -247,13 +247,6 @@ def cancelar_suscripcion(request):
         except Exception as e:
             return JsonResponse({"success": False, "error": str(e)})
     return JsonResponse({"success": False, "error": "Método no permitido"})
-
-
-
-
-
-
-
 @csrf_exempt
 def stripe_webhook(request):
     payload = request.body

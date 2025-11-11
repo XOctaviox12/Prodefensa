@@ -464,13 +464,11 @@
           class="{% if request.resolver_match.url_name == 'comunidad' %}active{% endif %}"
           >Comunidad CIPOL</a
         >
-        {% comment %}
         <a
           href="{% url 'servicios' %}"
           class="{% if request.resolver_match.url_name == 'servicios' %}active{% endif %}"
           >Actividades</a
         >
-        {% endcomment %}
         <a
           href="{% url 'convenios' %}"
           class="{% if request.resolver_match.url_name == 'convenios' %}active{% endif %}"
