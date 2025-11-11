@@ -184,7 +184,7 @@ def crear_sesion_suscripcion(request):
                 return JsonResponse({"error": "Monto mensual inválido."}, status=400)
 
             price_map = {
-                10: "price_1SPWCXCNPZDDg8Hgga8RyaL0",
+                30: "price_1SSQjJCNPZDDg8Hgz7zelmRu",
                 50: "price_1SPWDUCNPZDDg8Hg55oq4zmT",
                 100: "price_1SPV2ECNPZDDg8Hgumpz7TIY",
             }
