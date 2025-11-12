@@ -124,6 +124,21 @@
         padding: 2px;
         object-fit: cover;
       }
+      /* Estilo especial para el enlace de donativo */
+nav#menu a.donativo-link {
+  background: linear-gradient(90deg, #ffc107, #ffea00); /* degradado amarillo */
+  color: #222 !important;
+  font-weight: 700;
+  box-shadow: 0 6px 18px rgba(255, 193, 7, 0.3);
+  transition: all 0.25s ease;
+}
+
+nav#menu a.donativo-link:hover {
+  transform: translateY(-3px) scale(1.05);
+  background: linear-gradient(90deg, #ffd54f, #fff176);
+  box-shadow: 0 8px 22px rgba(255, 193, 7, 0.45);
+  color: #111;
+}
       .dropdown-menu {
         display: none;
         position: absolute;
@@ -464,11 +479,11 @@
           class="{% if request.resolver_match.url_name == 'comunidad' %}active{% endif %}"
           >Comunidad CIPOL</a
         >
-        {% comment %} <a
+        <a
           href="{% url 'servicios' %}"
-          class="{% if request.resolver_match.url_name == 'servicios' %}active{% endif %}"
-          >Actividades</a
-        > {% endcomment %}
+          class="donativo-link {% if request.resolver_match.url_name == 'servicios' %}active{% endif %}"
+        >Haz un donativo
+        </a>
         <a
           href="{% url 'convenios' %}"
           class="{% if request.resolver_match.url_name == 'convenios' %}active{% endif %}"
