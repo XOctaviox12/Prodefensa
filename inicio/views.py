@@ -180,7 +180,7 @@ def crear_sesion_suscripcion(request):
             data = json.loads(request.body)
             amount = int(data.get("amount", 0))
 
-            if amount not in [10, 50, 100]:
+            if amount not in [30, 50, 100]:
                 return JsonResponse({"error": "Monto mensual inválido."}, status=400)
 
             price_map = {
