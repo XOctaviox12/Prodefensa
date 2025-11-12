@@ -455,24 +455,27 @@
 document.addEventListener("DOMContentLoaded", () => {
     const stripe = Stripe("pk_live_51S04LlCNPZDDg8Hg35G7MNfJzQ0htwkwbYfqSdca7HXJqkG6PGygqNjGYserxPYp8p30wKYgItgh2i9X7EyCCd9E00rigNWfcY");
     const donationCard = document.getElementById("donationCard");
-    const overlay = document.getElementById("overlay");
     const loginWarning = document.getElementById("loginWarning");
     const customAmountInput = document.getElementById("customAmount");
     const userAuthenticated = {{ user.is_authenticated|yesno:"true,false" }};
     let selectedAmount = 100;
 
-    // Exponer setAmount globalmente
-    window.setAmount = function(amount, btn){
-        selectedAmount = amount;
-        document.querySelectorAll(".amounts button").forEach(b => b.classList.remove("selected"));
-        if(btn) btn.classList.add("selected");
-        customAmountInput.value = amount;
-    };
+    // Botones de montos
+    const amountButtons = document.querySelectorAll(".amounts button");
+    amountButtons.forEach(btn => {
+        btn.addEventListener("click", () => {
+            selectedAmount = parseFloat(btn.textContent.replace("$",""));
+            amountButtons.forEach(b => b.classList.remove("selected"));
+            btn.classList.add("selected");
+            customAmountInput.value = "";
+        });
+    });
 
+    // Input personalizado
     customAmountInput.addEventListener("input", (e) => {
         const v = parseFloat(e.target.value);
         selectedAmount = (isNaN(v) ? 0 : v);
-        document.querySelectorAll(".amounts button").forEach(btn => btn.classList.remove("selected"));
+        amountButtons.forEach(btn => btn.classList.remove("selected"));
     });
 
     // Mostrar/ocultar input según tipo
@@ -492,19 +495,12 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    if(overlay){
-        overlay.addEventListener("click", () => {
-            donationCard.classList.remove("active");
-            overlay.classList.remove("active");
-        });
-    }
-
     // Confirmar donación
     const confirmBtn = document.getElementById("confirmDonate");
     if(confirmBtn){
         confirmBtn.addEventListener("click", async () => {
             const tipo = document.querySelector('input[name="tipo"]:checked').value;
-            const amount = (selectedAmount > 0) ? selectedAmount : (customAmountInput.style.display !== "none" ? parseFloat(customAmountInput.value) : 0);
+            const amount = selectedAmount;
 
             if (!amount || amount <= 0) {
                 alert("Por favor ingresa o selecciona un monto válido.");
