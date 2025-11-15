@@ -108,6 +108,7 @@
     max-width: 1400px;
     padding: 0 clamp(10px, 2vw, 20px);
     box-sizing: border-box;
+    align-items: stretch;
   }
 
   .team-card {
@@ -119,12 +120,12 @@
     transition: all 0.3s ease;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    min-height: min-content;
-    height: fit-content;
+    height: 100%;
+    min-height: 420px;
     margin: 0 auto;
     width: 100%;
     max-width: 320px;
+    position: relative;
   }
 
   .team-card:hover {
@@ -139,6 +140,7 @@
     border-radius: 50%;
     margin: 0 auto clamp(15px, 3vw, 20px);
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    flex-shrink: 0;
   }
 
   .icon-card {
@@ -151,10 +153,25 @@
     justify-content: center;
     margin: 0 auto clamp(15px, 3vw, 20px);
     color: white;
+    flex-shrink: 0;
   }
 
   .icon-card i {
     font-size: clamp(2rem, 5vw, 3.25rem);
+  }
+
+  .card-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .card-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
   }
 
   .phone-link {
@@ -162,7 +179,7 @@
     align-items: center;
     justify-content: center;
     gap: 8px;
-    margin-top: 12px;
+    margin-top: auto;
     color: white;
     font-weight: 600;
     text-decoration: none;
@@ -176,6 +193,7 @@
     width: fit-content;
     margin-left: auto;
     margin-right: auto;
+    flex-shrink: 0;
   }
 
   .phone-link:hover {
@@ -192,6 +210,7 @@
     padding: 0;
     margin: 10px 0;
     text-align: left;
+    flex: 1;
   }
 
   .team-card li {
@@ -199,6 +218,7 @@
     margin-bottom: 5px;
     padding-left: 20px;
     position: relative;
+    line-height: 1.4;
   }
 
   .team-card li:before {
@@ -225,6 +245,7 @@
     max-width: 1200px;
     padding: 0 clamp(10px, 2vw, 20px);
     box-sizing: border-box;
+    align-items: stretch;
   }
 
   .discount-card {
@@ -238,6 +259,11 @@
     margin: 0 auto;
     width: 100%;
     max-width: 280px;
+    height: 100%;
+    min-height: 320px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 
   .discount-card:hover {
@@ -251,6 +277,14 @@
     border-radius: 10px;
     margin-bottom: 15px;
     object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  .discount-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 
   /* ANIMACIÓN DE ENTRADA */
@@ -269,6 +303,14 @@
     .team-cards,
     .discount-cards {
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+    
+    .team-card {
+      min-height: 400px;
+    }
+    
+    .discount-card {
+      min-height: 300px;
     }
   }
 
@@ -291,6 +333,7 @@
     .team-card,
     .discount-card {
       max-width: 100%;
+      min-height: 380px;
     }
     
     .phone-link {
@@ -329,6 +372,11 @@
     
     .team-card {
       padding: 15px;
+      min-height: 360px;
+    }
+    
+    .discount-card {
+      min-height: 280px;
     }
     
     .phone-link {
@@ -349,6 +397,11 @@
     .team-card {
       max-width: 100%;
       margin: 0 5px;
+      min-height: 340px;
+    }
+    
+    .discount-card {
+      min-height: 260px;
     }
     
     .phone-link {
@@ -387,52 +440,76 @@
   <div class="team-cards">
     <div class="team-card" data-animate>
       <img src="{% static 'img/beneficios_6.webp' %}" alt="Beneficio 1">
-      <h3>Descuentos con empresas aliadas</h3>
-      <p>Acceso a convenios especiales con empresas que valoran su servicio.</p>
+      <div class="card-content">
+        <div class="card-text">
+          <h3>Descuentos con empresas aliadas</h3>
+          <p>Acceso a convenios especiales con empresas que valoran su servicio.</p>
+        </div>
+      </div>
     </div>
 
     <div class="team-card" data-animate>
       <img src="{% static 'img/beneficios_2.jpg' %}" alt="Beneficio 2">
-      <h3>Consulta Psicológica</h3>
-      <p>Bienestar emocional para un mejor desempeño y calidad de vida.</p>
-      <a href="https://wa.me/527293595460?text=¡Hola!%20Quiero%20más%20información%20sobre%20la%20consulta%20psicológica%20de%20CIPOL" target="_blank" class="phone-link">
-        📞 Solicita tu consulta
-      </a>
+      <div class="card-content">
+        <div class="card-text">
+          <h3>Consulta Psicológica</h3>
+          <p>Bienestar emocional para un mejor desempeño y calidad de vida.</p>
+        </div>
+        <a href="https://wa.me/527293595460?text=¡Hola!%20Quiero%20más%20información%20sobre%20la%20consulta%20psicológica%20de%20CIPOL" target="_blank" class="phone-link">
+          📞 Solicita tu consulta
+        </a>
+      </div>
     </div>
 
     <div class="team-card" data-animate>
       <img src="{% static 'img/beneficios_3.jpg' %}" alt="Beneficio 3">
-      <h3>Consulta Nutricional</h3>
-      <p>Fomenta hábitos saludables que mejoran la vida profesional y familiar. Al contar con la credencial CIPOL obtienes un 50% de descuento para ti y tu familia.</p>
-      <a href="https://wa.me/527293595460?text=¡Hola!%20Quiero%20más%20información%20sobre%20la%20consulta%20nutricional%20con%20descuento%20de%20CIPOL" target="_blank" class="phone-link">
-        📞 Solicita tu consulta
-      </a>
+      <div class="card-content">
+        <div class="card-text">
+          <h3>Consulta Nutricional</h3>
+          <p>Fomenta hábitos saludables que mejoran la vida profesional y familiar. Al contar con la credencial CIPOL obtienes un 50% de descuento para ti y tu familia.</p>
+        </div>
+        <a href="https://wa.me/527293595460?text=¡Hola!%20Quiero%20más%20información%20sobre%20la%20consulta%20nutricional%20con%20descuento%20de%20CIPOL" target="_blank" class="phone-link">
+          📞 Solicita tu consulta
+        </a>
+      </div>
     </div>
 
     <div class="team-card" data-animate>
       <img src="{% static 'img/beneficios_4.png' %}" alt="Beneficio 4">
-      <h3>Servicios Integrales</h3>
-      <p>Trámites ante instituciones públicas y servicios personales:</p>
-      <ul>
-        <li>Constancias Fiscales</li>
-        <li>Actas en General</li>
-        <li>Constancias ante el SAT</li>
-      </ul>
-      <a href="https://wa.me/524433650359?text=¡Hola!%20Quiero%20más%20información%20sobre%20los%20servicios%20integrales%20y%20trámites%20de%20CIPOL" target="_blank" class="phone-link">
-        📞 Más información
-      </a>
+      <div class="card-content">
+        <div class="card-text">
+          <h3>Servicios Integrales</h3>
+          <p>Trámites ante instituciones públicas y servicios personales:</p>
+          <ul>
+            <li>Constancias Fiscales</li>
+            <li>Actas en General</li>
+            <li>Constancias ante el SAT</li>
+          </ul>
+        </div>
+        <a href="https://wa.me/524433650359?text=¡Hola!%20Quiero%20más%20información%20sobre%20los%20servicios%20integrales%20y%20trámites%20de%20CIPOL" target="_blank" class="phone-link">
+          📞 Más información
+        </a>
+      </div>
     </div>
 
     <div class="team-card" data-animate>
       <div class="icon-card"><i class="fas fa-graduation-cap"></i></div>
-      <h3>Escuelas y Licenciaturas</h3>
-      <p>Acceso a programas educativos en escuelas de prestigio.</p>
+      <div class="card-content">
+        <div class="card-text">
+          <h3>Escuelas y Licenciaturas</h3>
+          <p>Acceso a programas educativos en escuelas de prestigio.</p>
+        </div>
+      </div>
     </div>
 
     <div class="team-card" data-animate>
       <div class="icon-card"><i class="fas fa-calendar-alt"></i></div>
-      <h3>Eventos Exclusivos</h3>
-      <p>Invitaciones a actividades y eventos privados de la comunidad CIPOL.</p>
+      <div class="card-content">
+        <div class="card-text">
+          <h3>Eventos Exclusivos</h3>
+          <p>Invitaciones a actividades y eventos privados de la comunidad CIPOL.</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -444,10 +521,12 @@
     {% for d in descuentos %}
       <div class="discount-card" data-animate>
         <img src="{{ d.imagen.url }}" alt="{{ d.titulo }}">
-        <h3>{{ d.titulo }}</h3>
-        {% if d.descripcion %}
-          <p>{{ d.descripcion }}</p>
-        {% endif %}
+        <div class="discount-content">
+          <h3>{{ d.titulo }}</h3>
+          {% if d.descripcion %}
+            <p>{{ d.descripcion }}</p>
+          {% endif %}
+        </div>
       </div>
     {% empty %}
       <p>No hay descuentos disponibles en este momento.</p>
