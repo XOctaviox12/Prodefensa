@@ -92,37 +92,103 @@
     margin: 0;
   }
 
-  /* Eventos próximos */
+  /* Eventos próximos - MEJORADO */
+  .events-section {
+    padding: 60px 20px;
+  }
+
+  .events-section h2 {
+    text-align: center;
+    font-size: clamp(1.8rem, 4vw, 2.2rem);
+    font-weight: 700;
+    margin-bottom: 40px;
+  }
+
+  .events-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 35px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
   .event-card {
     background: white;
-    border-radius: 14px;
+    border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.12);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
     display: flex;
     flex-direction: column;
-    height: 100%; /* Asegura que todas las tarjetas tengan misma altura */
+    height: 100%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+  }
+
+  .event-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
   }
 
   .event-card img {
     width: 100%;
-    height: 220px; /* Altura fija */
-    object-fit: contain; /* Cambiado de cover a contain */
-    background-color: #f8f8f8; /* Fondo para áreas vacías */
+    height: 280px; /* DUPLICADO: de 220px a 280px */
+    object-fit: contain;
+    background: linear-gradient(135deg, #f8f8f8 0%, #e8e8e8 100%);
   }
 
   .event-card-content {
-    padding: 20px;
+    padding: 25px;
     flex-grow: 1;
     display: flex;
     flex-direction: column;
+    text-align: center; /* Centrado de todo el contenido */
   }
 
   .event-card h3 {
-    font-size: clamp(1.1rem, 2vw, 1.3rem);
+    font-size: clamp(1.2rem, 2.2vw, 1.4rem);
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #111;
+    line-height: 1.3;
+  }
+
+  .event-date {
+    color: #0048ad;
+    font-weight: 700;
+    font-size: clamp(0.9rem, 1.8vw, 1rem);
+    margin-bottom: 15px;
+    padding: 6px 12px;
+    background-color: #f0f5ff;
+    border-radius: 20px;
+    display: inline-block;
   }
 
   .event-card p {
-    font-size: clamp(0.85rem, 1.5vw, 1rem);
+    font-size: clamp(0.9rem, 1.6vw, 1rem);
+    color: #555;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    flex-grow: 1;
+  }
+
+  .event-card .btn-ver-mas {
+    margin-top: auto;
+    color: white;
+    background: #0048ad;
+    padding: 12px 24px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-block;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+
+  .event-card .btn-ver-mas:hover {
+    background: #003588;
+    transform: scale(1.05);
   }
 
   /* Eventos pasados tipo carrusel */
@@ -181,6 +247,13 @@
     .benefit-card {
       height: 280px; /* Altura menor en móviles */
     }
+    .events-grid {
+      grid-template-columns: 1fr;
+      gap: 25px;
+    }
+    .event-card img {
+      height: 240px; /* Un poco menor en móviles pero aún grande */
+    }
   }
 </style>
 
@@ -223,24 +296,23 @@
   </div>
 </section>
 
-<section style="padding:60px 20px;">
-  <h2 style="text-align:center; font-size:clamp(1.8rem, 4vw, 2.2rem); font-weight:700;">Próximos eventos</h2>
+<section class="events-section">
+  <h2>Próximos eventos</h2>
 
-  <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:30px; margin-top:40px;">
+  <div class="events-grid">
     {% for evento in eventos_proximos %}
     <div class="event-card">
       {% if evento.imagen %}
-      <img src="{{ evento.imagen.url }}">
+      <img src="{{ evento.imagen.url }}" alt="{{ evento.titulo }}">
       {% endif %}
 
       <div class="event-card-content">
         <h3>{{ evento.titulo }}</h3>
-        <p style="color:#0048ad; font-weight:600;">{{ evento.siguiente_fecha }}</p>
+        <div class="event-date">{{ evento.siguiente_fecha }}</div>
         <p>{{ evento.descripcion|truncatewords:20 }}</p>
 
-        <a href="{% url 'detalle_evento' evento.slug %}"
-           style="margin-top:auto; color:white; background:#0048ad; padding:10px 18px; border-radius:8px; text-decoration:none; font-weight:600; display:inline-block; width:fit-content;">
-           Ver más
+        <a href="{% url 'detalle_evento' evento.slug %}" class="btn-ver-mas">
+          Ver más
         </a>
       </div>
     </div>
