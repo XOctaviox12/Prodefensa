@@ -1,7 +1,6 @@
 from django.contrib import admin
 from .models import Descuento, Actividad, Suscripcion, Evento, EventDate
 
-
 @admin.register(Descuento)
 class DescuentoAdmin(admin.ModelAdmin):
     list_display = ('titulo',)
@@ -20,8 +19,8 @@ class SuscripcionAdmin(admin.ModelAdmin):
 class EventDateInline(admin.TabularInline):
     model = EventDate
     extra = 1
+
+@admin.register(Evento)
 class EventoAdmin(admin.ModelAdmin):
     inlines = [EventDateInline]
     list_display = ('titulo', 'fecha_unica', 'siguiente_fecha', 'es_proximo')
-
-admin.site.register(Evento, EventoAdmin)

@@ -59,17 +59,21 @@ class Evento(models.Model):
         return [f.fecha for f in self.eventdate_set.all()]
 
     def es_pasado(self):
-        from datetime import date
         return all(f < date.today() for f in self.fechas())
 
     def es_proximo(self):
-        from datetime import date
         return any(f >= date.today() for f in self.fechas())
 
     def siguiente_fecha(self):
-        from datetime import date
         fechas_futuras = [f for f in self.fechas() if f >= date.today()]
         return min(fechas_futuras) if fechas_futuras else None
 
     def __str__(self):
         return self.titulo
+
+class EventDate(models.Model):
+    evento = models.ForeignKey(Evento, on_delete=models.CASCADE)
+    fecha = models.DateField()
+
+    def __str__(self):
+        return f"{self.evento.titulo} - {self.fecha}"
