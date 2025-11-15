@@ -3,7 +3,7 @@ from .models import Producto
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
-from .models import Descuento, Actividad, Suscripcion
+from .models import Descuento, Actividad, Suscripcion, Evento
 import stripe
 from django.conf import settings
 from django.http import JsonResponse
@@ -15,7 +15,25 @@ from django.http import HttpResponse
 stripe.api_key = settings.STRIPE_SECRET_KEY
 # Vista principal del menú
 def inicio(request):
-    return render(request, 'inicio/inicio.html')
+    eventos_proximos = [e for e in Evento.objects.all() if e.es_proximo()]
+    eventos_pasados = [e for e in Evento.objects.all() if e.es_pasado()]
+
+    eventos_proximos = sorted(eventos_proximos, key=lambda e: e.siguiente_fecha())
+
+    evento_mas_cercano = eventos_proximos[0] if eventos_proximos else None
+
+    return render(request, "inicio/inicio.html", {
+        'eventos_proximos': eventos_proximos,
+        'eventos_pasados': eventos_pasados[:4],  # solo los primeros 4
+        'evento_mas_cercano': evento_mas_cercano,
+    })
+
+
+def detalle_evento(request, slug):
+    evento = get_object_or_404(Evento, slug=slug)
+    return render(request, "inicio/detalle_evento.html", {
+        'evento': evento
+    })
 # Vistas de cada sección
 def nosotros(request):
     return render(request, 'inicio/nosotros.html')
