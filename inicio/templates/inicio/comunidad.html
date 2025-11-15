@@ -23,30 +23,33 @@
   .section {
     width: 100%;
     text-align: center;
-    padding: 100px 25px;
+    padding: clamp(40px, 8vw, 100px) clamp(15px, 3vw, 25px);
     display: flex;
     flex-direction: column;
     align-items: center;
     position: relative;
+    box-sizing: border-box;
   }
 
   h2 {
-    font-size: 2.8rem;
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
     font-weight: 900;
     margin-bottom: 15px;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
+    line-height: 1.2;
   }
 
   h3 {
-    font-size: 1.6rem;
+    font-size: clamp(1.2rem, 3vw, 1.6rem);
     margin-bottom: 12px;
     font-weight: 600;
+    line-height: 1.3;
   }
 
   p {
-    font-size: 1.1rem;
-    line-height: 1.7;
-    max-width: 900px;
+    font-size: clamp(0.95rem, 2vw, 1.1rem);
+    line-height: 1.6;
+    max-width: min(900px, 90%);
     margin: 0 auto;
   }
 
@@ -70,18 +73,20 @@
     background-color: white;
     box-shadow: 0 8px 20px rgba(0,0,0,0.08);
     border-radius: 20px;
-    max-width: 1200px;
-    margin: 60px auto;
-    padding: 60px 30px;
+    max-width: min(1200px, 95%);
+    margin: clamp(30px, 6vw, 60px) auto;
+    padding: clamp(30px, 5vw, 60px) clamp(20px, 3vw, 30px);
+    box-sizing: border-box;
   }
 
   .community-intro img {
     width: 100%;
     border-radius: 16px;
-    margin-top: 30px;
+    margin-top: clamp(20px, 4vw, 30px);
     object-fit: cover;
     box-shadow: 0 6px 25px rgba(0,0,0,0.1);
     transition: transform 0.4s ease;
+    max-height: 500px;
   }
 
   .community-intro img:hover {
@@ -95,25 +100,31 @@
   }
 
   .team-cards {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 35px;
-    margin-top: 50px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+    gap: clamp(20px, 4vw, 35px);
+    margin-top: clamp(30px, 6vw, 50px);
+    width: 100%;
+    max-width: 1400px;
+    padding: 0 clamp(10px, 2vw, 20px);
+    box-sizing: border-box;
   }
 
   .team-card {
     background-color: white;
     border-radius: 16px;
-    padding: 25px;
-    width: 260px;
+    padding: clamp(20px, 3vw, 25px);
     text-align: center;
     box-shadow: 0 4px 20px rgba(0,0,0,0.1);
     transition: all 0.3s ease;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    min-height: 400px;
+    min-height: min-content;
+    height: fit-content;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 320px;
   }
 
   .team-card:hover {
@@ -122,42 +133,72 @@
   }
 
   .team-card img {
-    width: 120px;
-    height: 120px;
+    width: clamp(80px, 15vw, 120px);
+    height: clamp(80px, 15vw, 120px);
     object-fit: cover;
     border-radius: 50%;
-    margin: 0 auto 20px;
+    margin: 0 auto clamp(15px, 3vw, 20px);
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   }
 
   .icon-card {
-    width: 120px;
-    height: 120px;
+    width: clamp(80px, 15vw, 120px);
+    height: clamp(80px, 15vw, 120px);
     border-radius: 50%;
     background-color: var(--azul-cipol);
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 20px;
+    margin: 0 auto clamp(15px, 3vw, 20px);
     color: white;
   }
 
   .icon-card i {
-    font-size: 52px;
+    font-size: clamp(2rem, 5vw, 3.25rem);
   }
 
   .phone-link {
     display: inline-block;
-    margin-top: 10px;
+    margin-top: 12px;
     color: var(--azul-cipol);
-    font-weight: bold;
+    font-weight: 600;
     text-decoration: none;
     transition: all 0.3s ease;
+    padding: 8px 16px;
+    border: 2px solid var(--azul-cipol);
+    border-radius: 8px;
+    background: white;
+    font-size: clamp(0.85rem, 2vw, 0.95rem);
+    white-space: nowrap;
   }
 
   .phone-link:hover {
-    color: #0055cc;
-    text-decoration: underline;
+    color: white;
+    background: var(--azul-cipol);
+    text-decoration: none;
+    transform: scale(1.05);
+  }
+
+  .team-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+    text-align: left;
+  }
+
+  .team-card li {
+    font-size: clamp(0.85rem, 2vw, 0.95rem);
+    margin-bottom: 5px;
+    padding-left: 15px;
+    position: relative;
+  }
+
+  .team-card li:before {
+    content: "✔";
+    color: #00b140;
+    position: absolute;
+    left: 0;
+    font-weight: bold;
   }
 
   /* SECCIÓN 3: DESCUENTOS */
@@ -168,22 +209,27 @@
   }
 
   .discount-cards {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 30px;
-    margin-top: 50px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+    gap: clamp(20px, 4vw, 30px);
+    margin-top: clamp(30px, 6vw, 50px);
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 clamp(10px, 2vw, 20px);
+    box-sizing: border-box;
   }
 
   .discount-card {
     background-color: white;
     color: var(--azul-cipol);
     border-radius: 14px;
-    padding: 20px;
-    width: 230px;
+    padding: clamp(15px, 3vw, 20px);
     text-align: center;
     box-shadow: 0 4px 18px rgba(0,0,0,0.15);
     transition: transform 0.3s ease;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 280px;
   }
 
   .discount-card:hover {
@@ -193,7 +239,7 @@
 
   .discount-card img {
     width: 100%;
-    height: 150px;
+    height: clamp(120px, 20vw, 150px);
     border-radius: 10px;
     margin-bottom: 15px;
     object-fit: cover;
@@ -210,15 +256,99 @@
     transform: translateY(0);
   }
 
-  /* RESPONSIVE */
-  @media (max-width: 768px) {
-    .team-card, .discount-card {
-      width: 85%;
-      min-height: auto;
+  /* RESPONSIVE MEJORADO */
+  @media (max-width: 1024px) {
+    .team-cards,
+    .discount-cards {
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     }
-    h2 { font-size: 2.2rem; }
-    h3 { font-size: 1.4rem; }
-    p { font-size: 1rem; }
+  }
+
+  @media (max-width: 768px) {
+    .section {
+      padding: 30px 15px;
+    }
+    
+    .community-intro {
+      margin: 20px auto;
+      padding: 25px 20px;
+    }
+    
+    .team-cards,
+    .discount-cards {
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    
+    .team-card,
+    .discount-card {
+      max-width: 100%;
+    }
+    
+    .phone-link {
+      padding: 10px 20px;
+      font-size: 0.9rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .section {
+      padding: 25px 10px;
+    }
+    
+    .community-intro {
+      margin: 15px auto;
+      padding: 20px 15px;
+      border-radius: 15px;
+    }
+    
+    .team-cards,
+    .discount-cards {
+      grid-template-columns: 1fr;
+      gap: 15px;
+      padding: 0 5px;
+    }
+    
+    h2 {
+      font-size: 1.6rem;
+    }
+    
+    h3 {
+      font-size: 1.3rem;
+    }
+    
+    .team-card {
+      padding: 15px;
+    }
+    
+    .phone-link {
+      width: 100%;
+      text-align: center;
+      padding: 12px;
+      font-size: 0.9rem;
+    }
+  }
+
+  @media (max-width: 360px) {
+    .team-cards,
+    .discount-cards {
+      grid-template-columns: 1fr;
+    }
+    
+    .team-card {
+      max-width: 100%;
+      margin: 0 5px;
+    }
+    
+    .phone-link {
+      font-size: 0.85rem;
+      padding: 10px;
+    }
+  }
+
+  /* Prevenir scroll horizontal */
+  body {
+    overflow-x: hidden;
   }
 </style>
 
@@ -254,26 +384,32 @@
       <img src="{% static 'img/beneficios_2.jpg' %}" alt="Beneficio 2">
       <h3>Consulta Psicológica</h3>
       <p>Bienestar emocional para un mejor desempeño y calidad de vida.</p>
-      <a href="https://wa.me/527293595460" target="_blank" class="phone-link">📞 Solicita tu consulta</a>
+      <a href="https://wa.me/527293595460?text=¡Hola!%20Quiero%20más%20información%20sobre%20la%20consulta%20psicológica%20de%20CIPOL" target="_blank" class="phone-link">
+        📞 Quiero información sobre consulta psicológica
+      </a>
     </div>
 
     <div class="team-card" data-animate>
       <img src="{% static 'img/beneficios_3.jpg' %}" alt="Beneficio 3">
       <h3>Consulta Nutricional</h3>
-      <p>Fomenta hábitos saludables que mejoran la vida profesional y familiar.</p>
-      <a href="https://wa.me/527293595460" target="_blank" class="phone-link">📞 Solicita tu consulta</a>
+      <p>Fomenta hábitos saludables que mejoran la vida profesional y familiar. Al contar con la credencial CIPOL obtienes un 50% de descuento para ti y tu familia.</p>
+      <a href="https://wa.me/527293595460?text=¡Hola!%20Quiero%20más%20información%20sobre%20la%20consulta%20nutricional%20con%20descuento%20de%20CIPOL" target="_blank" class="phone-link">
+        📞 Quiero información sobre consulta nutricional
+      </a>
     </div>
 
     <div class="team-card" data-animate>
       <img src="{% static 'img/beneficios_4.png' %}" alt="Beneficio 4">
       <h3>Servicios Integrales</h3>
       <p>Trámites ante instituciones públicas y servicios personales:</p>
-      <ul style="list-style:none; padding:0; margin:0;">
-        <li>✔ Constancias Fiscales</li>
-        <li>✔ Actas en General</li>
-        <li>✔ Constancias ante el SAT</li>
+      <ul>
+        <li>Constancias Fiscales</li>
+        <li>Actas en General</li>
+        <li>Constancias ante el SAT</li>
       </ul>
-      <a href="https://wa.me/524433650359" target="_blank" class="phone-link">📞 Más información</a>
+      <a href="https://wa.me/524433650359?text=¡Hola!%20Quiero%20más%20información%20sobre%20los%20servicios%20integrales%20y%20trámites%20de%20CIPOL" target="_blank" class="phone-link">
+        📞 Quiero información sobre servicios integrales
+      </a>
     </div>
 
     <div class="team-card" data-animate>
@@ -315,7 +451,7 @@
     entries.forEach(entry => {
       if (entry.isIntersecting) entry.target.classList.add("visible");
     });
-  }, { threshold: 0.2 });
+  }, { threshold: 0.1 });
   elements.forEach(el => observer.observe(el));
 </script>
 

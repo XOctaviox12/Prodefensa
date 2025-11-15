@@ -1,6 +1,12 @@
 {%load static%}
 {% block contenido %}
 <div class="login-section">
+  <!-- Icono para regresar al inicio -->
+  <a href="{% url 'inicio' %}" class="back-to-home">
+    <i class="fas fa-arrow-left"></i>
+    <span>Volver al inicio</span>
+  </a>
+  
   <div class="login-card">
     <img src="{% static 'img/login-icon.png' %}" alt="Login Icon" class="login-icon-top">
     <h2>Iniciar sesión</h2>
@@ -23,134 +29,381 @@
 </div>
 
 <style>
-/* Fuente general de la página */
-.login-section, .login-card {
-  font-family: 'Arial', sans-serif; /* Reemplaza con la fuente de tu página si es otra */
+:root {
+  --azul-cipol: #003366;
+  --rosa-cipol: #d6336c;
+  --gris-fondo: #f4f6f9;
+  --gradiente-cipol: linear-gradient(
+    90deg,
+    #002b80,
+    #7f00ff,
+    #00b140,
+    #ff0000,
+    #ff6600,
+    #ffd100
+  );
 }
 
-/* Contenedor centralizado y vistoso */
+/* Icono para regresar al inicio */
+.back-to-home {
+  position: absolute;
+  top: clamp(20px, 4vw, 30px);
+  left: clamp(20px, 4vw, 30px);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: clamp(8px, 2vw, 12px) clamp(12px, 3vw, 20px);
+  background: rgba(255, 255, 255, 0.95);
+  color: var(--azul-cipol);
+  text-decoration: none;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: clamp(0.85rem, 2vw, 1rem);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  border: 2px solid transparent;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+}
+
+.back-to-home:hover {
+  background: white;
+  color: var(--rosa-cipol);
+  transform: translateX(-5px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  border-color: var(--rosa-cipol);
+}
+
+.back-to-home i {
+  font-size: clamp(0.9rem, 2.2vw, 1.1rem);
+  transition: transform 0.3s ease;
+}
+
+.back-to-home:hover i {
+  transform: translateX(-3px);
+}
+
+/* Contenedor centralizado con estilo CIPOL */
 .login-section {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh; /* ocupa toda la pantalla */
-  background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('{% static "img/background-login.jpg" %}') no-repeat center center;
+  min-height: 100vh;
+  background: linear-gradient(rgba(0, 51, 102, 0.8), rgba(214, 51, 108, 0.6)), 
+              url('{% static "img/background-login.jpg" %}') no-repeat center center;
   background-size: cover;
-  padding: 20px;
+  padding: clamp(15px, 3vw, 30px);
+  font-family: 'Arial', sans-serif;
+  position: relative;
 }
 
-/* Tarjeta de login */
+/* Tarjeta de login con diseño CIPOL */
 .login-card {
-  background-color: rgba(255,255,255,0.95);
-  padding: 50px 40px;
-  border-radius: 16px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-  max-width: 400px;
+  background-color: rgba(255, 255, 255, 0.98);
+  padding: clamp(30px, 5vw, 50px) clamp(25px, 4vw, 40px);
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+  max-width: min(450px, 90vw);
   width: 100%;
   text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: all 0.4s ease;
+  border: 3px solid transparent;
+  background-clip: padding-box;
+  position: relative;
+  overflow: hidden;
+}
+
+.login-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--gradiente-cipol);
+  background-size: 300% 300%;
+  animation: gradientMove 6s ease infinite;
 }
 
 .login-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+  transform: translateY(-8px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 /* Icono superior */
 .login-icon-top {
-  width: 80px;
-  margin-bottom: 20px;
+  width: clamp(60px, 12vw, 80px);
+  margin-bottom: clamp(15px, 3vw, 20px);
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
 }
 
-/* Título */
+/* Título con estilo CIPOL */
 .login-card h2 {
-  font-size: 2.2rem;
-  margin-bottom: 25px;
-  color: #003366; /* azul oscuro coherente con tu diseño */
-  font-weight: 700;
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  margin-bottom: clamp(20px, 4vw, 25px);
+  color: var(--azul-cipol);
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  background: linear-gradient(135deg, var(--azul-cipol), #0055cc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 /* Formulario */
 .form-group {
-  margin-bottom: 20px;
+  margin-bottom: clamp(15px, 3vw, 20px);
   text-align: left;
 }
 
 .form-group label {
   display: block;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
   font-weight: 600;
-  color: #003366;
+  color: var(--azul-cipol);
+  font-size: clamp(0.9rem, 2vw, 1rem);
 }
 
 .form-group input {
   width: 100%;
-  padding: 14px 15px;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  font-size: 1rem;
+  padding: clamp(12px, 2.5vw, 14px) clamp(12px, 2.5vw, 15px);
+  border-radius: 12px;
+  border: 2px solid #e1e5e9;
+  font-size: clamp(0.9rem, 2vw, 1rem);
   outline: none;
   transition: all 0.3s ease;
+  background-color: #f8f9fa;
+  box-sizing: border-box;
 }
 
 .form-group input:focus {
-  border-color: #d6336c;
-  box-shadow: 0 0 8px rgba(214,51,108,0.3);
+  border-color: var(--rosa-cipol);
+  background-color: white;
+  box-shadow: 0 0 0 3px rgba(214, 51, 108, 0.1);
+  transform: translateY(-2px);
 }
 
-/* Botón de login */
+/* Botón de login con estilo CIPOL */
 .btn-login {
   width: 100%;
-  padding: 14px;
-  font-size: 1.1rem;
+  padding: clamp(12px, 2.5vw, 14px);
+  font-size: clamp(1rem, 2.2vw, 1.1rem);
   font-weight: 700;
   color: white;
-  background-color: #d6336c;
+  background: linear-gradient(135deg, var(--azul-cipol), #0044aa);
   border: none;
-  border-radius: 10px;
+  border-radius: 12px;
   cursor: pointer;
   transition: all 0.3s ease;
-  margin-top: 10px;
+  margin-top: clamp(10px, 2vw, 15px);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-login::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s;
 }
 
 .btn-login:hover {
-  background-color: #bf295a;
-  transform: scale(1.05);
+  background: linear-gradient(135deg, #002b5c, var(--azul-cipol));
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 51, 102, 0.3);
+}
+
+.btn-login:hover::before {
+  left: 100%;
+}
+
+.btn-login:active {
+  transform: translateY(-1px);
 }
 
 /* Pie de login */
 .login-footer {
-  margin-top: 20px;
-  font-size: 1rem;
+  margin-top: clamp(15px, 3vw, 20px);
+  font-size: clamp(0.85rem, 2vw, 1rem);
   color: #555;
+  line-height: 1.5;
 }
 
 .login-footer a {
-  color: #003366;
-  font-weight: 600;
+  color: var(--azul-cipol);
+  font-weight: 700;
   text-decoration: none;
-  transition: color 0.3s ease;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.login-footer a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--rosa-cipol);
+  transition: width 0.3s ease;
 }
 
 .login-footer a:hover {
-  color: #d6336c;
-  text-decoration: underline;
+  color: var(--rosa-cipol);
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .login-card {
-    padding: 40px 25px;
-  }
+.login-footer a:hover::after {
+  width: 100%;
+}
 
+/* Mensajes de error (si los hay) */
+.error-message {
+  background-color: #ffe6e6;
+  color: #d6336c;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border-left: 4px solid #d6336c;
+  font-weight: 600;
+}
+
+/* Responsive mejorado */
+@media (max-width: 768px) {
+  .login-section {
+    padding: 20px 15px;
+    background: linear-gradient(rgba(0, 51, 102, 0.9), rgba(214, 51, 108, 0.7)), 
+                url('{% static "img/background-login.jpg" %}') no-repeat center center;
+  }
+  
+  .back-to-home {
+    top: 15px;
+    left: 15px;
+    padding: 8px 15px;
+  }
+  
+  .back-to-home span {
+    display: none; /* Ocultar texto en móviles pequeños */
+  }
+  
+  .back-to-home:hover span {
+    display: inline; /* Mostrar al hacer hover */
+    margin-left: 8px;
+  }
+  
+  .login-card {
+    padding: 35px 25px;
+    border-radius: 16px;
+  }
+  
   .login-card h2 {
     font-size: 1.8rem;
   }
-
-  .login-icon-top {
-    width: 60px;
-    margin-bottom: 15px;
+  
+  .form-group input {
+    padding: 14px 12px;
+  }
+  
+  .btn-login {
+    padding: 14px;
   }
 }
+
+@media (max-width: 480px) {
+  .login-section {
+    padding: 15px 10px;
+  }
+  
+  .back-to-home {
+    top: 10px;
+    left: 10px;
+    padding: 6px 12px;
+  }
+  
+  .login-card {
+    padding: 30px 20px;
+    border-radius: 14px;
+  }
+  
+  .login-card h2 {
+    font-size: 1.6rem;
+  }
+  
+  .login-icon-top {
+    width: 55px;
+  }
+  
+  .form-group label {
+    font-size: 0.9rem;
+  }
+  
+  .form-group input {
+    padding: 12px;
+    font-size: 0.9rem;
+  }
+  
+  .btn-login {
+    padding: 13px;
+    font-size: 1rem;
+  }
+  
+  .login-footer {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .login-card {
+    padding: 25px 15px;
+  }
+  
+  .login-card h2 {
+    font-size: 1.4rem;
+  }
+  
+  .login-icon-top {
+    width: 50px;
+  }
+  
+  .back-to-home {
+    padding: 5px 10px;
+  }
+}
+
+/* Versión alternativa del botón de regreso solo con icono */
+.back-to-home.icon-only {
+  padding: 10px;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.back-to-home.icon-only span {
+  display: none;
+}
+
+/* Prevenir scroll horizontal y mejorar scroll en móviles */
+body {
+  overflow-x: hidden;
+}
+
+.login-section {
+  -webkit-overflow-scrolling: touch;
+}
 </style>
+
+<!-- Font Awesome para el icono -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 {% endblock %}

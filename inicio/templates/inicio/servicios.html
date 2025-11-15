@@ -8,10 +8,11 @@
   .section {
     width: 100%;
     text-align: center;
-    padding: 80px 20px;
+    padding: 60px 15px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    box-sizing: border-box;
   }
 
   /* ======== HERO / SECCIÓN 1 ======== */
@@ -22,8 +23,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 80px 20px;
+    padding: 60px 15px;
     color: white;
+    box-sizing: border-box;
   }
 
   .intro-overlay {
@@ -44,26 +46,29 @@
     align-items: flex-start;
     max-width: 1200px;
     width: 100%;
-    gap: 40px;
+    gap: 30px;
     text-align: left;
-    padding: 20px;
+    padding: 15px;
+    box-sizing: border-box;
   }
 
   .intro-text {
     flex: 1;
     color: white;
+    min-width: 0; /* Previene desbordamiento en móviles */
   }
 
   .intro-text h2 {
-    font-size: 2.8rem;
-    margin-bottom: 20px;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    margin-bottom: 15px;
     font-weight: 700;
+    line-height: 1.2;
   }
 
   .intro-text p {
-    font-size: 1.2rem;
+    font-size: clamp(1rem, 2vw, 1.2rem);
     line-height: 1.6;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
   }
 
   .donate-btn {
@@ -88,7 +93,7 @@
     color: #222;
     width: 100%;
     max-width: 420px;
-    padding: 28px 24px;
+    padding: 25px 20px;
     border-radius: 16px;
     box-shadow: 0 12px 50px rgba(0, 0, 0, 0.45);
     text-align: center;
@@ -97,20 +102,21 @@
     transform: none;
     position: relative;
     pointer-events: auto;
+    box-sizing: border-box;
   }
 
   #donationCard h3 {
     color: #003366;
-    font-size: 1.5rem;
+    font-size: clamp(1.3rem, 3vw, 1.5rem);
     font-weight: 700;
-    margin-bottom: 14px;
+    margin-bottom: 12px;
   }
 
   .amounts {
     display: flex;
     justify-content: center;
-    gap: 10px;
-    margin-bottom: 14px;
+    gap: 8px;
+    margin-bottom: 12px;
     flex-wrap: wrap;
   }
 
@@ -120,9 +126,12 @@
     background: #f0f4f8;
     color: #003366;
     font-weight: 600;
-    padding: 8px 14px;
+    padding: 8px 12px;
     cursor: pointer;
     transition: all 0.22s ease;
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    flex: 1;
+    min-width: 60px;
   }
 
   .amounts button.selected,
@@ -133,22 +142,24 @@
 
   /* ======== INPUT CENTRADO ======== */
   #customAmount {
-    width: 80%;
-    margin: 10px auto 20px auto;
+    width: 90%;
+    margin: 10px auto 15px auto;
     padding: 10px;
     border-radius: 8px;
     border: 1px solid #ccc;
     text-align: center;
-    font-size: 1rem;
+    font-size: clamp(0.9rem, 2vw, 1rem);
     display: block;
+    box-sizing: border-box;
   }
 
   .type {
-    margin: 16px 0;
+    margin: 14px 0;
     display: flex;
     justify-content: center;
-    gap: 22px;
-    font-size: 0.98rem;
+    gap: 20px;
+    font-size: clamp(0.9rem, 2vw, 0.98rem);
+    flex-wrap: wrap;
   }
 
   #confirmDonate {
@@ -157,10 +168,12 @@
     color: white;
     border: none;
     border-radius: 8px;
-    padding: 10px;
+    padding: 12px;
     font-weight: 600;
     cursor: pointer;
     transition: background 0.25s;
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    box-sizing: border-box;
   }
 
   #confirmDonate:hover {
@@ -169,19 +182,20 @@
 
   .login-warning {
     color: #d6336c;
-    font-size: 0.95rem;
+    font-size: clamp(0.85rem, 2vw, 0.95rem);
     margin-top: 10px;
     display: none;
+    text-align: center;
   }
 
   /* ======== CARRUSEL ======== */
   .carousel-container {
-    width: 85%;
+    width: 95%;
     max-width: 900px;
     aspect-ratio: 16/9;
     position: relative;
-    margin: 80px auto;
-    border-radius: 14px;
+    margin: 60px auto;
+    border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
   }
@@ -212,17 +226,19 @@
   .activities-section {
     width: 100%;
     background-color: #ffffff;
-    padding: 80px 0;
+    padding: 60px 15px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    box-sizing: border-box;
   }
 
   .activities-section h2 {
-    font-size: 2.5rem;
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
     font-weight: bold;
-    margin-bottom: 60px;
+    margin-bottom: 40px;
     color: #003366;
+    text-align: center;
   }
 
   .activity-card {
@@ -230,9 +246,10 @@
     align-items: center;
     justify-content: center;
     max-width: 1100px;
-    width: 90%;
-    margin-bottom: 80px;
-    gap: 50px;
+    width: 100%;
+    margin-bottom: 60px;
+    gap: 30px;
+    box-sizing: border-box;
   }
 
   .activity-card img {
@@ -247,17 +264,19 @@
   .activity-info {
     flex: 1;
     text-align: left;
+    min-width: 0; /* Previene desbordamiento */
   }
 
   .activity-info h3 {
-    font-size: 2.2rem;
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
     font-weight: 700;
     color: #003366;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
+    line-height: 1.2;
   }
 
   .activity-info p {
-    font-size: 1.1rem;
+    font-size: clamp(1rem, 2vw, 1.1rem);
     color: #333;
     line-height: 1.6;
   }
@@ -272,12 +291,16 @@
     gap: 20px;
     justify-content: center;
     flex-wrap: wrap;
-    padding: 60px 20px;
+    padding: 40px 15px;
+    box-sizing: border-box;
+    width: 100%;
   }
 
   .service-block {
-    flex: 1 1 320px;
-    padding: 30px 20px;
+    flex: 1 1 300px;
+    min-width: 280px;
+    max-width: 400px;
+    padding: 25px 15px;
     border-radius: 12px;
     display: flex;
     flex-direction: column;
@@ -285,6 +308,8 @@
     text-align: center;
     transition: all 0.3s ease;
     color: white;
+    box-sizing: border-box;
+    cursor: pointer;
   }
 
   .service-block:hover {
@@ -293,14 +318,19 @@
   }
 
   .service-block i {
-    font-size: 42px;
-    margin-bottom: 12px;
+    font-size: clamp(2rem, 5vw, 2.5rem);
+    margin-bottom: 10px;
   }
 
   .service-block h3 {
-    font-size: 1.4rem;
+    font-size: clamp(1.2rem, 3vw, 1.4rem);
     margin-bottom: 8px;
     font-weight: 700;
+  }
+
+  .service-block p {
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    line-height: 1.5;
   }
 
   .service-block.red {
@@ -311,12 +341,32 @@
     background: #003366;
   }
 
-  /* ======== RESPONSIVO ======== */
-  @media (max-width: 950px) {
+  /* ======== RESPONSIVO MEJORADO ======== */
+  @media (max-width: 1024px) {
+    .intro-content {
+      gap: 25px;
+      padding: 15px;
+    }
+    
+    .activity-card {
+      gap: 25px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .section {
+      padding: 40px 10px;
+    }
+    
+    .services-intro {
+      padding: 40px 10px;
+    }
+    
     .intro-content {
       flex-direction: column;
       align-items: center;
       text-align: center;
+      gap: 20px;
     }
 
     .intro-text {
@@ -326,25 +376,163 @@
     #donationCard {
       max-width: 100%;
       margin-top: 20px;
+      padding: 20px 15px;
     }
+
+    .carousel-container {
+      width: 100%;
+      margin: 40px auto;
+      border-radius: 8px;
+    }
+
+    .activities-section {
+      padding: 40px 10px;
+    }
+
     .activity-card {
       flex-direction: column;
+      margin-bottom: 50px;
+      gap: 20px;
     }
 
     .activity-card img {
       width: 100%;
-      max-height: 320px;
+      max-height: 300px;
     }
 
     .activity-info {
       text-align: center;
-      margin-top: 16px;
+      margin-top: 0;
     }
+
+    .activity-card:nth-child(even) {
+      flex-direction: column;
+    }
+
+    .services-row {
+      padding: 30px 10px;
+      gap: 15px;
+    }
+
+    .service-block {
+      flex: 1 1 100%;
+      min-width: 250px;
+      padding: 20px 15px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .section {
+      padding: 30px 10px;
+    }
+    
+    .services-intro {
+      padding: 30px 10px;
+    }
+    
+    .intro-content {
+      padding: 10px;
+    }
+
+    .intro-text h2 {
+      font-size: clamp(1.5rem, 6vw, 2rem);
+    }
+
+    .intro-text p {
+      font-size: clamp(0.9rem, 3vw, 1rem);
+    }
+
+    #donationCard {
+      padding: 15px 10px;
+    }
+
+    .amounts {
+      gap: 5px;
+    }
+
+    .amounts button {
+      padding: 6px 8px;
+      font-size: 0.85rem;
+      min-width: 50px;
+    }
+
+    .type {
+      gap: 15px;
+      font-size: 0.85rem;
+    }
+
+    #customAmount {
+      width: 95%;
+      padding: 8px;
+      font-size: 0.9rem;
+    }
+
+    #confirmDonate {
+      padding: 10px;
+      font-size: 0.9rem;
+    }
+
+    .activities-section h2 {
+      margin-bottom: 30px;
+    }
+
+    .activity-card {
+      margin-bottom: 40px;
+    }
+
+    .activity-card img {
+      max-height: 250px;
+    }
+
+    .activity-info h3 {
+      font-size: clamp(1.3rem, 4vw, 1.6rem);
+    }
+
+    .activity-info p {
+      font-size: clamp(0.9rem, 3vw, 1rem);
+    }
+
+    .services-row {
+      padding: 20px 10px;
+    }
+
+    .service-block {
+      padding: 15px 10px;
+    }
+
+    .service-block h3 {
+      font-size: clamp(1.1rem, 4vw, 1.3rem);
+    }
+
+    .service-block p {
+      font-size: clamp(0.85rem, 3vw, 0.95rem);
+    }
+  }
+
+  @media (max-width: 360px) {
+    .amounts button {
+      min-width: 45px;
+      font-size: 0.8rem;
+      padding: 5px 6px;
+    }
+    
+    .type {
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    .service-block {
+      min-width: 220px;
+    }
+  }
+
+  /* Prevenir scroll horizontal */
+  body {
+    overflow-x: hidden;
   }
 </style>
 
 <!-- ======== HERO ======== -->
-<!-- ======== SECCIÓN 1 - HERO ======== -->
 <section class="services-intro">
   <div class="intro-overlay"></div>
   <div class="intro-content">
