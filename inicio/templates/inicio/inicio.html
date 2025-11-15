@@ -30,16 +30,14 @@
     line-height: 1.8;
   }
 
-  /* Grid de beneficios */
   .benefits-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* más ancho mínimo */
-    gap: 50px; /* más espacio entre tarjetas */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 50px;
     justify-content: center;
     margin-bottom: 90px;
   }
 
-  /* Tarjetas */
   .benefit-card {
     position: relative;
     overflow: hidden;
@@ -55,7 +53,7 @@
 
   .benefit-card img {
     width: 100%;
-    height: 320px; /* más alto para que se vean más grandes */
+    height: 320px;
     object-fit: cover;
     border-radius: 14px;
     transition: transform 0.4s ease;
@@ -78,18 +76,10 @@
     box-shadow: 0 3px 8px rgba(0,0,0,0.15);
   }
 
-  /* Fondo azul ocupa todo el ancho */
   .fra-container {
     background-color: #0048ad;
     padding: 70px 20px;
     width: 100%;
-  }
-
-  /* Contenedor de texto centrado */
-  .fra-content {
-    max-width: 1000px;
-    margin: 0 auto;
-    text-align: center;
   }
 
   .fra-content h2 {
@@ -99,24 +89,6 @@
     font-weight: 600;
     margin: 0;
   }
-
-  @media (max-width: 768px) {
-    .benefits-container h2 {
-      font-size: 2rem;
-    }
-
-    .benefits-container p {
-      font-size: 1rem;
-    }
-
-    .benefit-card img {
-      height: 250px; /* ajusta altura en móviles */
-    }
-
-    .fra-content h2 {
-      font-size: 1.5rem;
-    }
-  }
 </style>
 
 <section class="benefits-section">
@@ -125,59 +97,56 @@
     <p>
       Formar parte de Pro Defensa CIPOL significa integrarse a una comunidad
       comprometida con elevar la dignidad policial y promover una cultura de
-      respeto, justicia y paz social. Más que una asociación, somos una red de
-      apoyo, formación y reconocimiento al servicio de quienes protegen y
-      sirven.
+      respeto, justicia y paz social.
     </p>
   </div>
 
   <div class="benefits-grid">
     <div class="benefit-card">
-      <img src="{% static 'img/formacion_desarrollo.jpeg' %}" alt="Formación y desarrollo profesional" />
+      <img src="{% static 'img/formacion_desarrollo.jpeg' %}">
       <div class="benefit-label">Formación y desarrollo profesional</div>
     </div>
 
     <div class="benefit-card">
-      <img src="{% static 'img/comunidad.jpg' %}" alt="Comunidad y reconocimiento" />
+      <img src="{% static 'img/comunidad.jpg' %}">
       <div class="benefit-label">Comunidad y reconocimiento</div>
     </div>
 
     <div class="benefit-card">
-      <img src="{% static 'img/beneficios.png' %}" alt="Beneficios y descuentos exclusivos para miembros" />
-      <div class="benefit-label">Beneficios y descuentos exclusivos para miembros</div>
+      <img src="{% static 'img/beneficios.png' %}">
+      <div class="benefit-label">Beneficios y descuentos exclusivos</div>
     </div>
 
     <div class="benefit-card">
-      <img src="{% static 'img/impacto_social.jpg' %}" alt="Impacto social y sentido de propósito" />
-      <div class="benefit-label">Impacto social y sentido de propósito</div>
+      <img src="{% static 'img/impacto_social.jpg' %}">
+      <div class="benefit-label">Impacto social y propósito</div>
     </div>
   </div>
 
   <div class="fra-container">
     <div class="fra-content">
-      <h2>Rostros distintos, uniformes muchos, un mismo corazón. Ser policía es el servicio más digno.</h2>
+      <h2>Rostros distintos, uniformes muchos, un mismo corazón.</h2>
     </div>
   </div>
 </section>
+
 <section style="padding:60px 20px;">
   <h2 style="text-align:center; font-size:2.2rem; font-weight:700;">Próximos eventos</h2>
 
   <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:30px; margin-top:40px;">
     {% for evento in eventos_proximos %}
-    <div style="background:white; border-radius:14px; overflow:hidden; box-shadow:0 5px 15px rgba(0,0,0,0.12); transition:.3s;">
+    <div style="background:white; border-radius:14px; overflow:hidden; box-shadow:0 5px 15px rgba(0,0,0,0.12);">
       {% if evento.imagen %}
       <img src="{{ evento.imagen.url }}" style="width:100%; height:200px; object-fit:cover;">
       {% endif %}
 
       <div style="padding:20px;">
         <h3 style="font-size:1.3rem; font-weight:700;">{{ evento.titulo }}</h3>
-
         <p style="color:#0048ad; font-weight:600;">{{ evento.siguiente_fecha }}</p>
-
         <p style="font-size:0.95rem; color:#444;">{{ evento.descripcion|truncatewords:20 }}</p>
 
         <a href="{% url 'detalle_evento' evento.slug %}"
-           style="margin-top:10px; display:inline-block; color:white; background:#0048ad; padding:10px 18px; border-radius:8px; text-decoration:none; font-weight:600;">
+           style="color:white; background:#0048ad; padding:10px 18px; border-radius:8px; text-decoration:none; font-weight:600;">
            Ver más
         </a>
       </div>
@@ -185,24 +154,16 @@
     {% endfor %}
   </div>
 </section>
+
 {% if evento_mas_cercano %}
 <section style="padding:60px 20px; background:#0048ad; color:white; text-align:center;">
-  <h2 style="font-size:2rem; margin-bottom:15px;">Próximo gran evento</h2>
-
-  <h3 style="font-size:2.5rem; font-weight:700;">
-    {{ evento_mas_cercano.titulo }}
-  </h3>
-
-  <p style="font-size:1.2rem; margin:10px 0 25px;">
-    Fecha: {{ evento_mas_cercano.siguiente_fecha }}
-  </p>
-
+  <h2 style="font-size:2rem;">Próximo gran evento</h2>
+  <h3 style="font-size:2.5rem; font-weight:700;">{{ evento_mas_cercano.titulo }}</h3>
+  <p style="font-size:1.2rem;">Fecha: {{ evento_mas_cercano.siguiente_fecha }}</p>
   <div id="countdown" style="font-size:1.6rem; font-weight:600;"></div>
 
   <a href="{% url 'detalle_evento' evento_mas_cercano.slug %}"
-     style="margin-top:25px; display:inline-block; padding:12px 25px;
-     background:white; color:#0048ad; border-radius:10px; font-weight:700;
-     text-decoration:none; transition:.3s;">
+     style="margin-top:25px; display:inline-block; padding:12px 25px; background:white; color:#0048ad; border-radius:10px; font-weight:700;">
      Ver detalles
   </a>
 </section>
@@ -228,9 +189,11 @@
   }, 1000);
 </script>
 {% endif %}
+
 <section style="padding:60px 20px; background:#f7f7f7;">
   <h2 style="text-align:center; font-size:2rem; font-weight:700;">Eventos pasados</h2>
 
+  {% if eventos_pasados %}
   <div style="display:flex; gap:20px; overflow-x:auto; padding:20px 0; scrollbar-width:none;">
     {% for evento in eventos_pasados %}
     <a href="{% url 'detalle_evento' evento.slug %}" style="min-width:220px; display:block;">
@@ -241,6 +204,11 @@
     </a>
     {% endfor %}
   </div>
+  {% else %}
+  <p style="text-align:center; font-size:1.1rem; margin-top:20px; font-weight:600; color:#555;">
+    No hay eventos pasados.
+  </p>
+  {% endif %}
 </section>
 
 {% endblock %}
