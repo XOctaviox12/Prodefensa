@@ -92,7 +92,7 @@
     margin: 0;
   }
 
-  /* Eventos próximos - MEJORADO */
+  /* Eventos próximos - IMÁGENES MUCHO MÁS GRANDES */
   .events-section {
     padding: 60px 20px;
   }
@@ -106,17 +106,17 @@
 
   .events-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 35px;
-    max-width: 1200px;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 40px;
+    max-width: 1300px;
     margin: 0 auto;
   }
 
   .event-card {
     background: white;
-    border-radius: 16px;
+    border-radius: 18px;
     overflow: hidden;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -125,29 +125,30 @@
   }
 
   .event-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.25);
   }
 
   .event-card img {
     width: 100%;
-    height: 280px; /* DUPLICADO: de 220px a 280px */
+    height: 380px; /* MUCHO MÁS GRANDE: de 280px a 380px */
     object-fit: contain;
     background: linear-gradient(135deg, #f8f8f8 0%, #e8e8e8 100%);
+    border-bottom: 1px solid #f0f0f0;
   }
 
   .event-card-content {
-    padding: 25px;
+    padding: 30px;
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-    text-align: center; /* Centrado de todo el contenido */
+    text-align: center;
   }
 
   .event-card h3 {
-    font-size: clamp(1.2rem, 2.2vw, 1.4rem);
+    font-size: clamp(1.3rem, 2.5vw, 1.6rem);
     font-weight: 700;
-    margin-bottom: 12px;
+    margin-bottom: 15px;
     color: #111;
     line-height: 1.3;
   }
@@ -155,19 +156,20 @@
   .event-date {
     color: #0048ad;
     font-weight: 700;
-    font-size: clamp(0.9rem, 1.8vw, 1rem);
-    margin-bottom: 15px;
-    padding: 6px 12px;
+    font-size: clamp(1rem, 2vw, 1.1rem);
+    margin-bottom: 18px;
+    padding: 8px 16px;
     background-color: #f0f5ff;
-    border-radius: 20px;
+    border-radius: 25px;
     display: inline-block;
+    border: 2px solid #0048ad;
   }
 
   .event-card p {
-    font-size: clamp(0.9rem, 1.6vw, 1rem);
+    font-size: clamp(1rem, 1.8vw, 1.1rem);
     color: #555;
-    line-height: 1.5;
-    margin-bottom: 20px;
+    line-height: 1.6;
+    margin-bottom: 25px;
     flex-grow: 1;
   }
 
@@ -175,8 +177,8 @@
     margin-top: auto;
     color: white;
     background: #0048ad;
-    padding: 12px 24px;
-    border-radius: 10px;
+    padding: 14px 28px;
+    border-radius: 12px;
     text-decoration: none;
     font-weight: 600;
     display: inline-block;
@@ -184,11 +186,12 @@
     margin-left: auto;
     margin-right: auto;
     transition: background-color 0.3s ease, transform 0.2s ease;
+    font-size: clamp(1rem, 1.8vw, 1.1rem);
   }
 
   .event-card .btn-ver-mas:hover {
     background: #003588;
-    transform: scale(1.05);
+    transform: scale(1.08);
   }
 
   /* Eventos pasados tipo carrusel */
@@ -221,9 +224,9 @@
 
   .past-event-card img {
     width: 100%;
-    height: 150px; /* Altura fija */
-    object-fit: contain; /* Cambiado de cover a contain */
-    background-color: #f8f8f8; /* Fondo para áreas vacías */
+    height: 150px;
+    object-fit: contain;
+    background-color: #f8f8f8;
   }
 
   .past-event-card p {
@@ -232,6 +235,16 @@
     text-align: center;
     font-size: clamp(0.85rem, 1.3vw, 1rem);
     padding: 0 5px;
+  }
+
+  @media (max-width: 768px) {
+    .events-grid {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+    .event-card img {
+      height: 320px; /* Sigue siendo grande en tablets */
+    }
   }
 
   @media (max-width: 480px) {
@@ -245,14 +258,27 @@
       width: 180px;
     }
     .benefit-card {
-      height: 280px; /* Altura menor en móviles */
+      height: 280px;
     }
     .events-grid {
       grid-template-columns: 1fr;
       gap: 25px;
     }
     .event-card img {
-      height: 240px; /* Un poco menor en móviles pero aún grande */
+      height: 280px; /* Sigue siendo muy grande en móviles */
+    }
+    .event-card-content {
+      padding: 20px;
+    }
+  }
+
+  /* Para pantallas muy grandes */
+  @media (min-width: 1400px) {
+    .events-grid {
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    }
+    .event-card img {
+      height: 400px; /* Aún más grande en pantallas grandes */
     }
   }
 </style>
