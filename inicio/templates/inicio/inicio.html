@@ -107,17 +107,47 @@
     font-size: clamp(0.85rem, 1.5vw, 1rem);
   }
 
-  /* Eventos pasados */
-  .past-events img {
+  /* Eventos pasados tipo carrusel */
+  .past-events-container {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 20px 0;
+  }
+
+  .past-events-container::-webkit-scrollbar {
+    display: none;
+  }
+
+  .past-event-card {
+    flex: 0 0 auto;
+    width: 220px;
+    display: block;
+    border-radius: 10px;
+    background: white;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+  }
+
+  .past-event-card:hover {
+    transform: translateY(-5px);
+  }
+
+  .past-event-card img {
     width: 100%;
     height: auto;
     max-height: 150px;
     object-fit: cover;
-    border-radius: 10px;
   }
 
-  .past-events a {
-    flex: 0 0 auto;
+  .past-event-card p {
+    margin: 10px 0;
+    font-weight: 600;
+    text-align: center;
+    font-size: clamp(0.85rem, 1.3vw, 1rem);
+    padding: 0 5px;
   }
 
   @media (max-width: 480px) {
@@ -126,6 +156,9 @@
     }
     .fra-container {
       padding: 40px 10px;
+    }
+    .past-event-card {
+      width: 180px;
     }
   }
 </style>
@@ -232,13 +265,13 @@
   <h2 style="text-align:center; font-size:clamp(1.6rem,3vw,2rem); font-weight:700;">Eventos pasados</h2>
 
   {% if eventos_pasados %}
-  <div class="past-events" style="display:flex; gap:20px; overflow-x:auto; padding:20px 0; scrollbar-width:none;">
+  <div class="past-events-container">
     {% for evento in eventos_pasados %}
-    <a href="{% url 'detalle_evento' evento.slug %}" style="min-width:220px; display:block;">
+    <a href="{% url 'detalle_evento' evento.slug %}" class="past-event-card">
       {% if evento.imagen %}
       <img src="{{ evento.imagen.url }}">
       {% endif %}
-      <p style="margin-top:10px; font-weight:600; text-align:center;">{{ evento.titulo }}</p>
+      <p>{{ evento.titulo }}</p>
     </a>
     {% endfor %}
   </div>
