@@ -3,7 +3,7 @@
 {% block titulo %}inicio{% endblock %}
 {% block contenido %}
 <style>
-  /* Sección de beneficios */
+  /* ================= Beneficios ================= */
   .benefits-section {
     background-color: #f2f0f5;
     padding: 80px 20px;
@@ -53,7 +53,8 @@
 
   .benefit-card img {
     width: 100%;
-    height: 320px;
+    height: auto;
+    max-height: 320px;
     object-fit: cover;
     border-radius: 14px;
     transition: transform 0.4s ease;
@@ -76,6 +77,7 @@
     box-shadow: 0 3px 8px rgba(0,0,0,0.15);
   }
 
+  /* ================= FRA ================= */
   .fra-container {
     background-color: #0048ad;
     padding: 70px 20px;
@@ -89,8 +91,74 @@
     font-weight: 600;
     margin: 0;
   }
+
+  /* ================= Eventos ================= */
+  .event-card img {
+    width: 100%;
+    height: 0;
+    padding-top: 56.25%; /* 16:9 ratio */
+    object-fit: cover;
+    border-radius: 14px 14px 0 0;
+  }
+
+  .event-card .event-img-wrapper {
+    width: 100%;
+    height: 0;
+    padding-top: 56.25%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .event-card .event-img-wrapper img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .btn-vermas {
+    color: white;
+    background: #0048ad;
+    padding: 10px 18px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-block;
+    transition: background 0.3s ease;
+  }
+
+  .btn-vermas:hover {
+    background: #003380;
+  }
+
+  /* ================= Eventos pasados ================= */
+  .past-events {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding: 20px 0;
+    scrollbar-width: none; /* Firefox */
+  }
+  .past-events::-webkit-scrollbar {
+    display: none; /* Chrome */
+  }
+  .past-events a img {
+    width: 100%;
+    height: auto;
+    max-height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+  }
+  .past-events a:hover img {
+    transform: scale(1.05);
+  }
+
 </style>
 
+<!-- ================= Beneficios ================= -->
 <section class="benefits-section">
   <div class="benefits-container">
     <h2>¡Obtén grandes beneficios!</h2>
@@ -130,31 +198,30 @@
   </div>
 </section>
 
+<!-- ================= Próximos eventos ================= -->
 <section style="padding:60px 20px;">
   <h2 style="text-align:center; font-size:2.2rem; font-weight:700;">Próximos eventos</h2>
 
   <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:30px; margin-top:40px;">
     {% for evento in eventos_proximos %}
-    <div style="background:white; border-radius:14px; overflow:hidden; box-shadow:0 5px 15px rgba(0,0,0,0.12);">
+    <div class="event-card" style="background:white; border-radius:14px; overflow:hidden; box-shadow:0 5px 15px rgba(0,0,0,0.12);">
       {% if evento.imagen %}
-      <img src="{{ evento.imagen.url }}" style="width:100%; height:200px; object-fit:cover;">
+      <div class="event-img-wrapper">
+        <img src="{{ evento.imagen.url }}">
+      </div>
       {% endif %}
-
       <div style="padding:20px;">
         <h3 style="font-size:1.3rem; font-weight:700;">{{ evento.titulo }}</h3>
         <p style="color:#0048ad; font-weight:600;">{{ evento.siguiente_fecha }}</p>
         <p style="font-size:0.95rem; color:#444;">{{ evento.descripcion|truncatewords:20 }}</p>
-
-        <a href="{% url 'detalle_evento' evento.slug %}"
-           style="color:white; background:#0048ad; padding:10px 18px; border-radius:8px; text-decoration:none; font-weight:600;">
-           Ver más
-        </a>
+        <a href="{% url 'detalle_evento' evento.slug %}" class="btn-vermas">Ver más</a>
       </div>
     </div>
     {% endfor %}
   </div>
 </section>
 
+<!-- ================= Próximo gran evento ================= -->
 {% if evento_mas_cercano %}
 <section style="padding:60px 20px; background:#0048ad; color:white; text-align:center;">
   <h2 style="font-size:2rem;">Próximo gran evento</h2>
@@ -162,9 +229,8 @@
   <p style="font-size:1.2rem;">Fecha: {{ evento_mas_cercano.siguiente_fecha }}</p>
   <div id="countdown" style="font-size:1.6rem; font-weight:600;"></div>
 
-  <a href="{% url 'detalle_evento' evento_mas_cercano.slug %}"
-     style="margin-top:25px; display:inline-block; padding:12px 25px; background:white; color:#0048ad; border-radius:10px; font-weight:700;">
-     Ver detalles
+  <a href="{% url 'detalle_evento' evento_mas_cercano.slug %}" style="margin-top:25px; display:inline-block; padding:12px 25px; background:white; color:#0048ad; border-radius:10px; font-weight:700;">
+    Ver detalles
   </a>
 </section>
 
@@ -190,15 +256,16 @@
 </script>
 {% endif %}
 
+<!-- ================= Eventos pasados ================= -->
 <section style="padding:60px 20px; background:#f7f7f7;">
   <h2 style="text-align:center; font-size:2rem; font-weight:700;">Eventos pasados</h2>
 
   {% if eventos_pasados %}
-  <div style="display:flex; gap:20px; overflow-x:auto; padding:20px 0; scrollbar-width:none;">
+  <div class="past-events">
     {% for evento in eventos_pasados %}
     <a href="{% url 'detalle_evento' evento.slug %}" style="min-width:220px; display:block;">
       {% if evento.imagen %}
-      <img src="{{ evento.imagen.url }}" style="width:220px; height:150px; border-radius:10px; object-fit:cover;">
+      <img src="{{ evento.imagen.url }}">
       {% endif %}
       <p style="margin-top:10px; font-weight:600; text-align:center;">{{ evento.titulo }}</p>
     </a>
