@@ -265,4 +265,35 @@
     }
 
     let dias = Math.floor(distancia / (1000 * 60 * 60 * 24));
-    let horas = Math.floor((distancia % (1000 * 60 * 6
+    let horas = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    let minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
+
+    document.getElementById('countdown').innerHTML =
+      `${dias} días - ${horas} hrs - ${minutos} min`;
+  }, 1000);
+</script>
+{% endif %}
+
+<!-- ================= Eventos pasados ================= -->
+<section style="padding:60px 20px; background:#f7f7f7;">
+  <h2 style="text-align:center; font-size:2rem; font-weight:700;">Eventos pasados</h2>
+
+  {% if eventos_pasados %}
+  <div class="past-events">
+    {% for evento in eventos_pasados %}
+    <a href="{% url 'detalle_evento' evento.slug %}" style="min-width:220px; display:block;">
+      {% if evento.imagen %}
+      <img src="{{ evento.imagen.url }}">
+      {% endif %}
+      <p style="margin-top:10px; font-weight:600; text-align:center;">{{ evento.titulo }}</p>
+    </a>
+    {% endfor %}
+  </div>
+  {% else %}
+  <p style="text-align:center; font-size:1.1rem; margin-top:20px; font-weight:600; color:#555;">
+    No hay eventos pasados.
+  </p>
+  {% endif %}
+</section>
+
+{% endblock %}
