@@ -34,14 +34,14 @@
   h2 {
     font-size: clamp(1.8rem, 5vw, 2.8rem);
     font-weight: 900;
-    margin-bottom: 15px;
+    margin-bottom: clamp(10px, 2vw, 15px);
     letter-spacing: 0.5px;
     line-height: 1.2;
   }
 
   h3 {
     font-size: clamp(1.2rem, 3vw, 1.6rem);
-    margin-bottom: 12px;
+    margin-bottom: clamp(8px, 1.5vw, 12px);
     font-weight: 600;
     line-height: 1.3;
   }
@@ -158,25 +158,33 @@
   }
 
   .phone-link {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
     margin-top: 12px;
-    color: var(--azul-cipol);
+    color: white;
     font-weight: 600;
     text-decoration: none;
     transition: all 0.3s ease;
-    padding: 8px 16px;
+    padding: clamp(8px, 2vw, 10px) clamp(12px, 3vw, 16px);
     border: 2px solid var(--azul-cipol);
     border-radius: 8px;
-    background: white;
-    font-size: clamp(0.85rem, 2vw, 0.95rem);
+    background: var(--azul-cipol);
+    font-size: clamp(0.8rem, 2vw, 0.9rem);
     white-space: nowrap;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .phone-link:hover {
     color: white;
-    background: var(--azul-cipol);
+    background: #002b5c;
+    border-color: #002b5c;
     text-decoration: none;
     transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 51, 102, 0.3);
   }
 
   .team-card ul {
@@ -187,9 +195,9 @@
   }
 
   .team-card li {
-    font-size: clamp(0.85rem, 2vw, 0.95rem);
+    font-size: clamp(0.8rem, 2vw, 0.9rem);
     margin-bottom: 5px;
-    padding-left: 15px;
+    padding-left: 20px;
     position: relative;
   }
 
@@ -288,6 +296,8 @@
     .phone-link {
       padding: 10px 20px;
       font-size: 0.9rem;
+      width: 100%;
+      max-width: 200px;
     }
   }
 
@@ -326,6 +336,7 @@
       text-align: center;
       padding: 12px;
       font-size: 0.9rem;
+      max-width: none;
     }
   }
 
@@ -385,7 +396,7 @@
       <h3>Consulta Psicológica</h3>
       <p>Bienestar emocional para un mejor desempeño y calidad de vida.</p>
       <a href="https://wa.me/527293595460?text=¡Hola!%20Quiero%20más%20información%20sobre%20la%20consulta%20psicológica%20de%20CIPOL" target="_blank" class="phone-link">
-        📞 Quiero información sobre consulta psicológica
+        📞 Solicita tu consulta
       </a>
     </div>
 
@@ -394,7 +405,7 @@
       <h3>Consulta Nutricional</h3>
       <p>Fomenta hábitos saludables que mejoran la vida profesional y familiar. Al contar con la credencial CIPOL obtienes un 50% de descuento para ti y tu familia.</p>
       <a href="https://wa.me/527293595460?text=¡Hola!%20Quiero%20más%20información%20sobre%20la%20consulta%20nutricional%20con%20descuento%20de%20CIPOL" target="_blank" class="phone-link">
-        📞 Quiero información sobre consulta nutricional
+        📞 Solicita tu consulta
       </a>
     </div>
 
@@ -408,7 +419,7 @@
         <li>Constancias ante el SAT</li>
       </ul>
       <a href="https://wa.me/524433650359?text=¡Hola!%20Quiero%20más%20información%20sobre%20los%20servicios%20integrales%20y%20trámites%20de%20CIPOL" target="_blank" class="phone-link">
-        📞 Quiero información sobre servicios integrales
+        📞 Más información
       </a>
     </div>
 
