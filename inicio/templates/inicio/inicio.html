@@ -3,10 +3,10 @@
 {% block titulo %}inicio{% endblock %}
 {% block contenido %}
 <style>
-  /* ================= Beneficios ================= */
+  /* Sección de beneficios */
   .benefits-section {
     background-color: #f2f0f5;
-    padding: 80px 20px;
+    padding: 60px 20px;
     text-align: center;
   }
 
@@ -16,39 +16,39 @@
   }
 
   .benefits-container h2 {
-    font-size: 2.6rem;
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
     margin-bottom: 25px;
     color: #111;
     font-weight: 700;
   }
 
   .benefits-container p {
-    font-size: 1.1rem;
+    font-size: clamp(0.95rem, 2vw, 1.1rem);
     color: #333;
     max-width: 850px;
     margin: 0 auto 60px;
-    line-height: 1.8;
+    line-height: 1.6;
   }
 
   .benefits-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 40px;
+    gap: 30px;
     justify-content: center;
-    margin-bottom: 90px;
+    margin-bottom: 60px;
   }
 
   .benefit-card {
     position: relative;
     overflow: hidden;
     border-radius: 14px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
 
   .benefit-card:hover {
-    transform: translateY(-7px);
-    box-shadow: 0 12px 28px rgba(0,0,0,0.18);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.18);
   }
 
   .benefit-card img {
@@ -66,121 +66,70 @@
 
   .benefit-label {
     position: absolute;
-    bottom: 18px;
-    left: 18px;
-    background-color: rgba(255, 255, 255, 0.96);
+    bottom: 12px;
+    left: 12px;
+    background-color: rgba(255, 255, 255, 0.95);
     color: #111;
     font-weight: 600;
-    font-size: 1.05rem;
-    padding: 12px 18px;
+    font-size: clamp(0.9rem, 1.5vw, 1.05rem);
+    padding: 10px 14px;
     border-radius: 8px;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.12);
   }
 
-  /* ================= FRA ================= */
   .fra-container {
     background-color: #0048ad;
-    padding: 70px 20px;
+    padding: 60px 20px;
     width: 100%;
   }
 
   .fra-content h2 {
     color: #fff;
-    font-size: 2.2rem;
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
     line-height: 1.6;
     font-weight: 600;
     margin: 0;
   }
 
-  /* ================= Eventos ================= */
-  .events-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-    margin-top: 40px;
-  }
-
-  .event-card {
-    background: white;
-    border-radius: 14px;
-    overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.12);
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  .event-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 28px rgba(0,0,0,0.18);
-  }
-
+  /* Eventos próximos */
   .event-card img {
     width: 100%;
     height: auto;
-    aspect-ratio: 16/9;
+    max-height: 220px;
     object-fit: cover;
   }
 
-  .event-card .content {
-    padding: 20px;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  .event-card h3 {
+    font-size: clamp(1.1rem, 2vw, 1.3rem);
   }
 
-  .btn-vermas {
-    color: white;
-    background: #0048ad;
-    padding: 10px 18px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: 600;
-    display: inline-block;
-    transition: background 0.3s ease;
-    margin-top: 15px;
-    text-align: center;
+  .event-card p {
+    font-size: clamp(0.85rem, 1.5vw, 1rem);
   }
 
-  .btn-vermas:hover {
-    background: #003380;
-  }
-
-  /* ================= Próximos eventos ================= */
-  .countdown {
-    font-size: 1.6rem;
-    font-weight: 600;
-  }
-
-  /* ================= Eventos pasados ================= */
-  .past-events {
-    display: flex;
-    gap: 20px;
-    overflow-x: auto;
-    padding: 20px 0;
-    scrollbar-width: none; /* Firefox */
-  }
-
-  .past-events::-webkit-scrollbar {
-    display: none; /* Chrome */
-  }
-
-  .past-events a img {
+  /* Eventos pasados */
+  .past-events img {
     width: 100%;
     height: auto;
     max-height: 150px;
     object-fit: cover;
     border-radius: 10px;
-    transition: transform 0.3s ease;
   }
 
-  .past-events a:hover img {
-    transform: scale(1.05);
+  .past-events a {
+    flex: 0 0 auto;
+  }
+
+  @media (max-width: 480px) {
+    .benefits-section {
+      padding: 40px 10px;
+    }
+    .fra-container {
+      padding: 40px 10px;
+    }
   }
 </style>
 
-<!-- ================= Beneficios ================= -->
 <section class="benefits-section">
   <div class="benefits-container">
     <h2>¡Obtén grandes beneficios!</h2>
@@ -196,14 +145,17 @@
       <img src="{% static 'img/formacion_desarrollo.jpeg' %}">
       <div class="benefit-label">Formación y desarrollo profesional</div>
     </div>
+
     <div class="benefit-card">
       <img src="{% static 'img/comunidad.jpg' %}">
       <div class="benefit-label">Comunidad y reconocimiento</div>
     </div>
+
     <div class="benefit-card">
       <img src="{% static 'img/beneficios.png' %}">
       <div class="benefit-label">Beneficios y descuentos exclusivos</div>
     </div>
+
     <div class="benefit-card">
       <img src="{% static 'img/impacto_social.jpg' %}">
       <div class="benefit-label">Impacto social y propósito</div>
@@ -217,44 +169,46 @@
   </div>
 </section>
 
-<!-- ================= Próximos eventos ================= -->
 <section style="padding:60px 20px;">
-  <h2 style="text-align:center; font-size:2.2rem; font-weight:700;">Próximos eventos</h2>
+  <h2 style="text-align:center; font-size:clamp(1.8rem, 4vw, 2.2rem); font-weight:700;">Próximos eventos</h2>
 
-  <div class="events-grid">
+  <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:30px; margin-top:40px;">
     {% for evento in eventos_proximos %}
-    <div class="event-card">
+    <div class="event-card" style="background:white; border-radius:14px; overflow:hidden; box-shadow:0 5px 15px rgba(0,0,0,0.12);">
       {% if evento.imagen %}
       <img src="{{ evento.imagen.url }}">
       {% endif %}
-      <div class="content">
-        <div>
-          <h3 style="font-size:1.3rem; font-weight:700;">{{ evento.titulo }}</h3>
-          <p style="color:#0048ad; font-weight:600;">{{ evento.siguiente_fecha }}</p>
-          <p style="font-size:0.95rem; color:#444;">{{ evento.descripcion|truncatewords:20 }}</p>
-        </div>
-        <a href="{% url 'detalle_evento' evento.slug %}" class="btn-vermas">Ver más</a>
+
+      <div style="padding:20px;">
+        <h3>{{ evento.titulo }}</h3>
+        <p style="color:#0048ad; font-weight:600;">{{ evento.siguiente_fecha }}</p>
+        <p>{{ evento.descripcion|truncatewords:20 }}</p>
+
+        <a href="{% url 'detalle_evento' evento.slug %}"
+           style="color:white; background:#0048ad; padding:10px 18px; border-radius:8px; text-decoration:none; font-weight:600;">
+           Ver más
+        </a>
       </div>
     </div>
     {% endfor %}
   </div>
 </section>
 
-<!-- ================= Próximo gran evento ================= -->
 {% if evento_mas_cercano %}
 <section style="padding:60px 20px; background:#0048ad; color:white; text-align:center;">
-  <h2 style="font-size:2rem;">Próximo gran evento</h2>
-  <h3 style="font-size:2.5rem; font-weight:700;">{{ evento_mas_cercano.titulo }}</h3>
-  <p style="font-size:1.2rem;">Fecha: {{ evento_mas_cercano.siguiente_fecha }}</p>
-  <div id="countdown" class="countdown"></div>
+  <h2 style="font-size:clamp(1.6rem, 3vw, 2rem);">Próximo gran evento</h2>
+  <h3 style="font-size:clamp(2rem,4vw,2.5rem); font-weight:700;">{{ evento_mas_cercano.titulo }}</h3>
+  <p style="font-size:clamp(1rem,2vw,1.2rem);">Fecha: {{ evento_mas_cercano.siguiente_fecha }}</p>
+  <div id="countdown" style="font-size:clamp(1.2rem,2.5vw,1.6rem); font-weight:600;"></div>
 
-  <a href="{% url 'detalle_evento' evento_mas_cercano.slug %}" style="margin-top:25px; display:inline-block; padding:12px 25px; background:white; color:#0048ad; border-radius:10px; font-weight:700;">
+  <a href="{% url 'detalle_evento' evento_mas_cercano.slug %}"
+     style="margin-top:25px; display:inline-block; padding:12px 25px; background:white; color:#0048ad; border-radius:10px; font-weight:700;">
      Ver detalles
   </a>
 </section>
-
 <script>
   const fechaEvento = new Date("{{ evento_mas_cercano.siguiente_fecha }}").getTime();
+
   setInterval(()=>{
     const ahora = new Date().getTime();
     const distancia = fechaEvento - ahora;
@@ -274,12 +228,11 @@
 </script>
 {% endif %}
 
-<!-- ================= Eventos pasados ================= -->
 <section style="padding:60px 20px; background:#f7f7f7;">
-  <h2 style="text-align:center; font-size:2rem; font-weight:700;">Eventos pasados</h2>
+  <h2 style="text-align:center; font-size:clamp(1.6rem,3vw,2rem); font-weight:700;">Eventos pasados</h2>
 
   {% if eventos_pasados %}
-  <div class="past-events">
+  <div class="past-events" style="display:flex; gap:20px; overflow-x:auto; padding:20px 0; scrollbar-width:none;">
     {% for evento in eventos_pasados %}
     <a href="{% url 'detalle_evento' evento.slug %}" style="min-width:220px; display:block;">
       {% if evento.imagen %}
