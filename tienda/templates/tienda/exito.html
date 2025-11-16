@@ -2,58 +2,341 @@
 
 {% block contenido %}
 <style>
-  .exito-section {
-    background: #f0f0f0;
-    padding: 100px 20px;
+:root {
+    --azul-cipol: #003366;
+    --rosa-cipol: #d6336c;
+    --verde-exito: #28a745;
+    --gris-claro: #f8f9fa;
+    --gris-medio: #e9ecef;
+    --texto-oscuro: #2d3748;
+    --texto-medio: #4a5568;
+    --sombra: rgba(0, 0, 0, 0.1);
+}
+
+.exito-section {
+    background: linear-gradient(135deg, var(--gris-claro) 0%, var(--gris-medio) 100%);
+    padding: clamp(50px, 10vw, 100px) clamp(25px, 5vw, 40px);
     text-align: center;
-    border-radius: 20px;
-    max-width: 600px;
-    margin: 80px auto;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.1);
-  }
+    border-radius: 24px;
+    max-width: min(600px, 90%);
+    margin: clamp(40px, 8vw, 80px) auto;
+    box-shadow: 0 20px 60px var(--sombra);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    position: relative;
+    overflow: hidden;
+    animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
 
-  .exito-icon {
-    font-size: 4rem;
-    color: #28a745;
-    margin-bottom: 20px;
-  }
+.exito-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--verde-exito), #34d399, var(--verde-exito));
+    background-size: 200% 100%;
+    animation: gradientMove 3s ease infinite;
+}
 
-  .exito-title {
-    font-size: 2rem;
-    font-weight: 700;
-    margin-bottom: 15px;
-    color: #111;
-  }
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
 
-  .exito-text {
-    font-size: 1.1rem;
-    color: #555;
-    margin-bottom: 30px;
-  }
-
-  .btn-volver {
+.exito-icon {
+    font-size: clamp(3rem, 8vw, 5rem);
+    color: var(--verde-exito);
+    margin-bottom: clamp(20px, 4vw, 30px);
+    animation: bounceIn 1s cubic-bezier(0.4, 0, 0.2, 1) 0.2s both;
     display: inline-block;
-    padding: 12px 30px;
-    background: linear-gradient(135deg, #555, #222);
-    color: #fff;
-    border-radius: 30px;
-    text-decoration: none;
-    font-weight: 500;
-    transition: all 0.3s ease;
-  }
+}
 
-  .btn-volver:hover {
-    background: linear-gradient(135deg, #222, #555);
-    transform: scale(1.05);
-  }
+.exito-icon i {
+    filter: drop-shadow(0 4px 8px rgba(40, 167, 69, 0.3));
+}
+
+.exito-title {
+    font-size: clamp(1.6rem, 4vw, 2.2rem);
+    font-weight: 800;
+    margin-bottom: clamp(15px, 3vw, 20px);
+    color: var(--azul-cipol);
+    line-height: 1.2;
+    background: linear-gradient(135deg, var(--azul-cipol), #0055a5);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: fadeInUp 0.8s ease-out 0.4s both;
+}
+
+.exito-text {
+    font-size: clamp(1rem, 2vw, 1.1rem);
+    color: var(--texto-medio);
+    margin-bottom: clamp(25px, 5vw, 35px);
+    line-height: 1.6;
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    animation: fadeInUp 0.8s ease-out 0.6s both;
+}
+
+.btn-volver {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, var(--azul-cipol), #0055a5);
+    color: white;
+    padding: clamp(12px, 2.5vw, 16px) clamp(28px, 4vw, 40px);
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: clamp(0.95rem, 2vw, 1.05rem);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 8px 25px rgba(0, 51, 102, 0.3);
+    border: none;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    animation: fadeInUp 0.8s ease-out 0.8s both;
+}
+
+.btn-volver::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.btn-volver:hover {
+    background: linear-gradient(135deg, #0055a5, var(--azul-cipol));
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 12px 35px rgba(0, 51, 102, 0.4);
+    color: white;
+}
+
+.btn-volver:hover::before {
+    left: 100%;
+}
+
+.btn-volver:active {
+    transform: translateY(-1px) scale(1.02);
+}
+
+.btn-volver i {
+    font-size: 1.1em;
+    transition: transform 0.3s ease;
+}
+
+.btn-volver:hover i {
+    transform: translateX(-3px);
+}
+
+/* ANIMACIONES */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes bounceIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.3);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+    70% {
+        transform: scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.exito-icon {
+    animation: bounceIn 1s cubic-bezier(0.4, 0, 0.2, 1) 0.2s both;
+}
+
+/* Efecto de confeti */
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: var(--rosa-cipol);
+    opacity: 0.7;
+    animation: confettiFall 5s linear infinite;
+}
+
+.confetti:nth-child(2n) {
+    background: var(--azul-cipol);
+}
+
+.confetti:nth-child(3n) {
+    background: var(--verde-exito);
+}
+
+@keyframes confettiFall {
+    0% {
+        transform: translateY(-100px) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(500px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+    .exito-section {
+        padding: 40px 25px;
+        border-radius: 20px;
+        margin: 30px auto;
+    }
+
+    .exito-title {
+        font-size: 1.8rem;
+    }
+
+    .exito-text {
+        font-size: 1rem;
+        max-width: 100%;
+    }
+
+    .btn-volver {
+        width: min(100%, 250px);
+        justify-content: center;
+        padding: 14px 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .exito-section {
+        padding: 35px 20px;
+        border-radius: 16px;
+        margin: 20px auto;
+    }
+
+    .exito-title {
+        font-size: 1.5rem;
+    }
+
+    .exito-text {
+        font-size: 0.95rem;
+        margin-bottom: 25px;
+    }
+
+    .btn-volver {
+        padding: 12px 25px;
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .exito-section {
+        padding: 30px 15px;
+    }
+
+    .exito-title {
+        font-size: 1.3rem;
+    }
+
+    .exito-text {
+        font-size: 0.9rem;
+    }
+
+    .btn-volver {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+}
+
+/* MEJORAS DE ACCESIBILIDAD */
+.btn-volver:focus {
+    outline: 3px solid var(--rosa-cipol);
+    outline-offset: 2px;
+}
+
+/* PREVENIR SCROLL HORIZONTAL */
+body {
+    overflow-x: hidden;
+}
+
+/* MEJORAS DE RENDIMIENTO */
+.exito-section {
+    will-change: transform, opacity;
+}
+
+.btn-volver {
+    will-change: transform;
+}
 </style>
 
 <div class="exito-section">
-    <div class="exito-icon">✔️</div>
+    <!-- Efecto confeti decorativo -->
+    <div class="confetti" style="left: 10%; animation-delay: 0s;"></div>
+    <div class="confetti" style="left: 20%; animation-delay: 0.5s;"></div>
+    <div class="confetti" style="left: 30%; animation-delay: 1s;"></div>
+    <div class="confetti" style="left: 40%; animation-delay: 1.5s;"></div>
+    <div class="confetti" style="left: 50%; animation-delay: 2s;"></div>
+    <div class="confetti" style="left: 60%; animation-delay: 2.5s;"></div>
+    <div class="confetti" style="left: 70%; animation-delay: 3s;"></div>
+    <div class="confetti" style="left: 80%; animation-delay: 3.5s;"></div>
+    <div class="confetti" style="left: 90%; animation-delay: 4s;"></div>
+    
+    <div class="exito-icon">
+        <i class="fas fa-check-circle"></i>
+    </div>
     <h2 class="exito-title">¡Pago realizado con éxito!</h2>
     <p class="exito-text">
-        Gracias por tu compra. Tu pedido ha sido procesado correctamente y te enviaremos los detalles a tu correo.
+        Gracias por tu compra. Tu pedido ha sido procesado correctamente y te enviaremos los detalles a tu correo electrónico.
     </p>
-    <a href="{% url 'tienda' %}" class="btn-volver">Volver a la tienda</a>
+    <a href="{% url 'tienda' %}" class="btn-volver">
+        <i class="fas fa-arrow-left"></i> Volver a la Tienda
+    </a>
 </div>
+
+<!-- FontAwesome para íconos -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<script>
+// Efecto de confeti adicional con JavaScript
+document.addEventListener('DOMContentLoaded', function() {
+    const section = document.querySelector('.exito-section');
+    const colors = ['#003366', '#d6336c', '#28a745', '#0055a5', '#e91e63'];
+    
+    for (let i = 0; i < 15; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        confetti.style.left = Math.random() * 100 + '%';
+        confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.animationDelay = Math.random() * 5 + 's';
+        confetti.style.width = Math.random() * 8 + 6 + 'px';
+        confetti.style.height = Math.random() * 8 + 6 + 'px';
+        section.appendChild(confetti);
+    }
+});
+</script>
 {% endblock %}

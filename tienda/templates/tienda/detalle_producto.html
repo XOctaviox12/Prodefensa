@@ -1,121 +1,320 @@
 {% extends "inicio/home.html" %}
 {% block contenido %}
 <style>
-  /* Contenedor principal */
-  .detalle-section {
-    background: #f0f0f0;
-    padding: 80px 20px;
-    border-radius: 20px;
-    width: 95%;
-    margin: 50px auto;
+:root {
+    --azul-cipol: #003366;
+    --rosa-cipol: #d6336c;
+    --gris-claro: #f8f9fa;
+    --gris-medio: #e9ecef;
+    --texto-oscuro: #2d3748;
+    --texto-medio: #4a5568;
+    --sombra: rgba(0, 0, 0, 0.1);
+}
+
+/* Contenedor principal mejorado */
+.detalle-section {
+    background: linear-gradient(135deg, var(--gris-claro) 0%, var(--gris-medio) 100%);
+    padding: clamp(40px, 8vw, 80px) clamp(20px, 4vw, 40px);
+    border-radius: 24px;
+    width: min(95%, 1200px);
+    margin: clamp(30px, 6vw, 50px) auto;
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
+    box-shadow: 0 10px 40px var(--sombra);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
 
-  /* Imagen del producto */
-  .detalle-img {
-    width: 100%;
-    max-width: 500px;
-    border-radius: 15px;
+/* Imagen del producto mejorada */
+.detalle-img {
+    width: min(100%, 500px);
+    height: auto;
+    border-radius: 20px;
     object-fit: cover;
-    margin-bottom: 30px;
-    box-shadow: 0 6px 25px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
-  }
+    margin-bottom: clamp(25px, 4vw, 40px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 3px solid white;
+}
 
-  .detalle-img:hover {
-    transform: scale(1.03);
-  }
+.detalle-img:hover {
+    transform: scale(1.03) translateY(-5px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+}
 
-  /* Nombre del producto */
-  .detalle-nombre {
-    font-size: 2.2rem;
+/* Nombre del producto mejorado */
+.detalle-nombre {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-weight: 800;
+    color: var(--azul-cipol);
+    text-align: center;
+    margin-bottom: clamp(10px, 2vw, 15px);
+    line-height: 1.2;
+    background: linear-gradient(135deg, var(--azul-cipol), #0055a5);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Precio mejorado */
+.detalle-precio {
+    color: var(--rosa-cipol);
+    font-size: clamp(1.4rem, 3vw, 2rem);
     font-weight: 700;
-    color: #111;
+    margin-bottom: clamp(20px, 3vw, 30px);
     text-align: center;
-    margin-bottom: 10px;
-  }
+    background: rgba(214, 51, 108, 0.1);
+    padding: clamp(8px, 1.5vw, 12px) clamp(20px, 3vw, 30px);
+    border-radius: 50px;
+    border: 2px solid rgba(214, 51, 108, 0.2);
+}
 
-  /* Precio */
-  .detalle-precio {
-    color: #ff6a00;
-    font-size: 1.7rem;
-    font-weight: 600;
-    margin-bottom: 20px;
+/* Descripción mejorada */
+.detalle-descripcion {
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    color: var(--texto-medio);
+    line-height: 1.7;
     text-align: center;
-  }
+    max-width: min(700px, 95%);
+    margin-bottom: clamp(30px, 5vw, 50px);
+    padding: clamp(20px, 3vw, 30px);
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    border-left: 4px solid var(--azul-cipol);
+}
 
-  /* Descripción */
-  .detalle-descripcion {
-    font-size: 1.1rem;
-    color: #444;
-    line-height: 1.6;
-    text-align: justify;
-    max-width: 700px;
-    margin-bottom: 30px;
-  }
-
-  /* Botones */
-  .btn-group {
+/* Grupo de botones mejorado */
+.btn-group {
     display: flex;
-    gap: 15px;
+    gap: clamp(12px, 2.5vw, 20px);
     flex-wrap: wrap;
     justify-content: center;
     margin-bottom: 20px;
-  }
+    width: 100%;
+}
 
-  .btn-volver, .btn-carrito {
-    display: flex;
+.btn-volver, .btn-carrito {
+    display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     border: none;
-    border-radius: 30px;
-    padding: 12px 25px;
-    font-weight: 500;
-    font-size: 1rem;
+    border-radius: 50px;
+    padding: clamp(12px, 2.5vw, 16px) clamp(25px, 4vw, 35px);
+    font-weight: 600;
+    font-size: clamp(0.9rem, 1.8vw, 1.1rem);
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     text-decoration: none;
-    color: #fff;
-  }
+    color: white;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
 
-  /* Botón volver */
-  .btn-volver {
-    background: linear-gradient(135deg, #555, #222);
-  }
+.btn-volver::before, .btn-carrito::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
 
-  .btn-volver:hover {
-    background: linear-gradient(135deg, #222, #555);
-    transform: scale(1.05);
-  }
+/* Botón volver mejorado */
+.btn-volver {
+    background: linear-gradient(135deg, var(--azul-cipol), #0055a5);
+}
 
-  /* Botón carrito */
-  .btn-carrito {
-    background: linear-gradient(135deg, #ff6a00, #ee0979);
-  }
+.btn-volver:hover {
+    background: linear-gradient(135deg, #0055a5, var(--azul-cipol));
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 10px 30px rgba(0, 51, 102, 0.3);
+}
 
-  .btn-carrito:hover {
-    background: linear-gradient(135deg, #ee0979, #ff6a00);
-    transform: scale(1.05);
-  }
+.btn-volver:hover::before {
+    left: 100%;
+}
 
-  /* Icono carrito */
-  .btn-carrito i {
-    font-size: 1.2rem;
-  }
+/* Botón carrito mejorado */
+.btn-carrito {
+    background: linear-gradient(135deg, var(--rosa-cipol), #e91e63);
+}
 
-  @media (max-width: 768px) {
-    .detalle-nombre {
-      font-size: 1.8rem;
+.btn-carrito:hover {
+    background: linear-gradient(135deg, #e91e63, var(--rosa-cipol));
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 10px 30px rgba(214, 51, 108, 0.3);
+}
+
+.btn-carrito:hover::before {
+    left: 100%;
+}
+
+/* Iconos mejorados */
+.btn-volver i, .btn-carrito i {
+    font-size: 1.1em;
+    transition: transform 0.3s ease;
+}
+
+.btn-volver:hover i {
+    transform: translateX(-3px);
+}
+
+.btn-carrito:hover i {
+    transform: scale(1.2);
+}
+
+/* Estados activos */
+.btn-volver:active, .btn-carrito:active {
+    transform: translateY(-1px) scale(1.02);
+}
+
+/* RESPONSIVE DESIGN MEJORADO */
+@media (max-width: 768px) {
+    .detalle-section {
+        padding: 30px 20px;
+        border-radius: 20px;
+        margin: 20px auto;
     }
-    .detalle-precio {
-      font-size: 1.4rem;
-    }
+
     .detalle-img {
-      max-width: 90%;
+        margin-bottom: 25px;
+        border-radius: 16px;
     }
-  }
+
+    .detalle-descripcion {
+        padding: 20px;
+        border-radius: 12px;
+        text-align: left;
+    }
+
+    .btn-group {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .btn-volver, .btn-carrito {
+        width: min(100%, 300px);
+        justify-content: center;
+        padding: 14px 25px;
+    }
+}
+
+@media (max-width: 480px) {
+    .detalle-section {
+        padding: 25px 15px;
+        border-radius: 16px;
+    }
+
+    .detalle-img {
+        border-radius: 12px;
+        margin-bottom: 20px;
+    }
+
+    .detalle-nombre {
+        font-size: 1.6rem;
+    }
+
+    .detalle-precio {
+        font-size: 1.3rem;
+        padding: 8px 20px;
+    }
+
+    .detalle-descripcion {
+        padding: 18px;
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+
+    .btn-volver, .btn-carrito {
+        padding: 12px 20px;
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .detalle-section {
+        padding: 20px 12px;
+    }
+
+    .detalle-nombre {
+        font-size: 1.4rem;
+    }
+
+    .detalle-precio {
+        font-size: 1.2rem;
+    }
+
+    .detalle-descripcion {
+        padding: 15px;
+        font-size: 0.9rem;
+    }
+
+    .btn-volver, .btn-carrito {
+        padding: 10px 18px;
+        font-size: 0.9rem;
+    }
+}
+
+/* MEJORAS DE ACCESIBILIDAD */
+.btn-volver:focus, .btn-carrito:focus {
+    outline: 3px solid var(--rosa-cipol);
+    outline-offset: 2px;
+}
+
+/* ANIMACIONES */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.detalle-section {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.detalle-img {
+    animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+.detalle-nombre {
+    animation: fadeInUp 0.8s ease-out 0.4s both;
+}
+
+.detalle-precio {
+    animation: fadeInUp 0.8s ease-out 0.6s both;
+}
+
+.detalle-descripcion {
+    animation: fadeInUp 0.8s ease-out 0.8s both;
+}
+
+.btn-group {
+    animation: fadeInUp 0.8s ease-out 1s both;
+}
+
+/* PREVENIR SCROLL HORIZONTAL */
+body {
+    overflow-x: hidden;
+}
+
+/* MEJORAS DE RENDIMIENTO */
+.detalle-img {
+    will-change: transform;
+}
+
+.btn-volver, .btn-carrito {
+    will-change: transform;
+}
 </style>
 
 <div class="detalle-section">
@@ -128,14 +327,15 @@
   <p class="detalle-descripcion">{{ producto.descripcion }}</p>
 
   <div class="btn-group">
-    <div class="btn-group">
-    <a href="{% url 'tienda' %}" class="btn-volver">← Volver</a>
-    <a href="{% url 'agregar_al_carrito' producto.id %}" class="btn-carrito">
-        <i class="fas fa-shopping-cart"></i> Añadir al carrito
+    <a href="{% url 'tienda' %}" class="btn-volver">
+        <i class="fas fa-arrow-left"></i> Volver a Tienda
     </a>
-</div>
+    <a href="{% url 'agregar_al_carrito' producto.id %}" class="btn-carrito">
+        <i class="fas fa-shopping-cart"></i> Añadir al Carrito
+    </a>
+  </div>
 </div>
 
-<!-- Asegúrate de tener FontAwesome para los íconos -->
+<!-- FontAwesome para íconos -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 {% endblock %}

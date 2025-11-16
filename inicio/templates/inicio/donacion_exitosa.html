@@ -3,197 +3,417 @@
 {% block contenido %}
 
 <style>
-  /* === Contenedor principal === */
-  .donacion-exitosa {
-    min-height: 85vh;
+:root {
+    --azul-cipol: #003366;
+    --rosa-cipol: #d6336c;
+    --verde-exito: #00b894;
+    --gris-claro: #f8f9fa;
+    --gris-medio: #e9ecef;
+    --texto-oscuro: #2d3748;
+    --texto-medio: #4a5568;
+    --sombra: rgba(0, 0, 0, 0.1);
+}
+
+/* === Contenedor principal mejorado === */
+.donacion-exitosa {
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, #f4f8ff 0%, #ffffff 100%);
+    background: linear-gradient(135deg, var(--gris-claro) 0%, var(--gris-medio) 100%);
     text-align: center;
-    padding: 60px 20px;
+    padding: clamp(40px, 8vw, 80px) clamp(20px, 4vw, 40px);
     position: relative;
     overflow: hidden;
     animation: fadeIn 1s ease;
-  }
+}
 
-  /* === Animaciones === */
-  @keyframes fadeIn {
+/* === Animaciones mejoradas === */
+@keyframes fadeIn {
     from {
-      opacity: 0;
-      transform: translateY(30px);
+        opacity: 0;
+        transform: translateY(30px);
     }
     to {
-      opacity: 1;
-      transform: translateY(0);
+        opacity: 1;
+        transform: translateY(0);
     }
-  }
+}
 
-  @keyframes popIn {
+@keyframes popIn {
     0% {
-      transform: scale(0.5);
-      opacity: 0;
+        transform: scale(0.3) rotate(-180deg);
+        opacity: 0;
     }
-    80% {
-      transform: scale(1.1);
-      opacity: 1;
+    70% {
+        transform: scale(1.1) rotate(10deg);
     }
     100% {
-      transform: scale(1);
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
     }
-  }
+}
 
-  /* === Ícono de éxito === */
-  .success-icon {
-    width: 120px;
-    height: 120px;
-    background: #00b894;
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* === Ícono de éxito mejorado === */
+.success-icon {
+    width: clamp(100px, 20vw, 140px);
+    height: clamp(100px, 20vw, 140px);
+    background: linear-gradient(135deg, var(--verde-exito), #00d2a0);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
-    font-size: 3.5rem;
-    margin-bottom: 25px;
-    box-shadow: 0 6px 25px rgba(0, 184, 148, 0.4);
-    animation: popIn 0.6s ease;
-  }
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    margin-bottom: clamp(20px, 4vw, 35px);
+    box-shadow: 0 15px 40px rgba(0, 184, 148, 0.4);
+    animation: popIn 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    z-index: 2;
+    animation: float 3s ease-in-out infinite;
+}
 
-  /* === Texto === */
-  .donacion-exitosa h2 {
-    font-size: 2.3rem;
-    color: #003366;
-    font-weight: 700;
-    margin-bottom: 15px;
-  }
+.success-icon::after {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    background: linear-gradient(135deg, var(--verde-exito), #00d2a0);
+    border-radius: 50%;
+    opacity: 0.2;
+    z-index: -1;
+    animation: pulse 2s ease-in-out infinite;
+}
 
-  .donacion-exitosa p {
-    font-size: 1.15rem;
-    color: #333;
-    max-width: 600px;
-    margin-bottom: 35px;
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.2;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 0.3;
+    }
+}
+
+/* === Texto mejorado === */
+.donacion-exitosa h2 {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    color: var(--azul-cipol);
+    font-weight: 800;
+    margin-bottom: clamp(15px, 3vw, 25px);
+    line-height: 1.2;
+    background: linear-gradient(135deg, var(--azul-cipol), #0055a5);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: fadeIn 0.8s ease 0.3s both;
+}
+
+.donacion-exitosa p {
+    font-size: clamp(1rem, 2.2vw, 1.3rem);
+    color: var(--texto-medio);
+    max-width: min(600px, 90%);
+    margin-bottom: clamp(25px, 5vw, 40px);
     line-height: 1.6;
-  }
+    animation: fadeIn 0.8s ease 0.5s both;
+}
 
-  /* === Botón === */
-  .btn-regresar {
-    background-color: #003366;
+/* === Botón mejorado === */
+.btn-regresar {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, var(--azul-cipol), #0055a5);
     color: white;
-    padding: 14px 32px;
-    border-radius: 10px;
-    font-size: 1.05rem;
+    padding: clamp(12px, 2.5vw, 16px) clamp(28px, 4vw, 40px);
+    border-radius: 50px;
+    font-size: clamp(1rem, 2vw, 1.1rem);
     font-weight: 600;
     text-decoration: none;
-    transition: all 0.3s ease;
-  }
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 8px 25px rgba(0, 51, 102, 0.3);
+    border: none;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    animation: fadeIn 0.8s ease 0.7s both;
+}
 
-  .btn-regresar:hover {
-    background-color: #00224e;
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0, 34, 78, 0.25);
-  }
+.btn-regresar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
 
-  /* === Partículas decorativas === */
-  .sparkles {
+.btn-regresar:hover {
+    background: linear-gradient(135deg, #0055a5, var(--azul-cipol));
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 15px 35px rgba(0, 51, 102, 0.4);
+    color: white;
+}
+
+.btn-regresar:hover::before {
+    left: 100%;
+}
+
+.btn-regresar:active {
+    transform: translateY(-1px) scale(1.02);
+}
+
+.btn-regresar i {
+    font-size: 1.1em;
+    transition: transform 0.3s ease;
+}
+
+.btn-regresar:hover i {
+    transform: translateX(-3px);
+}
+
+/* === Partículas decorativas mejoradas === */
+.sparkles {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     pointer-events: none;
-    z-index: 0;
-  }
+    z-index: 1;
+}
 
-  .sparkle {
+.sparkle {
     position: absolute;
-    width: 10px;
-    height: 10px;
-    background: #00b894;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
-    opacity: 0.7;
+    opacity: 0;
     animation: sparkleFloat 6s infinite ease-in-out;
-  }
+}
 
-  @keyframes sparkleFloat {
+.sparkle:nth-child(1) { background: var(--azul-cipol); left: 10%; animation-delay: 0s; }
+.sparkle:nth-child(2) { background: var(--rosa-cipol); left: 20%; animation-delay: 1s; }
+.sparkle:nth-child(3) { background: var(--verde-exito); left: 30%; animation-delay: 2s; }
+.sparkle:nth-child(4) { background: var(--azul-cipol); left: 40%; animation-delay: 3s; }
+.sparkle:nth-child(5) { background: var(--rosa-cipol); left: 50%; animation-delay: 4s; }
+.sparkle:nth-child(6) { background: var(--verde-exito); left: 60%; animation-delay: 5s; }
+.sparkle:nth-child(7) { background: var(--azul-cipol); left: 70%; animation-delay: 1.5s; }
+.sparkle:nth-child(8) { background: var(--rosa-cipol); left: 80%; animation-delay: 2.5s; }
+.sparkle:nth-child(9) { background: var(--verde-exito); left: 90%; animation-delay: 3.5s; }
+
+@keyframes sparkleFloat {
     0% {
-      transform: translateY(0) scale(1);
-      opacity: 1;
+        transform: translateY(100vh) scale(0) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
     }
     100% {
-      transform: translateY(-250px) scale(0);
-      opacity: 0;
+        transform: translateY(-100px) scale(1) rotate(360deg);
+        opacity: 0;
     }
-  }
+}
 
-  /* === Responsividad === */
-  @media (max-width: 768px) {
-    .success-icon {
-      width: 90px;
-      height: 90px;
-      font-size: 2.5rem;
+/* === Efecto de confeti adicional === */
+.confetti {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    opacity: 0;
+    animation: confettiFall 5s linear infinite;
+}
+
+.confetti:nth-child(odd) {
+    background: var(--azul-cipol);
+    clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+}
+
+.confetti:nth-child(even) {
+    background: var(--rosa-cipol);
+    clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
+}
+
+@keyframes confettiFall {
+    0% {
+        transform: translateY(-100px) rotate(0deg);
+        opacity: 1;
     }
-
-    .donacion-exitosa h2 {
-      font-size: 1.8rem;
+    100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
     }
+}
 
-    .donacion-exitosa p {
-      font-size: 1rem;
-      padding: 0 10px;
-    }
-
-    .btn-regresar {
-      font-size: 1rem;
-      padding: 12px 24px;
-    }
-  }
-
-  @media (max-width: 480px) {
+/* === RESPONSIVIDAD MEJORADA === */
+@media (max-width: 768px) {
     .donacion-exitosa {
-      padding: 40px 15px;
+        padding: 40px 20px;
     }
 
     .success-icon {
-      width: 80px;
-      height: 80px;
-      font-size: 2rem;
+        margin-bottom: 25px;
     }
 
     .donacion-exitosa h2 {
-      font-size: 1.6rem;
+        margin-bottom: 20px;
     }
 
     .donacion-exitosa p {
-      font-size: 0.95rem;
+        margin-bottom: 30px;
     }
 
     .btn-regresar {
-      width: 100%;
-      padding: 12px;
-      font-size: 1rem;
+        width: min(100%, 280px);
+        justify-content: center;
     }
-  }
+}
+
+@media (max-width: 480px) {
+    .donacion-exitosa {
+        padding: 30px 15px;
+    }
+
+    .success-icon {
+        width: 90px;
+        height: 90px;
+        font-size: 2.5rem;
+    }
+
+    .donacion-exitosa h2 {
+        font-size: 1.6rem;
+    }
+
+    .donacion-exitosa p {
+        font-size: 1rem;
+    }
+
+    .btn-regresar {
+        padding: 14px 25px;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .donacion-exitosa {
+        padding: 25px 12px;
+    }
+
+    .success-icon {
+        width: 80px;
+        height: 80px;
+        font-size: 2rem;
+    }
+
+    .donacion-exitosa h2 {
+        font-size: 1.4rem;
+    }
+
+    .donacion-exitosa p {
+        font-size: 0.95rem;
+    }
+}
+
+/* === MEJORAS DE ACCESIBILIDAD === */
+.btn-regresar:focus {
+    outline: 3px solid var(--rosa-cipol);
+    outline-offset: 2px;
+}
+
+/* === PREVENIR SCROLL HORIZONTAL === */
+body {
+    overflow-x: hidden;
+}
+
+/* === MEJORAS DE RENDIMIENTO === */
+.success-icon {
+    will-change: transform;
+}
+
+.btn-regresar {
+    will-change: transform;
+}
 </style>
 
 <section class="donacion-exitosa">
-  <div class="sparkles">
-    <div class="sparkle" style="left: 20%; animation-delay: 0s;"></div>
-    <div class="sparkle" style="left: 50%; animation-delay: 1s;"></div>
-    <div class="sparkle" style="left: 80%; animation-delay: 2s;"></div>
-  </div>
+    <!-- Partículas decorativas -->
+    <div class="sparkles">
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+    </div>
 
-  <div class="success-icon">
-    <i class="fas fa-check"></i>
-  </div>
+    <!-- Confeti adicional -->
+    <div class="confetti" style="left: 15%; animation-delay: 0s;"></div>
+    <div class="confetti" style="left: 25%; animation-delay: 0.5s;"></div>
+    <div class="confetti" style="left: 35%; animation-delay: 1s;"></div>
+    <div class="confetti" style="left: 45%; animation-delay: 1.5s;"></div>
+    <div class="confetti" style="left: 55%; animation-delay: 2s;"></div>
+    <div class="confetti" style="left: 65%; animation-delay: 2.5s;"></div>
+    <div class="confetti" style="left: 75%; animation-delay: 3s;"></div>
+    <div class="confetti" style="left: 85%; animation-delay: 3.5s;"></div>
 
-  <h2>¡Gracias por tu apoyo!</h2>
-  <p>
-    Tu donación se ha procesado exitosamente ❤️<br>
-    Gracias a ti, seguimos creando programas y oportunidades que fortalecen nuestra comunidad.
-  </p>
+    <div class="success-icon">
+        <i class="fas fa-check"></i>
+    </div>
 
-  <a href="{% url 'inicio' %}" class="btn-regresar">Volver al inicio</a>
+    <h2>¡Gracias por tu apoyo!</h2>
+    <p>
+        Tu donación se ha procesado exitosamente ❤️<br>
+        Gracias a ti, seguimos creando programas y oportunidades que fortalecen nuestra comunidad.
+    </p>
+
+    <a href="{% url 'inicio' %}" class="btn-regresar">
+        <i class="fas fa-home"></i> Volver al Inicio
+    </a>
 </section>
+
+<!-- FontAwesome para íconos -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<script>
+// Efecto de confeti adicional con JavaScript
+document.addEventListener('DOMContentLoaded', function() {
+    const section = document.querySelector('.donacion-exitosa');
+    const colors = ['#003366', '#d6336c', '#00b894', '#0055a5', '#e91e63'];
+    
+    // Añadir más confeti
+    for (let i = 0; i < 20; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        confetti.style.left = Math.random() * 100 + '%';
+        confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.animationDelay = Math.random() * 5 + 's';
+        confetti.style.width = Math.random() * 8 + 8 + 'px';
+        confetti.style.height = Math.random() * 8 + 8 + 'px';
+        section.appendChild(confetti);
+    }
+});
+</script>
 
 {% endblock %}

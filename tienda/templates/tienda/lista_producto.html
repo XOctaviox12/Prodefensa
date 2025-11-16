@@ -1,146 +1,342 @@
 {% extends "inicio/home.html" %}
 {% block contenido %}
 <style>
-  .tienda-section {
-    background: #f0f0f0;
-    color: #333;
-    padding: 80px 20px;
-    border-radius: 20px;
-    margin: 50px auto;
-    width: 95%;
-    box-shadow: 0 4px 30px rgba(0,0,0,0.1);
-  }
+:root {
+    --azul-cipol: #003366;
+    --rosa-cipol: #d6336c;
+    --gris-claro: #f8f9fa;
+    --gris-medio: #e9ecef;
+    --texto-oscuro: #2d3748;
+    --texto-medio: #4a5568;
+    --sombra: rgba(0, 0, 0, 0.1);
+}
 
-  .tienda-title {
-    font-size: 2.8rem;
+.tienda-section {
+    background: linear-gradient(135deg, var(--gris-claro) 0%, var(--gris-medio) 100%);
+    color: var(--texto-oscuro);
+    padding: clamp(50px, 8vw, 80px) clamp(20px, 4vw, 30px);
+    border-radius: 24px;
+    margin: clamp(30px, 6vw, 50px) auto;
+    width: min(95%, 1400px);
+    box-shadow: 0 15px 50px var(--sombra);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.tienda-title {
+    font-size: clamp(2rem, 5vw, 3rem);
     text-align: center;
     font-weight: 900;
-    margin-bottom: 50px;
-  }
+    margin-bottom: clamp(30px, 6vw, 50px);
+    line-height: 1.1;
+}
 
-  /* === TEXTO CON EFECTO GRADIENTE (colores CIPOL) === */
-  .gradient-text {
+/* === TEXTO CON EFECTO GRADIENTE (colores CIPOL) === */
+.gradient-text {
     background: linear-gradient(
-      90deg,
-      #002b80,
-      #7f00ff,
-      #00b140,
-      #ff0000,
-      #ff6600,
-      #ffd100
+        90deg,
+        #002b80,
+        #7f00ff,
+        #00b140,
+        #ff0000,
+        #ff6600,
+        #ffd100
     );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     animation: gradientMove 5s ease infinite;
     background-size: 300% 300%;
-  }
+}
 
-  @keyframes gradientMove {
+@keyframes gradientMove {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
-  }
+}
 
-  /* Contenedor de las cards */
-  .productos-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center; /* Centra las filas */
-    gap: 25px;
-  }
+/* Contenedor de las cards - TODAS DEL MISMO TAMAÑO */
+.productos-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+    gap: clamp(20px, 4vw, 30px);
+    justify-content: center;
+    align-items: stretch;
+}
 
-  .card {
+.card {
     background-color: #fff;
     border: none;
-    border-radius: 15px;
+    border-radius: 20px;
     overflow: hidden;
-    width: 230px; /* un poco más grande */
-    transition: all 0.3s ease-in-out;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
     display: flex;
     flex-direction: column;
-  }
+    height: 100%;
+    min-height: 420px;
+    position: relative;
+    animation: fadeInUp 0.6s ease-out;
+}
 
-  .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-  }
+.card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
 
-  .card-img-top {
+.card-img-top {
+    width: 100%;
     height: 220px;
     object-fit: cover;
-    border-bottom: 1px solid #eee;
-  }
+    border-bottom: 1px solid var(--gris-medio);
+    transition: transform 0.4s ease;
+}
 
-  .card-body {
-    padding: 15px;
+.card:hover .card-img-top {
+    transform: scale(1.05);
+}
+
+.card-body {
+    padding: clamp(20px, 3vw, 25px);
     text-align: center;
-  }
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1;
+    height: 100%;
+}
 
-  .card-title {
-    color: #111;
-    font-size: 1rem;
+.card-title {
+    color: var(--azul-cipol);
+    font-size: clamp(1.1rem, 2vw, 1.3rem);
+    font-weight: 700;
+    margin-bottom: clamp(8px, 1.5vw, 12px);
+    line-height: 1.3;
+    min-height: auto;
+}
+
+.card-text {
+    color: var(--texto-medio);
+    font-size: clamp(1rem, 1.8vw, 1.2rem);
+    margin-bottom: clamp(15px, 2.5vw, 20px);
     font-weight: 600;
-    margin-bottom: 5px;
-  }
+    color: var(--rosa-cipol);
+}
 
-  .card-text {
-    color: #555;
-    font-size: 0.95rem;
-    margin-bottom: 10px;
-  }
-
-  .btn-dark {
-    background: linear-gradient(135deg, #ff6a00, #ee0979);
+.btn-dark {
+    background: linear-gradient(135deg, var(--rosa-cipol), #e91e63);
     color: #fff !important;
     border: none;
-    border-radius: 25px;
-    padding: 8px 20px;
-    font-weight: 500;
-    font-size: 0.9rem;
-    transition: all 0.3s ease;
-  }
+    border-radius: 50px;
+    padding: clamp(10px, 2vw, 12px) clamp(20px, 3vw, 25px);
+    font-weight: 600;
+    font-size: clamp(0.9rem, 1.8vw, 1rem);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 6px 20px rgba(214, 51, 108, 0.3);
+    position: relative;
+    overflow: hidden;
+    width: fit-content;
+    margin: 0 auto;
+}
 
-  .btn-dark:hover {
-    background: linear-gradient(135deg, #ee0979, #ff6a00);
-    transform: scale(1.05);
-  }
+.btn-dark::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
 
-  .card-link {
+.btn-dark:hover {
+    background: linear-gradient(135deg, #e91e63, var(--rosa-cipol));
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 10px 30px rgba(214, 51, 108, 0.4);
+}
+
+.btn-dark:hover::before {
+    left: 100%;
+}
+
+.card-link {
     text-decoration: none;
     color: inherit;
-  }
+    display: block;
+    height: 100%;
+}
 
-  @media (max-width: 768px) {
+.card-link:hover {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Estado vacío */
+.text-center {
+    text-align: center;
+    font-size: clamp(1.1rem, 2.2vw, 1.3rem);
+    color: var(--texto-medio);
+    padding: 40px 20px;
+    grid-column: 1 / -1;
+}
+
+/* ANIMACIONES */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+/* Establecer animación escalonada para las cards */
+.productos-container .card:nth-child(1) { animation-delay: 0.1s; }
+.productos-container .card:nth-child(2) { animation-delay: 0.2s; }
+.productos-container .card:nth-child(3) { animation-delay: 0.3s; }
+.productos-container .card:nth-child(4) { animation-delay: 0.4s; }
+.productos-container .card:nth-child(5) { animation-delay: 0.5s; }
+.productos-container .card:nth-child(6) { animation-delay: 0.6s; }
+
+/* RESPONSIVE DESIGN MEJORADO */
+@media (max-width: 1200px) {
+    .productos-container {
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    }
+    
     .card {
-      width: 170px;
+        min-height: 400px;
     }
+}
+
+@media (max-width: 768px) {
+    .tienda-section {
+        padding: 40px 20px;
+        border-radius: 20px;
+        margin: 30px auto;
+    }
+
+    .productos-container {
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 20px;
+    }
+
+    .card {
+        min-height: 380px;
+    }
+
     .card-img-top {
-      height: 160px;
+        height: 200px;
     }
-  }
+
+    .card-body {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .tienda-section {
+        padding: 30px 15px;
+        border-radius: 16px;
+        margin: 20px auto;
+    }
+
+    .productos-container {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .card {
+        min-height: 360px;
+        max-width: 320px;
+        margin: 0 auto;
+    }
+
+    .card-img-top {
+        height: 180px;
+    }
+
+    .card-body {
+        padding: 18px;
+    }
+
+    .btn-dark {
+        width: 100%;
+        max-width: 200px;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 360px) {
+    .tienda-section {
+        padding: 25px 12px;
+    }
+
+    .card {
+        min-height: 340px;
+    }
+
+    .card-img-top {
+        height: 160px;
+    }
+
+    .card-body {
+        padding: 15px;
+    }
+}
+
+/* MEJORAS DE ACCESIBILIDAD */
+.btn-dark:focus {
+    outline: 3px solid var(--rosa-cipol);
+    outline-offset: 2px;
+}
+
+.card-link:focus {
+    outline: 3px solid var(--azul-cipol);
+    outline-offset: 2px;
+    border-radius: 20px;
+}
+
+/* PREVENIR SCROLL HORIZONTAL */
+body {
+    overflow-x: hidden;
+}
+
+/* MEJORAS DE RENDIMIENTO */
+.card {
+    will-change: transform;
+}
+
+.card-img-top {
+    will-change: transform;
+}
 </style>
 
 <div class="tienda-section">
-  <h2 class="tienda-title gradient-text">Compra con Causa</h2>
-  <div class="productos-container">
-    {% for producto in productos %}
-      <a href="{% url 'detalle_producto' producto.id %}" class="card-link">
-        <div class="card">
-          {% if producto.imagen %}
-            <img src="{{ producto.imagen.url }}" class="card-img-top" alt="{{ producto.nombre }}">
-          {% endif %}
-          <div class="card-body">
-            <h5 class="card-title">{{ producto.nombre }}</h5>
-            <p class="card-text">${{ producto.precio }}</p>
-            <button class="btn btn-dark">Ver detalles</button>
-          </div>
-        </div>
-      </a>
-    {% empty %}
-      <p class="text-center text-muted">No hay productos disponibles por el momento.</p>
-    {% endfor %}
-  </div>
+    <h2 class="tienda-title gradient-text">Compra con Causa</h2>
+    <div class="productos-container">
+        {% for producto in productos %}
+            <a href="{% url 'detalle_producto' producto.id %}" class="card-link">
+                <div class="card">
+                    {% if producto.imagen %}
+                        <img src="{{ producto.imagen.url }}" class="card-img-top" alt="{{ producto.nombre }}">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ producto.nombre }}</h5>
+                        <p class="card-text">${{ producto.precio }}</p>
+                        <button class="btn btn-dark">Ver detalles</button>
+                    </div>
+                </div>
+            </a>
+        {% empty %}
+            <p class="text-center text-muted">No hay productos disponibles por el momento.</p>
+        {% endfor %}
+    </div>
 </div>
 {% endblock %}
