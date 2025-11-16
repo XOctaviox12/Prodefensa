@@ -1,380 +1,621 @@
 {% extends "inicio/home.html" %}
 {% load static %}
-{% block titulo %}Convenios{% endblock %}
+{% block titulo %}Comunidad CIPOL{% endblock %}
 {% block contenido %}
 
+<!-- ==== ESTILOS MEJORADOS ==== -->
 <style>
-/* GENERAL */
-.fra-container {
-  width: 100%;
-  text-align: center;
-  padding: clamp(40px, 8vw, 80px) clamp(15px, 3vw, 20px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  box-sizing: border-box;
-}
-
-.fra-content {
-  max-width: min(900px, 95%);
-  text-align: center;
-}
-
-.fra-content h2 {
-  font-size: clamp(1.8rem, 4vw, 2.5rem);
-  margin-bottom: clamp(15px, 3vw, 20px);
-  line-height: 1.2;
-}
-
-.fra-content p {
-  font-size: clamp(0.95rem, 2vw, 1.1rem);
-  line-height: 1.6;
-}
-
-/* SECCIÓN HERO */
-.hero-section img {
-  width: min(90%, 1200px);
-  height: auto;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-  margin-top: clamp(15px, 3vw, 25px);
-}
-
-/* SECCIÓN TÍTULOS */
-.section-title {
-  background-color: #f8d7da98;
-  padding: clamp(40px, 6vw, 60px) clamp(15px, 3vw, 20px) 0 clamp(15px, 3vw, 20px);
-  text-align: center;
-  border-radius: 12px;
-  box-sizing: border-box;
-  width: 100%;
-}
-
-.section-title h2 {
-  color: #333;
-  font-size: clamp(1.5rem, 3vw, 2rem);
-  max-width: min(900px, 95%);
-  margin: 0 auto;
-  padding-bottom: clamp(25px, 5vw, 40px);
-  line-height: 1.4;
-}
-
-/* SOLO TÍTULO GENERAL */
-.titulo-general {
-  background-color: #eee;
-}
-
-/* GRID DE TARJETAS */
-.cards-section {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
-  gap: clamp(20px, 4vw, 35px);
-  justify-content: center;
-  background-color: #f8d7da;
-  padding: clamp(20px, 4vw, 40px) clamp(20px, 3vw, 40px) clamp(40px, 8vw, 80px) clamp(20px, 3vw, 40px);
-  text-align: center;
-  box-sizing: border-box;
-  width: 100%;
-}
-
-/* Ajuste para secciones con una sola tarjeta */
-.cards-section.single-card {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.cards-section.single-card .card {
-  max-width: min(250px, 90%);
-  margin: 0 auto;
-}
-
-.card {
-  background-color: white;
-  border-radius: 18px;
-  padding: clamp(20px, 3vw, 30px) clamp(15px, 2vw, 20px);
-  text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-  width: 100%;
-  max-width: 300px;
-  margin: 0 auto;
-  box-sizing: border-box;
-  height: fit-content;
-}
-
-.card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-}
-
-.card img {
-  width: clamp(80px, 12vw, 110px);
-  height: clamp(80px, 12vw, 110px);
-  object-fit: cover;
-  border-radius: 50%;
-  margin-bottom: clamp(12px, 2vw, 15px);
-  border: 3px solid #d6336c;
-}
-
-.card h3 {
-  font-size: clamp(1.1rem, 2.5vw, 1.3rem);
-  margin-bottom: clamp(8px, 1.5vw, 10px);
-  color: #d6336c;
-  font-weight: bold;
-  line-height: 1.3;
-}
-
-.card p {
-  font-size: clamp(0.9rem, 1.8vw, 1rem);
-  line-height: 1.5;
-  color: #555;
-  margin: 0;
-}
-
-/* RESPONSIVE MEJORADO */
-@media (max-width: 1200px) {
-  .cards-section {
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  :root {
+    --azul-cipol: #003366;
+    --gris-fondo: #f4f6f9;
+    --gradiente-cipol: linear-gradient(
+      90deg,
+      #002b80,
+      #7f00ff,
+      #00b140,
+      #ff0000,
+      #ff6600,
+      #ffd100
+    );
   }
-}
 
-@media (max-width: 992px) {
-  .cards-section {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 25px;
-    padding: 30px 25px 60px 25px;
+  /* GENERAL */
+  .section {
+    width: 100%;
+    text-align: center;
+    padding: clamp(40px, 8vw, 100px) clamp(15px, 3vw, 25px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    box-sizing: border-box;
   }
-  
-  .section-title {
-    padding: 40px 15px 0 15px;
-  }
-}
 
-@media (max-width: 768px) {
-  .fra-container {
-    padding: 30px 15px;
+  h2 {
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    font-weight: 900;
+    margin-bottom: clamp(10px, 2vw, 15px);
+    letter-spacing: 0.5px;
+    line-height: 1.2;
   }
-  
-  .fra-content h2 {
-    font-size: clamp(1.6rem, 5vw, 1.8rem);
-  }
-  
-  .section-title {
-    padding: 30px 10px 0 10px;
-  }
-  
-  .section-title h2 {
-    font-size: clamp(1.3rem, 4vw, 1.5rem);
-    padding-bottom: 25px;
-  }
-  
-  .cards-section {
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 20px;
-    padding: 25px 20px 50px 20px;
-  }
-  
-  .card {
-    padding: 20px 15px;
-    max-width: 100%;
-  }
-  
-  .card img {
-    width: 70px;
-    height: 70px;
-  }
-}
 
-@media (max-width: 576px) {
-  .fra-container {
-    padding: 25px 10px;
+  h3 {
+    font-size: clamp(1.2rem, 3vw, 1.6rem);
+    margin-bottom: clamp(8px, 1.5vw, 12px);
+    font-weight: 600;
+    line-height: 1.3;
   }
-  
-  .hero-section img {
-    width: 95%;
+
+  p {
+    font-size: clamp(0.95rem, 2vw, 1.1rem);
+    line-height: 1.6;
+    max-width: min(900px, 90%);
+    margin: 0 auto;
   }
-  
-  .section-title {
-    padding: 25px 8px 0 8px;
+
+  /* TEXTO CON EFECTO GRADIENTE */
+  .gradient-text {
+    background: var(--gradiente-cipol);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientMove 6s ease infinite;
+    background-size: 300% 300%;
+  }
+
+  @keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* SECCIÓN 1: INTRO */
+  .community-intro {
+    background-color: white;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    border-radius: 20px;
+    max-width: min(1200px, 95%);
+    margin: clamp(30px, 6vw, 60px) auto;
+    padding: clamp(30px, 5vw, 60px) clamp(20px, 3vw, 30px);
+    box-sizing: border-box;
+  }
+
+  .community-intro img {
+    width: 100%;
+    border-radius: 16px;
+    margin-top: clamp(20px, 4vw, 30px);
+    object-fit: cover;
+    box-shadow: 0 6px 25px rgba(0,0,0,0.1);
+    transition: transform 0.4s ease;
+    max-height: 500px;
+  }
+
+  .community-intro img:hover {
+    transform: scale(1.03);
+  }
+
+  /* SECCIÓN 2: BENEFICIOS - CARDS DEL MISMO TAMAÑO */
+  .community-team {
+    background: var(--gris-fondo);
+    border-top: 6px solid var(--azul-cipol);
+  }
+
+  .team-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+    gap: clamp(20px, 4vw, 35px);
+    margin-top: clamp(30px, 6vw, 50px);
+    width: 100%;
+    max-width: 1400px;
+    padding: 0 clamp(10px, 2vw, 20px);
+    box-sizing: border-box;
+    align-items: stretch;
+  }
+
+  .team-card {
+    background-color: white;
+    border-radius: 16px;
+    padding: clamp(25px, 3vw, 30px);
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 480px;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 350px;
+    position: relative;
+  }
+
+  .team-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  }
+
+  .team-card img {
+    width: clamp(90px, 15vw, 130px);
+    height: clamp(90px, 15vw, 130px);
+    object-fit: cover;
+    border-radius: 50%;
+    margin: 0 auto clamp(15px, 3vw, 20px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    flex-shrink: 0;
+  }
+
+  .icon-card {
+    width: clamp(90px, 15vw, 130px);
+    height: clamp(90px, 15vw, 130px);
+    border-radius: 50%;
+    background-color: var(--azul-cipol);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto clamp(15px, 3vw, 20px);
+    color: white;
+    flex-shrink: 0;
+  }
+
+  .icon-card i {
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+  }
+
+  .card-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+  }
+
+  .card-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  .card-text h3 {
+    margin-bottom: clamp(12px, 2vw, 16px);
+    min-height: auto;
+  }
+
+  .card-text p {
+    flex: 1;
+    margin-bottom: clamp(15px, 2vw, 20px);
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+
+  .phone-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: auto;
+    color: white;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    padding: clamp(10px, 2vw, 12px) clamp(14px, 3vw, 18px);
+    border: 2px solid var(--azul-cipol);
     border-radius: 8px;
+    background: var(--azul-cipol);
+    font-size: clamp(0.85rem, 2vw, 0.95rem);
+    white-space: nowrap;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    flex-shrink: 0;
   }
-  
-  .section-title h2 {
-    font-size: clamp(1.2rem, 5vw, 1.4rem);
-    padding-bottom: 20px;
-  }
-  
-  .cards-section {
-    grid-template-columns: 1fr;
-    gap: 15px;
-    padding: 20px 15px 40px 15px;
-    border-radius: 8px;
-  }
-  
-  .card {
-    max-width: min(280px, 100%);
-    padding: 18px 12px;
-    border-radius: 12px;
-  }
-  
-  .card h3 {
-    font-size: 1.1rem;
-  }
-  
-  .card p {
-    font-size: 0.9rem;
-  }
-}
 
-@media (max-width: 360px) {
-  .fra-container {
-    padding: 20px 8px;
+  .phone-link:hover {
+    color: white;
+    background: #002b5c;
+    border-color: #002b5c;
+    text-decoration: none;
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 51, 102, 0.3);
   }
-  
-  .section-title {
-    padding: 20px 5px 0 5px;
-  }
-  
-  .cards-section {
-    padding: 15px 10px 30px 10px;
-  }
-  
-  .card {
-    padding: 15px 10px;
-  }
-  
-  .card img {
-    width: 60px;
-    height: 60px;
-  }
-}
 
-/* Prevenir scroll horizontal */
-body {
-  overflow-x: hidden;
-}
+  .team-card ul {
+    list-style: none;
+    padding: 0;
+    margin: clamp(10px, 2vw, 15px) 0;
+    text-align: left;
+    flex: 1;
+  }
 
-/* Mejorar legibilidad en móviles */
-@media (max-width: 768px) {
-  .card p {
+  .team-card li {
+    font-size: clamp(0.85rem, 2vw, 0.95rem);
+    margin-bottom: 6px;
+    padding-left: 22px;
+    position: relative;
     line-height: 1.4;
   }
-  
-  .fra-content p {
-    line-height: 1.5;
+
+  .team-card li:before {
+    content: "✔";
+    color: #00b140;
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+    font-size: 1.1em;
   }
-}
+
+  /* SECCIÓN 3: DESCUENTOS - CARDS DEL MISMO TAMAÑO */
+  .community-discounts {
+    background: var(--azul-cipol);
+    color: white;
+    border-top: 6px solid #ff6600;
+  }
+
+  .discount-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+    gap: clamp(20px, 4vw, 30px);
+    margin-top: clamp(30px, 6vw, 50px);
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 clamp(10px, 2vw, 20px);
+    box-sizing: border-box;
+    align-items: stretch;
+  }
+
+  .discount-card {
+    background-color: white;
+    color: var(--azul-cipol);
+    border-radius: 14px;
+    padding: clamp(20px, 3vw, 25px);
+    text-align: center;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.15);
+    transition: transform 0.3s ease;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 320px;
+    height: 100%;
+    min-height: 380px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .discount-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+  }
+
+  .discount-card img {
+    width: 100%;
+    height: clamp(140px, 22vw, 170px);
+    border-radius: 10px;
+    margin-bottom: clamp(15px, 2vw, 20px);
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  .discount-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+  }
+
+  .discount-content h3 {
+    margin-bottom: clamp(12px, 2vw, 16px);
+    min-height: auto;
+  }
+
+  .discount-content p {
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-bottom: 0;
+  }
+
+  /* ANIMACIÓN DE ENTRADA */
+  [data-animate] {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s ease;
+  }
+  [data-animate].visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* RESPONSIVE MEJORADO */
+  @media (max-width: 1200px) {
+    .team-cards {
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+    
+    .team-card {
+      min-height: 460px;
+      max-width: 320px;
+    }
+    
+    .discount-card {
+      min-height: 360px;
+      max-width: 300px;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .team-cards,
+    .discount-cards {
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    }
+    
+    .team-card {
+      min-height: 440px;
+    }
+    
+    .discount-card {
+      min-height: 340px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .section {
+      padding: 30px 15px;
+    }
+    
+    .community-intro {
+      margin: 20px auto;
+      padding: 25px 20px;
+    }
+    
+    .team-cards,
+    .discount-cards {
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    
+    .team-card,
+    .discount-card {
+      max-width: 100%;
+      min-height: 420px;
+    }
+    
+    .phone-link {
+      padding: 12px 20px;
+      font-size: 0.9rem;
+      width: 100%;
+      max-width: 220px;
+    }
+    
+    .discount-card {
+      min-height: 320px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .section {
+      padding: 25px 10px;
+    }
+    
+    .community-intro {
+      margin: 15px auto;
+      padding: 20px 15px;
+      border-radius: 15px;
+    }
+    
+    .team-cards,
+    .discount-cards {
+      grid-template-columns: 1fr;
+      gap: 15px;
+      padding: 0 5px;
+    }
+    
+    h2 {
+      font-size: 1.6rem;
+    }
+    
+    h3 {
+      font-size: 1.3rem;
+    }
+    
+    .team-card {
+      padding: 20px;
+      min-height: 400px;
+    }
+    
+    .discount-card {
+      min-height: 300px;
+      padding: 18px;
+    }
+    
+    .phone-link {
+      width: 100%;
+      text-align: center;
+      padding: 14px;
+      font-size: 0.9rem;
+      max-width: none;
+    }
+    
+    .team-card img,
+    .icon-card {
+      width: 80px;
+      height: 80px;
+    }
+    
+    .icon-card i {
+      font-size: 2rem;
+    }
+  }
+
+  @media (max-width: 360px) {
+    .team-cards,
+    .discount-cards {
+      grid-template-columns: 1fr;
+    }
+    
+    .team-card {
+      max-width: 100%;
+      margin: 0 5px;
+      min-height: 380px;
+      padding: 18px 15px;
+    }
+    
+    .discount-card {
+      min-height: 280px;
+      padding: 16px 14px;
+    }
+    
+    .phone-link {
+      font-size: 0.85rem;
+      padding: 12px;
+    }
+  }
+
+  /* Prevenir scroll horizontal */
+  body {
+    overflow-x: hidden;
+  }
+
+  /* Asegurar que todas las cards tengan exactamente el mismo tamaño */
+  .team-cards,
+  .discount-cards {
+    align-items: stretch;
+  }
+
+  .team-card,
+  .discount-card {
+    align-self: stretch;
+  }
 </style>
 
-<!-- SECCIÓN PRINCIPAL -->
-<div class="fra-container hero-section">
-  <div class="fra-content">
-    <h2>Convenios</h2>
-    <img src="{% static 'img/convenios_1.jpg' %}" alt="Convenios CIPOL" />
+<!-- Font Awesome -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+<!-- SECCIÓN 1 -->
+<section class="section community-intro" data-animate>
+  <h2>Comunidad CIPOL</h2>
+  <h3>Siempre en busca de inspiración</h3>
+  <p>
+    Este espacio es para mantenernos unidos como red de apoyo entre policías, autoridades, instituciones de seguridad y ciudadanía.
+    Aquí compartiremos información importante, alertas, eventos, capacitaciones y mensajes para dignificar y fortalecer nuestra labor.
+  </p>
+  <img src="{% static 'img/comunidad_seccion_1.jpg' %}" alt="Comunidad CIPOL" />
+</section>
+
+<!-- SECCIÓN 2 -->
+<section class="section community-team" data-animate>
+  <h2>Beneficios al pertenecer a <span class="gradient-text">Prodefensa CIPOL</span></h2>
+  <p>
+    Al integrarse a Prodefensa CIPOL, no solo refuerzan su compromiso con la seguridad y el servicio a la ciudadanía, sino que también se suman a una red que promueve la profesionalización, la colaboración y el reconocimiento del trabajo policial.
+  </p>
+
+  <div class="team-cards">
+    <div class="team-card" data-animate>
+      <img src="{% static 'img/beneficios_6.webp' %}" alt="Beneficio 1">
+      <div class="card-content">
+        <div class="card-text">
+          <h3>Descuentos con empresas aliadas</h3>
+          <p>Acceso a convenios especiales con empresas que valoran su servicio.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="team-card" data-animate>
+      <img src="{% static 'img/beneficios_2.jpg' %}" alt="Beneficio 2">
+      <div class="card-content">
+        <div class="card-text">
+          <h3>Consulta Psicológica</h3>
+          <p>Bienestar emocional para un mejor desempeño y calidad de vida.</p>
+        </div>
+        <a href="https://wa.me/527293595460?text=¡Hola!%20Quiero%20más%20información%20sobre%20la%20consulta%20psicológica%20de%20CIPOL" target="_blank" class="phone-link">
+          📞 Solicita tu consulta
+        </a>
+      </div>
+    </div>
+
+    <div class="team-card" data-animate>
+      <img src="{% static 'img/beneficios_3.jpg' %}" alt="Beneficio 3">
+      <div class="card-content">
+        <div class="card-text">
+          <h3>Consulta Nutricional</h3>
+          <p>Fomenta hábitos saludables que mejoran la vida profesional y familiar. Al contar con la credencial CIPOL obtienes un 50% de descuento para ti y tu familia.</p>
+        </div>
+        <a href="https://wa.me/527293595460?text=¡Hola!%20Quiero%20más%20información%20sobre%20la%20consulta%20nutricional%20con%20descuento%20de%20CIPOL" target="_blank" class="phone-link">
+          📞 Solicita tu consulta
+        </a>
+      </div>
+    </div>
+
+    <div class="team-card" data-animate>
+      <img src="{% static 'img/beneficios_4.png' %}" alt="Beneficio 4">
+      <div class="card-content">
+        <div class="card-text">
+          <h3>Servicios Integrales</h3>
+          <p>Trámites ante instituciones públicas y servicios personales:</p>
+          <ul>
+            <li>Constancias Fiscales</li>
+            <li>Actas en General</li>
+            <li>Constancias ante el SAT</li>
+          </ul>
+        </div>
+        <a href="https://wa.me/524433650359?text=¡Hola!%20Quiero%20más%20información%20sobre%20los%20servicios%20integrales%20y%20trámites%20de%20CIPOL" target="_blank" class="phone-link">
+          📞 Más información
+        </a>
+      </div>
+    </div>
+
+    <div class="team-card" data-animate>
+      <div class="icon-card"><i class="fas fa-graduation-cap"></i></div>
+      <div class="card-content">
+        <div class="card-text">
+          <h3>Escuelas y Licenciaturas</h3>
+          <p>Acceso a programas educativos en escuelas de prestigio.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="team-card" data-animate>
+      <div class="icon-card"><i class="fas fa-calendar-alt"></i></div>
+      <div class="card-content">
+        <div class="card-text">
+          <h3>Eventos Exclusivos</h3>
+          <p>Invitaciones a actividades y eventos privados de la comunidad CIPOL.</p>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
+</section>
 
-<!-- TÍTULO GENERAL -->
-<div class="section-title titulo-general">
-  <h2>
-    Colaboramos por medio de convenios con instituciones y sociedad civil 
-    para el desarrollo humano de las y los policías y sus familias
-  </h2>
-</div>
-
-<!-- SECCIÓN COMERCIAL -->
-<div class="section-title">
-  <h2>Comercial</h2>
-</div>
-
-<div class="cards-section">
-  <div class="card">
-    <img src="{% static 'img/convenios_4.jpg' %}" alt="CANACO Morelia" />
-    <h3>CANACO Morelia</h3>
-    <p>Fortalece vínculos empresariales y beneficios locales.</p>
+<!-- SECCIÓN 3 -->
+<section class="section community-discounts" data-animate>
+  <h2>Descuentos Exclusivos</h2>
+  <div class="discount-cards">
+    {% for d in descuentos %}
+      <div class="discount-card" data-animate>
+        <img src="{{ d.imagen.url }}" alt="{{ d.titulo }}">
+        <div class="discount-content">
+          <h3>{{ d.titulo }}</h3>
+          {% if d.descripcion %}
+            <p>{{ d.descripcion }}</p>
+          {% endif %}
+        </div>
+      </div>
+    {% empty %}
+      <p>No hay descuentos disponibles en este momento.</p>
+    {% endfor %}
   </div>
+</section>
 
-  <div class="card">
-    <img src="{% static 'img/Cinepolis.jpg' %}" alt="Cinépolis" />
-    <h3>Cinépolis</h3>
-    <p>La Capital del Cine.</p>
-  </div>
-
-  <div class="card">
-    <img src="{% static 'img/Redfit.webp' %}" alt="RedFit" />
-    <h3>RedFit</h3>
-    <p>Construimos disciplina, creamos comunidad y te acompañamos a romper tus límites.</p>
-  </div>
-
-  <div class="card">
-    <img src="{% static 'img/descuento_2.4d6557e77c7e.jpg' %}" alt="Cocina Saludable" />
-    <h3>Cocina Saludable</h3>
-    <p>Lo mejor en cocina.</p>
-  </div>
-
-  <div class="card">
-    <img src="{% static 'img/Parhikuni.jpg' %}" alt="Parhikuni" />
-    <h3>Parhikuni</h3>
-    <p>Viaja con lujo en la línea de autobuses Parhikuni. Servicios de turismo y paquetería.</p>
-  </div>
-</div>
-
-<!-- SECCIÓN SOCIAL -->
-<div class="section-title">
-  <h2>Social</h2>
-</div>
-
-<div class="cards-section">
-  <div class="card">
-    <img src="{% static 'img/convenios_8.jpg' %}" alt="Fundación DonaArte" />
-    <h3>Fundación DonaArte</h3>
-    <p>Apoya causas sociales y culturales a través del arte.</p>
-  </div>
-
-  <div class="card">
-    <img src="{% static 'img/convenios_3.jpeg' %}" alt="SEPAMICH" />
-    <h3>SEPAMICH</h3>
-    <p>Defensa y protección del derecho humano al medio ambiente.</p>
-  </div>
-
-  <div class="card">
-    <img src="{% static 'img/convenios_11.jpg' %}" alt="FUCIDIM" />
-    <h3>FUCIDIM</h3>
-    <p>Fomenta la vinculación entre sector público y privado.</p>
-  </div>
-
-  <div class="card">
-    <img src="{% static 'img/convenios_9.jpg' %}" alt="Mesa Ciudadana de Seguridad" />
-    <h3>Mesa Ciudadana de Seguridad</h3>
-    <p>Colabora en proyectos de seguridad y justicia regional.</p>
-  </div>
-
-  <div class="card">
-    <img src="{% static 'img/convenios_10.jpg' %}" alt="Michoacán Humanitario" />
-    <h3>Michoacán Humanitario</h3>
-    <p>Asistencia social y apoyo a comunidades vulnerables.</p>
-  </div>
-
-  <div class="card">
-    <img src="{% static 'img/convenios_5.webp' %}" alt="Sinergia" />
-    <h3>Sinergia</h3>
-    <p>Fomenta el bienestar y desarrollo profesional del personal.</p>
-  </div>
-</div>
-
-<!-- SECCIÓN ACADÉMICO -->
-<div class="section-title">
-  <h2>Académico</h2>
-</div>
-
-<div class="cards-section single-card">
-  <div class="card">
-    <img src="{% static 'img/Unla.png' %}" alt="Universidad Latina de las Américas" />
-    <h3>Universidad Latina de las Américas</h3>
-    <p>Descuentos en formación académica superior.</p>
-  </div>
-</div>
+<!-- ANIMACIÓN SCROLL -->
+<script>
+  const elements = document.querySelectorAll("[data-animate]");
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add("visible");
+    });
+  }, { threshold: 0.1 });
+  elements.forEach(el => observer.observe(el));
+</script>
 
 {% endblock %}
