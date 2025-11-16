@@ -2,401 +2,206 @@
 {% block contenido %}
 
 <style>
-:root {
-    --azul-cipol: #003366;
-    --rosa-cipol: #d6336c;
-    --verde-exito: #00b894;
-    --gris-claro: #f8f9fa;
-    --gris-medio: #e9ecef;
-    --texto-oscuro: #2d3748;
-    --texto-medio: #4a5568;
-    --borde: #e1e5e9;
-    --sombra: rgba(0, 0, 0, 0.08);
-}
+  /* ===== CONTENEDOR GENERAL ===== */
+  .historial-container {
+    width: 95%;
+    max-width: 1100px;
+    margin: 60px auto;
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 40px 20px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.6s ease;
+  }
 
-/* ===== CONTENEDOR GENERAL MEJORADO ===== */
-.historial-container {
-    width: min(95%, 1200px);
-    margin: clamp(40px, 8vw, 60px) auto;
-    background: linear-gradient(135deg, #ffffff 0%, var(--gris-claro) 100%);
-    border-radius: 20px;
-    padding: clamp(30px, 5vw, 50px) clamp(20px, 3vw, 30px);
-    box-shadow: 0 15px 50px var(--sombra);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-@keyframes fadeInUp {
+  @keyframes fadeIn {
     from {
-        opacity: 0;
-        transform: translateY(30px);
+      opacity: 0;
+      transform: translateY(20px);
     }
     to {
-        opacity: 1;
-        transform: translateY(0);
+      opacity: 1;
+      transform: translateY(0);
     }
-}
+  }
 
-/* ===== TÍTULO MEJORADO ===== */
-.historial-container h2 {
+  /* ===== TÍTULO ===== */
+  .historial-container h2 {
     text-align: center;
-    font-size: clamp(1.8rem, 4vw, 2.5rem);
-    font-weight: 800;
-    margin-bottom: clamp(25px, 4vw, 40px);
-    background: linear-gradient(135deg, var(--azul-cipol), #0055a5);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    line-height: 1.2;
-}
+    color: #003366;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+  }
 
-/* ===== TABLA MEJORADA ===== */
-.table-container {
-    overflow-x: auto;
-    border-radius: 16px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-    background: white;
-}
-
-table {
+  /* ===== TABLA ===== */
+  table {
     width: 100%;
     border-collapse: collapse;
-    border-radius: 16px;
+    border-radius: 10px;
     overflow: hidden;
-    min-width: 600px;
-}
+  }
 
-thead {
-    background: linear-gradient(135deg, var(--azul-cipol), #0055a5);
-    color: white;
-}
+  thead {
+    background-color: #003366;
+    color: #fff;
+  }
 
-th, td {
-    padding: clamp(14px, 2vw, 18px) clamp(12px, 1.5vw, 16px);
+  th, td {
+    padding: 14px 16px;
     text-align: center;
-    font-size: clamp(0.9rem, 1.8vw, 1rem);
-    border-bottom: 1px solid var(--borde);
-}
+    font-size: 1rem;
+  }
 
-th {
-    font-weight: 700;
-    letter-spacing: 0.3px;
-    font-size: clamp(0.95rem, 1.9vw, 1.1rem);
-}
+  th {
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
 
-tbody tr {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    background: white;
-}
+  tbody tr:nth-child(even) {
+    background-color: #f8f9fc;
+  }
 
-tbody tr:nth-child(even) {
-    background-color: var(--gris-claro);
-}
+  tbody tr:hover {
+    background-color: #e8f1ff;
+    transition: 0.3s;
+  }
 
-tbody tr:hover {
-    background-color: rgba(0, 51, 102, 0.03);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-/* ===== ESTADOS MEJORADOS ===== */
-.status-active {
-    color: var(--verde-exito);
-    font-weight: 700;
-    background: rgba(0, 184, 148, 0.1);
-    padding: 6px 12px;
-    border-radius: 20px;
-    display: inline-block;
-}
-
-.status-canceled {
-    color: var(--rosa-cipol);
-    font-weight: 700;
-    background: rgba(214, 51, 108, 0.1);
-    padding: 6px 12px;
-    border-radius: 20px;
-    display: inline-block;
-}
-
-/* ===== BOTÓN CANCELAR MEJORADO ===== */
-.cancel-btn {
-    background: linear-gradient(135deg, var(--rosa-cipol), #e91e63);
-    color: white;
+  /* ===== BOTÓN CANCELAR ===== */
+  .cancel-btn {
+    background-color: #ff4757;
+    color: #fff;
     border: none;
-    padding: clamp(8px, 1.5vw, 10px) clamp(14px, 2.5vw, 18px);
+    padding: 8px 16px;
     border-radius: 8px;
     cursor: pointer;
     font-weight: 600;
-    font-size: clamp(0.85rem, 1.7vw, 0.95rem);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 4px 15px rgba(214, 51, 108, 0.3);
-    position: relative;
-    overflow: hidden;
-}
+    transition: all 0.3s ease;
+  }
 
-.cancel-btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: left 0.5s;
-}
+  .cancel-btn:hover {
+    background-color: #e84118;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(255, 71, 87, 0.3);
+  }
 
-.cancel-btn:hover {
-    background: linear-gradient(135deg, #e91e63, var(--rosa-cipol));
-    transform: translateY(-2px) scale(1.05);
-    box-shadow: 0 6px 20px rgba(214, 51, 108, 0.4);
-}
-
-.cancel-btn:hover::before {
-    left: 100%;
-}
-
-.cancel-btn:active {
-    transform: translateY(0) scale(1);
-}
-
-/* ===== CELDAS VACÍAS MEJORADAS ===== */
-td[colspan="5"] {
+  /* ===== CELDAS VACÍAS ===== */
+  td[colspan="5"] {
     text-align: center;
     font-style: italic;
-    color: var(--texto-medio);
-    padding: clamp(30px, 5vw, 50px);
-    font-size: clamp(1rem, 2vw, 1.2rem);
-    background: var(--gris-claro);
-}
+    color: #666;
+    padding: 20px;
+  }
 
-/* ===== RESPONSIVIDAD MEJORADA ===== */
-@media (max-width: 768px) {
-    .historial-container {
-        padding: 25px 15px;
-        border-radius: 16px;
-        margin: 30px auto;
-    }
-
-    .table-container {
-        border-radius: 12px;
-    }
-
-    table {
-        min-width: 500px;
-    }
-
-    th, td {
-        padding: 12px 10px;
-    }
-
-    .cancel-btn {
-        padding: 8px 14px;
-        font-size: 0.9rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .historial-container {
-        padding: 20px 12px;
-        margin: 20px auto;
-    }
-
-    table {
-        min-width: 400px;
-    }
-
-    th, td {
-        padding: 10px 8px;
-        font-size: 0.85rem;
-    }
-
-    th {
-        font-size: 0.9rem;
-    }
-
-    .cancel-btn {
-        padding: 6px 12px;
-        font-size: 0.8rem;
-    }
-
-    .status-active,
-    .status-canceled {
-        padding: 4px 8px;
-        font-size: 0.8rem;
-    }
-}
-
-/* Vista móvil mejorada */
-@media (max-width: 900px) {
-    .table-container {
-        border: 1px solid var(--borde);
-    }
-
+  /* ===== RESPONSIVIDAD ===== */
+  @media (max-width: 900px) {
     table, thead, tbody, th, td, tr {
-        display: block;
+      display: block;
     }
 
     thead tr {
-        position: absolute;
-        top: -9999px;
-        left: -9999px;
+      display: none;
     }
 
     tbody tr {
-        margin-bottom: 15px;
-        background: white;
-        border-radius: 12px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        padding: 15px;
-        border: 1px solid var(--borde);
-        position: relative;
+      margin-bottom: 18px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      padding: 12px;
     }
 
     td {
-        text-align: right;
-        padding: 10px 12px;
-        position: relative;
-        font-size: 0.9rem;
-        border-bottom: 1px solid var(--gris-medio);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    td:last-child {
-        border-bottom: none;
+      text-align: right;
+      padding: 8px 10px;
+      position: relative;
+      font-size: 0.95rem;
     }
 
     td::before {
-        content: attr(data-label);
-        font-weight: 700;
-        color: var(--azul-cipol);
-        text-align: left;
-        margin-right: 10px;
+      content: attr(data-label);
+      position: absolute;
+      left: 10px;
+      width: 50%;
+      text-align: left;
+      font-weight: 600;
+      color: #003366;
     }
-
-    .status-active,
-    .status-canceled {
-        margin-left: auto;
-    }
-
-    .cancel-btn {
-        margin-left: auto;
-    }
-}
-
-/* MEJORAS DE ACCESIBILIDAD */
-.cancel-btn:focus {
-    outline: 3px solid var(--rosa-cipol);
-    outline-offset: 2px;
-}
-
-tbody tr:focus-within {
-    outline: 2px solid var(--azul-cipol);
-    outline-offset: 2px;
-}
-
-/* PREVENIR SCROLL HORIZONTAL */
-body {
-    overflow-x: hidden;
-}
-
-/* MEJORAS DE RENDIMIENTO */
-.historial-container {
-    will-change: transform, opacity;
-}
-
-.cancel-btn {
-    will-change: transform;
-}
+  }
 </style>
 
 <div class="historial-container">
-    <h2>Historial de Suscripciones</h2>
+  <h2>Historial de Suscripciones</h2>
 
-    <div class="table-container">
-        <table>
-            <thead>
-                <tr>
-                    <th>Monto</th>
-                    <th>Tipo</th>
-                    <th>Estado</th>
-                    <th>Fecha</th>
-                    <th>Acción</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for s in suscripciones %}
-                <tr>
-                    <td data-label="Monto">${{ s.amount }}</td>
-                    <td data-label="Tipo">{{ s.tipo }}</td>
-                    <td data-label="Estado">
-                        {% if s.status == "active" %}
-                            <span class="status-active">Activa</span>
-                        {% elif s.status == "canceled" %}
-                            <span class="status-canceled">Cancelada</span>
-                        {% else %}
-                            {{ s.status }}
-                        {% endif %}
-                    </td>
-                    <td data-label="Fecha">{{ s.created_at|date:"d/m/Y H:i" }}</td>
-                    <td data-label="Acción">
-                        {% if s.status == "active" %}
-                            {% if s.tipo == "mensual" %}
-                                <button class="cancel-btn" data-id="{{ s.stripe_subscription_id }}">Cancelar</button>
-                            {% else %}
-                                -
-                            {% endif %}
-                        {% else %}
-                            -
-                        {% endif %}
-                    </td>
-                </tr>
-                {% empty %}
-                <tr>
-                    <td colspan="5">No hay suscripciones registradas.</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+  <table>
+    <thead>
+      <tr>
+        <th>Monto</th>
+        <th>Tipo</th>
+        <th>Estado</th>
+        <th>Fecha</th>
+        <th>Acción</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for s in suscripciones %}
+      <tr>
+        <td data-label="Monto">${{ s.amount }}</td>
+        <td data-label="Tipo">{{ s.tipo }}</td>
+        <td data-label="Estado">
+          {% if s.status == "active" %}
+            <span style="color:#00b894; font-weight:600;">Activa</span>
+          {% elif s.status == "canceled" %}
+            <span style="color:#ff4757; font-weight:600;">Cancelada</span>
+          {% else %}
+            {{ s.status }}
+          {% endif %}
+        </td>
+        <td data-label="Fecha">{{ s.created_at|date:"d/m/Y H:i" }}</td>
+        <td data-label="Acción">
+          {% if s.status == "active" %}
+            {% if s.tipo == "mensual" %}
+              <button class="cancel-btn" data-id="{{ s.stripe_subscription_id }}">Cancelar</button>
+            {% else %}
+              -
+            {% endif %}
+          {% else %}
+            -
+          {% endif %}
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="5">No hay suscripciones.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 </div>
 
 <script>
 document.querySelectorAll(".cancel-btn").forEach(btn => {
-    btn.addEventListener("click", async () => {
-        const subId = btn.dataset.id;
-        if(!confirm("¿Estás seguro de que deseas cancelar esta suscripción?")) return;
-        
-        btn.disabled = true;
-        btn.textContent = "Cancelando...";
-        btn.style.opacity = "0.7";
-        try {
-            const res = await fetch("{% url 'cancelar_suscripcion' %}", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded",
-                    "X-CSRFToken": "{{ csrf_token }}"
-                },
-                body: `subscription_id=${subId}`
-            });
-            const data = await res.json();
-            if(data.success){
-                alert("✅ Suscripción cancelada correctamente");
-                location.reload();
-            } else {
-                alert("❌ Error: " + data.error);
-                btn.disabled = false;
-                btn.textContent = "Cancelar";
-                btn.style.opacity = "1";
-            }
-        } catch(e){
-            alert("❌ Error al cancelar la suscripción");
-            btn.disabled = false;
-            btn.textContent = "Cancelar";
-            btn.style.opacity = "1";
-        }
-    });
+  btn.addEventListener("click", async () => {
+    const subId = btn.dataset.id;
+    if(!confirm("¿Deseas cancelar esta suscripción?")) return;
+    try {
+      const res = await fetch("{% url 'cancelar_suscripcion' %}", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          "X-CSRFToken": "{{ csrf_token }}"
+        },
+        body: `subscription_id=${subId}`
+      });
+      const data = await res.json();
+      if(data.success){
+        alert("Suscripción cancelada correctamente");
+        location.reload();
+      } else alert("Error: " + data.error);
+    } catch(e){
+      alert("Error al cancelar la suscripción");
+    }
+  });
 });
 </script>
 
