@@ -180,6 +180,28 @@
     background: #00224e;
   }
 
+  /* ESTILO AGREGADO PARA EL ENLACE DEL FINAL */
+  #donationCard a {
+    display: block;
+    margin-top: 15px;
+    text-align: center;
+    color: #555;
+    font-size: clamp(0.85rem, 2vw, 0.95rem);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 8px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  #donationCard a:hover {
+    color: #003366;
+    background-color: #f4f6f9;
+    text-decoration: underline;
+  }
+
   .login-warning {
     color: #d6336c;
     font-size: clamp(0.85rem, 2vw, 0.95rem);
@@ -532,7 +554,6 @@
   }
 </style>
 
-<!-- ======== HERO ======== -->
 <section class="services-intro">
   <div class="intro-overlay"></div>
   <div class="intro-content">
@@ -547,7 +568,6 @@
       </p>
     </div>
 
-    <!-- ======== TARJETA DE DONACIÓN ======== -->
     <div id="donationCard">
       <h3>Haz tu Donación</h3>
 
@@ -574,11 +594,11 @@
       </p>
 
       <button id="confirmDonate">Confirmar Donación</button>
+      <a href="{% url 'servicios' %}">Conoce los beneficios</a>
     </div>
   </div>
 </section>
 
-<!-- ======== CARRUSEL ======== -->
 <section class="section services-gallery">
   <div class="carousel-container">
     <div class="carousel-slide active">
@@ -593,7 +613,6 @@
   </div>
 </section>
 
-<!-- ======== ACTIVIDADES ======== -->
 <section class="activities-section">
   <h2>Nuestras Actividades</h2>
   {% for actividad in actividades %}
@@ -609,7 +628,6 @@
   {% endfor %}
 </section>
 
-<!-- ======== BLOQUES DE SERVICIOS ======== -->
 <section class="services-row">
   <div
     class="service-block red"

@@ -11,6 +11,7 @@
     --gris-medio: #e9ecef;
     --texto-oscuro: #2d3748;
     --texto-medio: #4a5568;
+    --texto-legal: #a0aec0; /* Color gris para el texto pequeño */
   }
 
   body, .fra-container {
@@ -124,7 +125,7 @@
     width: 100%;
   }
 
-  /* SECCIÓN DE TEXTO ADICIONAL */
+  /* SECCIÓN DE TEXTO ADICIONAL Y DONATIVOS */
   .privacy-text-section {
     text-align: center;
     padding: clamp(40px, 8vw, 80px) clamp(20px, 4vw, 40px);
@@ -149,7 +150,21 @@
     line-height: 1.7;
     color: var(--texto-medio);
     margin-bottom: clamp(20px, 3vw, 30px);
-    text-align: left;
+    text-align: left; /* Alineación por defecto a la izquierda */
+  }
+  
+  /* Alineación centrada específica para llamadas a la acción dentro de la sección */
+  .privacy-text-section .centered-text {
+      text-align: center;
+  }
+
+  /* ESTILO PARA EL TEXTO PEQUEÑO DE FACTURACIÓN */
+  .legal-note {
+    font-size: 0.85rem !important;
+    color: var(--texto-legal) !important;
+    margin-top: 50px !important;
+    text-align: center !important;
+    font-weight: 400;
   }
 
   /* BOTÓN DE ACCIÓN */
@@ -175,6 +190,7 @@
     box-shadow: 0 8px 25px rgba(0, 51, 102, 0.3);
     border: none;
     cursor: pointer;
+    margin-top: 10px;
   }
 
   .btn-privacy:hover {
@@ -372,6 +388,27 @@
     Tus datos son tratados con absoluta confidencialidad y solo serán utilizados para los fines 
     específicos para los que fueron recabados, siempre en estricto cumplimiento de la legislación 
     aplicable en materia de protección de datos personales.
+  </p>
+</section>
+
+<!-- SECCIÓN DE DONATIVOS -->
+<section class="privacy-text-section">
+  <h2>Donativos Deducibles de Impuestos</h2>
+  <p>
+    Nos complace informarte que nuestra asociación cuenta con la autorización vigente del 
+    <strong>Servicio de Administración Tributaria (SAT)</strong> para recibir donativos deducibles de impuestos, 
+    aplicable tanto para personas físicas como morales. Esto garantiza que tu apoyo contribuye directamente a nuestra causa con total transparencia y legalidad fiscal.
+  </p>
+  
+  <div class="centered-text">
+    <p>Puedes verificar nuestro estatus consultando el padrón oficial:</p>
+    <a href="https://www.sat.gob.mx/consultas/27676/donatarias-autorizadas" target="_blank" class="btn-privacy">
+      Consultar Donatarias Autorizadas SAT
+    </a>
+  </div>
+
+  <p class="legal-note">
+    Recuerda que para facturar tu donativo, puedes comunicarte al número 443 368 0624 para conocer los datos fiscales necesarios.
   </p>
 </section>
 
