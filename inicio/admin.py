@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Descuento, Actividad, Suscripcion, Evento, EventDate
+from .models import Descuento, Actividad, Suscripcion, Evento, EventDate, Convenio, SeccionConvenio
 
 @admin.register(Descuento)
 class DescuentoAdmin(admin.ModelAdmin):
@@ -24,3 +24,16 @@ class EventDateInline(admin.TabularInline):
 class EventoAdmin(admin.ModelAdmin):
     inlines = [EventDateInline]
     list_display = ('titulo', 'fecha_unica', 'siguiente_fecha', 'es_proximo')
+
+
+@admin.register(SeccionConvenio)
+class SeccionConvenioAdmin(admin.ModelAdmin):
+    list_display = ("nombre",)
+
+
+@admin.register(Convenio)
+class ConvenioAdmin(admin.ModelAdmin):
+    list_display = ("titulo", "seccion", "activo", "orden")
+    list_filter = ("seccion", "activo")
+    list_editable = ("activo", "orden")
+    search_fields = ("titulo",)

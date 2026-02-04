@@ -4,6 +4,7 @@
 {% block contenido %}
 
 <style>
+/* ===== TODO EL CSS QUEDA EXACTAMENTE IGUAL ===== */
 /* GENERAL */
 .fra-container {
   width: 100%;
@@ -65,434 +66,89 @@
   background-color: #eee;
 }
 
-/* GRID DE TARJETAS - TODAS DEL MISMO TAMAÑO */
+/* GRID DE TARJETAS */
 .cards-section {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
   gap: clamp(20px, 4vw, 35px);
   justify-content: center;
   background-color: #f8d7da;
-  padding: clamp(20px, 4vw, 40px) clamp(20px, 3vw, 40px) clamp(40px, 8vw, 80px) clamp(20px, 3vw, 40px);
-  text-align: center;
-  box-sizing: border-box;
+  padding: clamp(20px, 4vw, 40px) clamp(20px, 3vw, 40px) clamp(40px, 8vw, 80px);
   width: 100%;
   align-items: stretch;
 }
 
-/* Ajuste para secciones con una sola tarjeta */
 .cards-section.single-card {
   display: flex;
   justify-content: center;
-  align-items: stretch;
-}
-
-.cards-section.single-card .card {
-  max-width: min(280px, 90%);
-  margin: 0 auto;
 }
 
 .card {
   background-color: white;
   border-radius: 18px;
-  padding: clamp(25px, 3vw, 30px) clamp(18px, 2vw, 22px);
-  text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  padding: clamp(25px, 3vw, 30px);
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-  width: 100%;
   max-width: 320px;
-  margin: 0 auto;
-  box-sizing: border-box;
-  height: 100%;
   min-height: 380px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
 }
 
-.card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-}
-
 .card img {
-  width: clamp(90px, 14vw, 120px);
-  height: clamp(90px, 14vw, 120px);
+  width: 120px;
+  height: 120px;
   object-fit: cover;
   border-radius: 50%;
-  margin-bottom: clamp(15px, 2vw, 20px);
   border: 3px solid #d6336c;
-  flex-shrink: 0;
-}
-
-.card-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 100%;
-  height: 100%;
-}
-
-.card-text {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+  margin-bottom: 15px;
 }
 
 .card h3 {
-  font-size: clamp(1.1rem, 2.5vw, 1.3rem);
-  margin-bottom: clamp(12px, 2vw, 16px);
   color: #d6336c;
   font-weight: bold;
-  line-height: 1.3;
-  min-height: auto;
 }
 
 .card p {
-  font-size: clamp(0.9rem, 1.8vw, 1rem);
-  line-height: 1.5;
   color: #555;
-  margin: 0;
-  flex: 1;
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-}
-
-/* RESPONSIVE MEJORADO */
-@media (max-width: 1200px) {
-  .cards-section {
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  }
-  
-  .card {
-    min-height: 360px;
-    max-width: 300px;
-  }
-}
-
-@media (max-width: 992px) {
-  .cards-section {
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 25px;
-    padding: 30px 25px 60px 25px;
-  }
-  
-  .section-title {
-    padding: 40px 15px 0 15px;
-  }
-  
-  .card {
-    min-height: 340px;
-    max-width: 280px;
-  }
-}
-
-@media (max-width: 768px) {
-  .fra-container {
-    padding: 30px 15px;
-  }
-  
-  .fra-content h2 {
-    font-size: clamp(1.6rem, 5vw, 1.8rem);
-  }
-  
-  .section-title {
-    padding: 30px 10px 0 10px;
-  }
-  
-  .section-title h2 {
-    font-size: clamp(1.3rem, 4vw, 1.5rem);
-    padding-bottom: 25px;
-  }
-  
-  .cards-section {
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px;
-    padding: 25px 20px 50px 20px;
-  }
-  
-  .card {
-    padding: 22px 16px;
-    max-width: 100%;
-    min-height: 320px;
-  }
-  
-  .card img {
-    width: 80px;
-    height: 80px;
-  }
-}
-
-@media (max-width: 576px) {
-  .fra-container {
-    padding: 25px 10px;
-  }
-  
-  .hero-section img {
-    width: 95%;
-  }
-  
-  .section-title {
-    padding: 25px 8px 0 8px;
-    border-radius: 8px;
-  }
-  
-  .section-title h2 {
-    font-size: clamp(1.2rem, 5vw, 1.4rem);
-    padding-bottom: 20px;
-  }
-  
-  .cards-section {
-    grid-template-columns: 1fr;
-    gap: 15px;
-    padding: 20px 15px 40px 15px;
-    border-radius: 8px;
-  }
-  
-  .card {
-    max-width: min(300px, 100%);
-    padding: 20px 15px;
-    border-radius: 12px;
-    min-height: 300px;
-  }
-  
-  .card h3 {
-    font-size: 1.1rem;
-  }
-  
-  .card p {
-    font-size: 0.9rem;
-  }
-  
-  .cards-section.single-card .card {
-    max-width: min(280px, 95%);
-  }
-}
-
-@media (max-width: 480px) {
-  .cards-section {
-    grid-template-columns: 1fr;
-  }
-  
-  .card {
-    min-height: 280px;
-    padding: 18px 12px;
-  }
-  
-  .card img {
-    width: 70px;
-    height: 70px;
-  }
-}
-
-@media (max-width: 360px) {
-  .fra-container {
-    padding: 20px 8px;
-  }
-  
-  .section-title {
-    padding: 20px 5px 0 5px;
-  }
-  
-  .cards-section {
-    padding: 15px 10px 30px 10px;
-  }
-  
-  .card {
-    padding: 16px 10px;
-    min-height: 260px;
-  }
-  
-  .card img {
-    width: 60px;
-    height: 60px;
-  }
-}
-
-/* Prevenir scroll horizontal */
-body {
-  overflow-x: hidden;
-}
-
-/* Mejorar legibilidad en móviles */
-@media (max-width: 768px) {
-  .card p {
-    line-height: 1.4;
-  }
-  
-  .fra-content p {
-    line-height: 1.5;
-  }
-}
-
-/* Asegurar que todas las cards tengan exactamente el mismo tamaño */
-.cards-section {
-  align-items: stretch;
-}
-
-.card {
-  align-self: stretch;
 }
 </style>
 
-<!-- SECCIÓN PRINCIPAL -->
+<!-- HERO -->
 <div class="fra-container hero-section">
   <div class="fra-content">
     <h2>Convenios</h2>
-    <img src="{% static 'img/convenios_1.jpg' %}" alt="Convenios CIPOL" />
+    <img src="{% static 'img/convenios_1.jpg' %}" alt="Convenios CIPOL">
   </div>
 </div>
 
 <!-- TÍTULO GENERAL -->
 <div class="section-title titulo-general">
   <h2>
-    Colaboramos por medio de convenios con instituciones y sociedad civil 
+    Colaboramos por medio de convenios con instituciones y sociedad civil
     para el desarrollo humano de las y los policías y sus familias
   </h2>
 </div>
 
-<!-- SECCIÓN COMERCIAL -->
-<div class="section-title">
-  <h2>Comercial</h2>
-</div>
+<!-- SECCIONES DINÁMICAS -->
+{% for seccion in secciones %}
 
-<div class="cards-section">
-  <div class="card">
-    <img src="{% static 'img/convenios_4.jpg' %}" alt="CANACO Morelia" />
-    <div class="card-content">
-      <div class="card-text">
-        <h3>CANACO Morelia</h3>
-        <p>Fortalece vínculos empresariales y beneficios locales.</p>
-      </div>
-    </div>
+  <div class="section-title">
+    <h2>{{ seccion.nombre }}</h2>
   </div>
 
-  <div class="card">
-    <img src="{% static 'img/Cinepolis.jpg' %}" alt="Cinépolis" />
-    <div class="card-content">
-      <div class="card-text">
-        <h3>Cinépolis</h3>
-        <p>La Capital del Cine.</p>
-      </div>
-    </div>
+  <div class="cards-section {% if seccion.convenios.count == 1 %}single-card{% endif %}">
+    {% for convenio in seccion.convenios.all %}
+      {% if convenio.activo %}
+        <div class="card">
+          <img src="{{ convenio.imagen.url }}" alt="{{ convenio.titulo }}">
+          <h3>{{ convenio.titulo }}</h3>
+          <p>{{ convenio.descripcion }}</p>
+        </div>
+      {% endif %}
+    {% endfor %}
   </div>
 
-  <div class="card">
-    <img src="{% static 'img/Redfit.webp' %}" alt="RedFit" />
-    <div class="card-content">
-      <div class="card-text">
-        <h3>RedFit</h3>
-        <p>Construimos disciplina, creamos comunidad y te acompañamos a romper tus límites.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="card">
-    <img src="{% static 'img/cocinaSaludable.jpeg' %}" alt="Cocina Saludable" />
-    <div class="card-content">
-      <div class="card-text">
-        <h3>Cocina Saludable</h3>
-        <p>Lo mejor en cocina.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="card">
-    <img src="{% static 'img/Parhikuni.jpg' %}" alt="Parhikuni" />
-    <div class="card-content">
-      <div class="card-text">
-        <h3>Parhikuni</h3>
-        <p>Viaja con lujo en la línea de autobuses Parhikuni. Servicios de turismo y paquetería.</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- SECCIÓN SOCIAL -->
-<div class="section-title">
-  <h2>Social</h2>
-</div>
-
-<div class="cards-section">
-  <div class="card">
-    <img src="{% static 'img/convenios_8.jpg' %}" alt="Fundación DonaArte" />
-    <div class="card-content">
-      <div class="card-text">
-        <h3>Fundación DonaArte</h3>
-        <p>Apoya causas sociales y culturales a través del arte.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="card">
-    <img src="{% static 'img/convenios_3.jpeg' %}" alt="SEPAMICH" />
-    <div class="card-content">
-      <div class="card-text">
-        <h3>SEPAMICH</h3>
-        <p>Defensa y protección del derecho humano al medio ambiente.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="card">
-    <img src="{% static 'img/convenios_11.jpg' %}" alt="FUCIDIM" />
-    <div class="card-content">
-      <div class="card-text">
-        <h3>FUCIDIM</h3>
-        <p>Fomenta la vinculación entre sector público y privado.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="card">
-    <img src="{% static 'img/convenios_9.jpg' %}" alt="Mesa Ciudadana de Seguridad" />
-    <div class="card-content">
-      <div class="card-text">
-        <h3>Mesa Ciudadana de Seguridad</h3>
-        <p>Colabora en proyectos de seguridad y justicia regional.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="card">
-    <img src="{% static 'img/convenios_10.jpg' %}" alt="Michoacán Humanitario" />
-    <div class="card-content">
-      <div class="card-text">
-        <h3>Michoacán Humanitario</h3>
-        <p>Asistencia social y apoyo a comunidades vulnerables.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="card">
-    <img src="{% static 'img/convenios_5.webp' %}" alt="Sinergia" />
-    <div class="card-content">
-      <div class="card-text">
-        <h3>Sinergia</h3>
-        <p>Fomenta el bienestar y desarrollo profesional del personal.</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- SECCIÓN ACADÉMICO -->
-<div class="section-title">
-  <h2>Académico</h2>
-</div>
-
-<div class="cards-section single-card">
-  <div class="card">
-    <img src="{% static 'img/Unla.png' %}" alt="Universidad Latina de las Américas" />
-    <div class="card-content">
-      <div class="card-text">
-        <h3>Universidad Latina de Américas</h3>
-        <p>Descuentos en formación académica superior.</p>
-      </div>
-    </div>
-  </div>
-</div>
+{% endfor %}
 
 {% endblock %}

@@ -77,3 +77,34 @@ class EventDate(models.Model):
 
     def __str__(self):
         return f"{self.evento.titulo} - {self.fecha}"
+    
+class SeccionConvenio(models.Model):
+    nombre = models.CharField(max_length=100)
+
+    class Meta:
+        verbose_name = "Sección de Convenio"
+        verbose_name_plural = "Secciones de Convenios"
+
+    def __str__(self):
+        return self.nombre
+
+
+class Convenio(models.Model):
+    seccion = models.ForeignKey(
+        SeccionConvenio,
+        on_delete=models.CASCADE,
+        related_name="convenios"
+    )
+    titulo = models.CharField(max_length=150)
+    descripcion = models.TextField(blank=True)
+    imagen = models.ImageField(upload_to="convenios/")
+    activo = models.BooleanField(default=True)
+    orden = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ["orden"]
+        verbose_name = "Convenio"
+        verbose_name_plural = "Convenios"
+
+    def __str__(self):
+        return self.titulo

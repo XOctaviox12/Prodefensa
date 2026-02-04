@@ -3,7 +3,7 @@ from .models import Producto
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
-from .models import Descuento, Actividad, Suscripcion, Evento
+from .models import Descuento, Actividad, Suscripcion, Evento, SeccionConvenio
 import stripe
 from django.conf import settings
 from django.http import JsonResponse
@@ -47,7 +47,13 @@ def servicios(request):
     return render(request, 'inicio/servicios.html', {'actividades': actividades})
 
 def convenios(request):
-    return render(request, 'inicio/convenios.html')
+    secciones = SeccionConvenio.objects.prefetch_related(
+        "convenios"
+    ).all()
+
+    return render(request, "inicio/convenios.html", {
+        "secciones": secciones
+    })
 
 def unete(request):
     return render(request, 'inicio/unete.html')
