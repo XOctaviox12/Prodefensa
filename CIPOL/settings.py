@@ -20,7 +20,8 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-xnd)al^$$rv2*z
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = [
-    'XoctavioX.pythonanywhere.com',
+    'www.prodefensa-cipol.com.mx',
+    'prodefensa-cipol.com.mx',
     '127.0.0.1',
     'localhost',
 ]
